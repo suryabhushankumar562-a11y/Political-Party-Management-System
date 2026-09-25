@@ -1,0 +1,619 @@
+{% extends "base.html" %}
+
+{% block title %}
+Manifesto | Nav Bharat Party
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   MANIFESTO PAGE
+   ========================================================= */
+
+.manifesto-page {
+    padding-top: 25px;
+    padding-bottom: 75px;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.manifesto-heading {
+    animation: manifestoHeader 0.8s ease both;
+}
+
+.manifesto-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 9px 18px;
+
+    border-radius: 50px;
+
+    background: rgba(13, 110, 253, 0.10);
+    color: #0d6efd;
+
+    font-size: 0.85rem;
+    font-weight: 700;
+
+    letter-spacing: 0.4px;
+}
+
+.manifesto-heading h1 {
+    margin-top: 16px;
+
+    font-weight: 800;
+    letter-spacing: -0.8px;
+}
+
+.manifesto-heading p {
+    max-width: 750px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   MANIFESTO CARD
+   ========================================================= */
+
+.manifesto-card {
+    position: relative;
+
+    display: flex;
+    align-items: flex-start;
+    gap: 22px;
+
+    height: 100%;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    background: #ffffff;
+
+    border: 1px solid rgba(13, 110, 253, 0.08);
+
+    box-shadow:
+        0 8px 28px rgba(0, 0, 0, 0.06);
+
+    overflow: hidden;
+
+    animation: manifestoCardIn 0.75s ease both;
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease;
+}
+
+
+/* Decorative glow */
+
+.manifesto-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 140px;
+    height: 140px;
+
+    top: -75px;
+    right: -75px;
+
+    border-radius: 50%;
+
+    background: rgba(13, 110, 253, 0.07);
+
+    transition:
+        transform 0.5s ease,
+        background 0.5s ease;
+}
+
+
+.manifesto-card:hover::before {
+    transform: scale(2.2);
+
+    background: rgba(13, 110, 253, 0.10);
+}
+
+
+.manifesto-card:hover {
+    transform: translateY(-9px);
+
+    border-color: rgba(13, 110, 253, 0.18);
+
+    box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.11);
+}
+
+
+/* =========================================================
+   STAGGERED CARD ANIMATION
+   ========================================================= */
+
+.manifesto-card:nth-child(1) {
+    animation-delay: 0.08s;
+}
+
+.manifesto-card:nth-child(2) {
+    animation-delay: 0.16s;
+}
+
+.manifesto-card:nth-child(3) {
+    animation-delay: 0.24s;
+}
+
+.manifesto-card:nth-child(4) {
+    animation-delay: 0.32s;
+}
+
+.manifesto-card:nth-child(5) {
+    animation-delay: 0.40s;
+}
+
+.manifesto-card:nth-child(6) {
+    animation-delay: 0.48s;
+}
+
+.manifesto-card:nth-child(7) {
+    animation-delay: 0.56s;
+}
+
+.manifesto-card:nth-child(8) {
+    animation-delay: 0.64s;
+}
+
+
+/* =========================================================
+   ICON
+   ========================================================= */
+
+.manifesto-icon {
+    position: relative;
+    z-index: 2;
+
+    flex-shrink: 0;
+
+    width: 62px;
+    height: 62px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd,
+            #3d8bfd
+        );
+
+    color: #ffffff;
+
+    font-size: 25px;
+
+    box-shadow:
+        0 10px 22px rgba(13, 110, 253, 0.22);
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+
+.manifesto-card:hover .manifesto-icon {
+    transform:
+        translateY(-4px)
+        rotate(-4deg);
+
+    box-shadow:
+        0 15px 28px rgba(13, 110, 253, 0.30);
+}
+
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.manifesto-content {
+    position: relative;
+    z-index: 2;
+
+    flex: 1;
+}
+
+
+.manifesto-title {
+    color: #171717;
+
+    transition:
+        color 0.25s ease;
+}
+
+
+.manifesto-title:hover {
+    color: #0d6efd;
+}
+
+
+.manifesto-content h4 {
+    line-height: 1.3;
+}
+
+
+.manifesto-content p {
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   READ MORE BUTTON
+   ========================================================= */
+
+.manifesto-read-more {
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 8px;
+
+    padding-left: 16px;
+    padding-right: 16px;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.manifesto-read-more:hover {
+    transform: translateX(4px);
+
+    box-shadow:
+        0 6px 15px rgba(13, 110, 253, 0.15);
+}
+
+
+/* Arrow */
+
+.manifesto-read-more i {
+    display: inline-block;
+
+    transition:
+        transform 0.25s ease;
+}
+
+
+.manifesto-read-more:hover i {
+    transform: translateX(4px);
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.manifesto-empty {
+    padding: 75px 25px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f8f9fa,
+            #ffffff
+        );
+
+    border: 1px solid #eeeeee;
+
+    animation: manifestoCardIn 0.75s ease both;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes manifestoHeader {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(-28px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+
+}
+
+
+@keyframes manifestoCardIn {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(45px)
+            scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .manifesto-page {
+        padding-top: 10px;
+        padding-bottom: 50px;
+    }
+
+
+    .manifesto-heading h1 {
+        font-size: 2rem;
+    }
+
+
+    .manifesto-card {
+        padding: 23px;
+
+        gap: 16px;
+    }
+
+
+    .manifesto-icon {
+        width: 54px;
+        height: 54px;
+
+        border-radius: 14px;
+
+        font-size: 22px;
+    }
+
+}
+
+
+@media (max-width: 576px) {
+
+    .manifesto-card {
+        padding: 20px;
+
+        gap: 14px;
+    }
+
+
+    .manifesto-icon {
+        width: 48px;
+        height: 48px;
+
+        border-radius: 12px;
+
+        font-size: 20px;
+    }
+
+
+    .manifesto-content h4 {
+        font-size: 1.05rem;
+    }
+
+
+    .manifesto-content p {
+        font-size: 0.9rem;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .manifesto-card,
+    .manifesto-heading,
+    .manifesto-empty {
+        animation: none;
+    }
+
+
+    .manifesto-card,
+    .manifesto-icon,
+    .manifesto-read-more,
+    .manifesto-read-more i {
+        transition: none;
+    }
+
+}
+
+</style>
+
+
+{% load i18n %}
+
+<div class="container manifesto-page">
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <div class="text-center mb-5 manifesto-heading">
+
+        <span class="manifesto-badge">
+
+            <i class="bi bi-compass-fill"></i>
+
+            {% trans "Our Vision" %}
+
+        </span>
+
+
+        <h1 class="display-5">
+
+            {% trans "Party Manifesto" %}
+
+        </h1>
+
+
+        <p class="text-muted mt-3">
+
+            {% trans "Our vision, priorities and commitments for the future." %}
+
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         MANIFESTO ITEMS
+         ===================================================== -->
+
+    <div class="row g-4">
+
+
+        {% for item in manifesto_items %}
+
+
+        <div class="col-md-6">
+
+
+            <div class="manifesto-card">
+
+
+                <!-- ICON -->
+
+                <div class="manifesto-icon">
+
+                    {% if item.icon %}
+
+                        <i class="{{ item.icon }}"></i>
+
+                    {% else %}
+
+                        <i class="bi bi-check-circle"></i>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- CONTENT -->
+
+                <div class="manifesto-content">
+
+
+                    <a
+                        href="{% url 'manifesto_detail' item.pk %}"
+                        class="text-decoration-none"
+                    >
+
+                        <h4 class="fw-bold mb-3 manifesto-title">
+
+                            {{ item.title }}
+
+                        </h4>
+
+                    </a>
+
+
+                    <p class="text-muted mb-0">
+
+                        {{ item.description }}
+
+                    </p>
+
+
+                    <a
+                        href="{% url 'manifesto_detail' item.pk %}"
+                        class="btn btn-sm btn-outline-primary mt-3 manifesto-read-more"
+                    >
+
+                        {% trans "Read More" %}
+
+                        <i class="bi bi-arrow-right ms-1"></i>
+
+                    </a>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        {% empty %}
+
+
+        <!-- =================================================
+             EMPTY STATE
+             ================================================= -->
+
+        <div class="col-12">
+
+            <div class="text-center manifesto-empty">
+
+                <i
+                    class="bi bi-file-text text-muted"
+                    style="font-size: 60px;"
+                ></i>
+
+
+                <h4 class="fw-bold mt-3">
+
+                    {% trans "Manifesto Coming Soon" %}
+
+                </h4>
+
+
+                <p class="text-muted mb-0">
+
+                    {% trans "Our manifesto details will be published here." %}
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        {% endfor %}
+
+
+    </div>
+
+</div>
+
+
+{% endblock %}

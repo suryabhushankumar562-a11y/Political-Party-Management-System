@@ -1,0 +1,985 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin Login | Nav Bharat Party
+{% endblock %}
+
+{% block content %}
+
+<div class="admin-login-page">
+
+    <!-- Animated Background -->
+    <div class="admin-orb orb-1"></div>
+    <div class="admin-orb orb-2"></div>
+    <div class="admin-orb orb-3"></div>
+
+    <div class="container py-5">
+
+        <div class="row justify-content-center align-items-center min-vh-75">
+
+            <div class="col-md-7 col-lg-5">
+
+                <!-- LOGIN CARD -->
+                <div class="admin-login-card">
+
+                    <!-- TOP ICON -->
+                    <div class="admin-icon-wrapper">
+
+                        <div class="admin-icon">
+                            <i class="bi bi-shield-lock-fill"></i>
+                        </div>
+
+                    </div>
+
+
+                    <!-- HEADING -->
+                    <div class="text-center admin-heading">
+
+                        <span class="admin-badge">
+                            <i class="bi bi-shield-check me-1"></i>
+                            SECURE AREA
+                        </span>
+
+                        <h2>
+                            Admin Login
+                        </h2>
+
+                        <p>
+                            Sign in to access the
+                            administration panel.
+                        </p>
+
+                    </div>
+
+
+                    <!-- ERRORS -->
+
+                    {% if form.non_field_errors %}
+
+                        <div class="admin-alert">
+
+                            <i class="bi bi-exclamation-triangle-fill"></i>
+
+                            <div>
+                                {{ form.non_field_errors }}
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- FORM -->
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+
+                        <!-- USERNAME -->
+
+                        <div class="admin-form-group">
+
+                            <label class="admin-label">
+                                Username
+                            </label>
+
+                            <div class="admin-input-wrapper">
+
+                                <i class="bi bi-person"></i>
+
+                                {{ form.username }}
+
+                            </div>
+
+                            {% for error in form.username.errors %}
+
+                                <div class="admin-error">
+                                    <i class="bi bi-exclamation-circle me-1"></i>
+                                    {{ error }}
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+
+                        <!-- PASSWORD -->
+
+                        <div class="admin-form-group">
+
+                            <div class="d-flex justify-content-between">
+
+                                <label class="admin-label">
+                                    Password
+                                </label>
+
+                            </div>
+
+                            <div class="admin-input-wrapper password-wrapper">
+
+                                <i class="bi bi-key"></i>
+
+                                {{ form.password }}
+
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    onclick="toggleAdminPassword()"
+                                >
+
+                                    <i
+                                        class="bi bi-eye"
+                                        id="passwordEye"
+                                    ></i>
+
+                                </button>
+
+                            </div>
+
+                            {% for error in form.password.errors %}
+
+                                <div class="admin-error">
+                                    <i class="bi bi-exclamation-circle me-1"></i>
+                                    {{ error }}
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+
+                        <!-- LOGIN BUTTON -->
+
+                        <button
+                            type="submit"
+                            class="admin-login-button"
+                        >
+
+                            <span>
+                                Login to Admin Panel
+                            </span>
+
+                            <i class="bi bi-arrow-right"></i>
+
+                        </button>
+
+                    </form>
+
+
+                    <!-- SECURITY FOOTER -->
+
+                    <div class="admin-security-note">
+
+                        <div class="security-icon">
+
+                            <i class="bi bi-shield-check"></i>
+
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Secure Administration
+                            </strong>
+
+                            <small>
+                                Your login information is protected.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BOTTOM BRAND -->
+
+                <div class="admin-brand text-center">
+
+                    <i class="bi bi-building me-1"></i>
+
+                    Nav Bharat Party
+
+                    <span>•</span>
+
+                    Administration
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<style>
+
+/* =========================================
+   ADMIN LOGIN PAGE
+========================================= */
+
+.admin-login-page {
+
+    position: relative;
+
+    min-height: calc(100vh - 70px);
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(13,110,253,.10),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(111,66,193,.10),
+            transparent 30%
+        ),
+        #f7f9fc;
+
+}
+
+
+/* =========================================
+   BACKGROUND ORBS
+========================================= */
+
+.admin-orb {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(2px);
+
+    pointer-events: none;
+
+    animation: adminFloat 8s ease-in-out infinite;
+
+}
+
+
+.orb-1 {
+
+    width: 260px;
+    height: 260px;
+
+    background: rgba(13,110,253,.08);
+
+    top: -100px;
+    left: -80px;
+
+}
+
+
+.orb-2 {
+
+    width: 200px;
+    height: 200px;
+
+    background: rgba(111,66,193,.08);
+
+    right: -60px;
+    top: 25%;
+
+    animation-delay: 2s;
+
+}
+
+
+.orb-3 {
+
+    width: 150px;
+    height: 150px;
+
+    background: rgba(25,135,84,.07);
+
+    bottom: -50px;
+    left: 25%;
+
+    animation-delay: 4s;
+
+}
+
+
+@keyframes adminFloat {
+
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(-18px) scale(1.04);
+    }
+
+}
+
+
+/* =========================================
+   CARD
+========================================= */
+
+.admin-login-card {
+
+    position: relative;
+
+    z-index: 2;
+
+    background: rgba(255,255,255,.90);
+
+    backdrop-filter: blur(18px);
+
+    -webkit-backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255,255,255,.8);
+
+    border-radius: 28px;
+
+    padding: 42px 40px 30px;
+
+    box-shadow:
+        0 25px 70px rgba(30,50,80,.12),
+        0 5px 20px rgba(30,50,80,.05);
+
+    animation: adminCardIn .7s ease both;
+
+}
+
+
+@keyframes adminCardIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(25px)
+            scale(.97);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================
+   ICON
+========================================= */
+
+.admin-icon-wrapper {
+
+    display: flex;
+
+    justify-content: center;
+
+    margin-bottom: 22px;
+
+}
+
+
+.admin-icon {
+
+    width: 76px;
+    height: 76px;
+
+    border-radius: 22px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+
+    font-size: 32px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd,
+            #5145cd
+        );
+
+    box-shadow:
+        0 12px 30px rgba(13,110,253,.28);
+
+    animation: iconPulse 3s ease-in-out infinite;
+
+}
+
+
+@keyframes iconPulse {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+
+}
+
+
+/* =========================================
+   HEADING
+========================================= */
+
+.admin-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 7px 13px;
+
+    border-radius: 50px;
+
+    background: #eef4ff;
+
+    color: #0d6efd;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 12px;
+
+}
+
+
+.admin-heading h2 {
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    margin-bottom: 8px;
+
+    color: #182230;
+
+}
+
+
+.admin-heading p {
+
+    color: #7a8594;
+
+    margin-bottom: 30px;
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+.admin-form-group {
+
+    margin-bottom: 22px;
+
+}
+
+
+.admin-label {
+
+    display: block;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    color: #354052;
+
+    margin-bottom: 8px;
+
+}
+
+
+.admin-input-wrapper {
+
+    position: relative;
+
+}
+
+
+.admin-input-wrapper > i {
+
+    position: absolute;
+
+    left: 16px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #8b96a5;
+
+    font-size: 17px;
+
+    z-index: 2;
+
+    transition: .25s;
+
+}
+
+
+/*
+   Django form widgets are styled here.
+   No form logic changed.
+*/
+
+.admin-input-wrapper input {
+
+    width: 100%;
+
+    height: 54px;
+
+    border: 1px solid #e1e6ee;
+
+    border-radius: 14px;
+
+    background: #f9fafc;
+
+    padding: 0 48px;
+
+    font-size: 15px;
+
+    color: #212529;
+
+    outline: none;
+
+    transition:
+        border-color .25s,
+        box-shadow .25s,
+        background .25s,
+        transform .25s;
+
+}
+
+
+.admin-input-wrapper input:hover {
+
+    background: #fff;
+
+}
+
+
+.admin-input-wrapper input:focus {
+
+    background: #fff;
+
+    border-color: #0d6efd;
+
+    box-shadow:
+        0 0 0 4px rgba(13,110,253,.10);
+
+}
+
+
+.admin-input-wrapper:focus-within > i {
+
+    color: #0d6efd;
+
+}
+
+
+/* =========================================
+   PASSWORD TOGGLE
+========================================= */
+
+.password-wrapper input {
+
+    padding-right: 52px;
+
+}
+
+
+.password-toggle {
+
+    position: absolute;
+
+    right: 12px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 34px;
+    height: 34px;
+
+    border: 0;
+
+    background: transparent;
+
+    color: #8b96a5;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+}
+
+
+.password-toggle:hover {
+
+    background: #eef4ff;
+
+    color: #0d6efd;
+
+}
+
+
+/* =========================================
+   ERROR
+========================================= */
+
+.admin-error {
+
+    color: #dc3545;
+
+    font-size: 12px;
+
+    margin-top: 7px;
+
+    animation: errorIn .25s ease;
+
+}
+
+
+@keyframes errorIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =========================================
+   NON FIELD ERROR
+========================================= */
+
+.admin-alert {
+
+    display: flex;
+
+    gap: 10px;
+
+    align-items: flex-start;
+
+    padding: 13px 15px;
+
+    margin-bottom: 22px;
+
+    border-radius: 12px;
+
+    color: #842029;
+
+    background: #fff0f1;
+
+    border: 1px solid #f5c2c7;
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================
+   LOGIN BUTTON
+========================================= */
+
+.admin-login-button {
+
+    width: 100%;
+
+    height: 56px;
+
+    border: 0;
+
+    border-radius: 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd,
+            #5145cd
+        );
+
+    box-shadow:
+        0 10px 25px rgba(13,110,253,.25);
+
+    transition:
+        transform .25s,
+        box-shadow .25s;
+
+}
+
+
+.admin-login-button i {
+
+    transition: transform .25s;
+
+}
+
+
+.admin-login-button:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 15px 30px rgba(13,110,253,.32);
+
+}
+
+
+.admin-login-button:hover i {
+
+    transform: translateX(5px);
+
+}
+
+
+.admin-login-button:active {
+
+    transform: translateY(0);
+
+}
+
+
+/* =========================================
+   SECURITY NOTE
+========================================= */
+
+.admin-security-note {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 25px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #edf0f4;
+
+}
+
+
+.security-icon {
+
+    width: 40px;
+    height: 40px;
+
+    flex-shrink: 0;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: #198754;
+
+    background: #eaf8f1;
+
+}
+
+
+.admin-security-note strong {
+
+    display: block;
+
+    color: #344054;
+
+    font-size: 12px;
+
+}
+
+
+.admin-security-note small {
+
+    display: block;
+
+    color: #8a94a3;
+
+    font-size: 11px;
+
+    margin-top: 2px;
+
+}
+
+
+/* =========================================
+   BRAND
+========================================= */
+
+.admin-brand {
+
+    position: relative;
+
+    z-index: 2;
+
+    color: #8993a2;
+
+    font-size: 12px;
+
+    margin-top: 18px;
+
+}
+
+
+.admin-brand i {
+
+    color: #0d6efd;
+
+}
+
+
+.admin-brand span {
+
+    margin: 0 6px;
+
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 576px) {
+
+    .admin-login-card {
+
+        padding: 32px 22px 25px;
+
+        border-radius: 22px;
+
+    }
+
+
+    .admin-heading h2 {
+
+        font-size: 25px;
+
+    }
+
+
+    .admin-icon {
+
+        width: 68px;
+        height: 68px;
+
+        font-size: 28px;
+
+    }
+
+}
+
+</style>
+
+
+<script>
+
+/* =========================================
+   PASSWORD SHOW / HIDE
+   Only UI functionality.
+   Django login logic untouched.
+========================================= */
+
+function toggleAdminPassword() {
+
+    const passwordInput =
+        document.querySelector(
+            '.password-wrapper input'
+        );
+
+    const eye =
+        document.getElementById(
+            'passwordEye'
+        );
+
+
+    if (!passwordInput) {
+        return;
+    }
+
+
+    if (passwordInput.type === "password") {
+
+        passwordInput.type = "text";
+
+        eye.classList.remove(
+            "bi-eye"
+        );
+
+        eye.classList.add(
+            "bi-eye-slash"
+        );
+
+    } else {
+
+        passwordInput.type = "password";
+
+        eye.classList.remove(
+            "bi-eye-slash"
+        );
+
+        eye.classList.add(
+            "bi-eye"
+        );
+
+    }
+
+}
+
+</script>
+
+{% endblock %}

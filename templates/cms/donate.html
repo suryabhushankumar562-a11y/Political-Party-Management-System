@@ -1,0 +1,608 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}
+Donate | Nav Bharat Party
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* ================================
+   DONATE PAGE
+================================ */
+
+.donate-page {
+    position: relative;
+    overflow: hidden;
+}
+
+
+/* Background Decorative Shapes */
+
+.donate-page::before,
+.donate-page::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: .15;
+    z-index: -1;
+}
+
+.donate-page::before {
+    width: 300px;
+    height: 300px;
+    background: #0d6efd;
+    top: 80px;
+    left: -150px;
+}
+
+.donate-page::after {
+    width: 300px;
+    height: 300px;
+    background: #6f42c1;
+    bottom: 50px;
+    right: -150px;
+}
+
+
+/* ================================
+   HEADER ANIMATION
+================================ */
+
+.donate-header {
+    animation: donateHeader .8s ease both;
+}
+
+@keyframes donateHeader {
+
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* Badge */
+
+.donate-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    border-radius: 50px;
+    background: rgba(13, 110, 253, .08);
+    color: #0d6efd;
+    font-size: .85rem;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+
+/* ================================
+   MAIN DONATE CARD
+================================ */
+
+.donate-card {
+
+    position: relative;
+
+    background: rgba(255, 255, 255, .82);
+
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    border: 1px solid rgba(255, 255, 255, .7);
+
+    border-radius: 28px;
+
+    padding: 55px 45px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, .08);
+
+    animation: donateCard .9s cubic-bezier(.2,.8,.2,1) both;
+
+}
+
+
+@keyframes donateCard {
+
+    from {
+        opacity: 0;
+        transform: translateY(60px) scale(.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+
+/* ================================
+   DONATE ICON
+================================ */
+
+.donate-icon {
+
+    width: 90px;
+    height: 90px;
+
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 25px;
+
+    background: linear-gradient(
+        135deg,
+        #0d6efd,
+        #6610f2
+    );
+
+    color: white;
+
+    font-size: 38px;
+
+    box-shadow:
+        0 15px 35px rgba(13, 110, 253, .30);
+
+    animation:
+        iconFloat 3s ease-in-out infinite,
+        iconAppear .8s ease both;
+
+}
+
+
+@keyframes iconFloat {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+
+}
+
+
+@keyframes iconAppear {
+
+    from {
+        opacity: 0;
+        transform: scale(.5) rotate(-15deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+
+}
+
+
+/* Heart */
+
+.donate-icon i {
+    animation: heartBeat 1.8s ease-in-out infinite;
+}
+
+
+@keyframes heartBeat {
+
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    15% {
+        transform: scale(1.18);
+    }
+
+    30% {
+        transform: scale(1);
+    }
+
+}
+
+
+/* ================================
+   INFO ALERT
+================================ */
+
+.donate-alert {
+
+    border: 0;
+
+    border-radius: 16px;
+
+    background: rgba(13, 110, 253, .07);
+
+    padding: 18px;
+
+    animation: fadeUp .8s .3s both;
+
+}
+
+
+/* ================================
+   DONATION OPTIONS
+================================ */
+
+.donate-option {
+
+    position: relative;
+
+    height: 100%;
+
+    padding: 30px 20px;
+
+    border-radius: 20px;
+
+    background: rgba(248, 249, 250, .8);
+
+    border: 1px solid rgba(0, 0, 0, .05);
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease,
+        background .35s ease;
+
+    animation: fadeUp .8s .45s both;
+
+    overflow: hidden;
+}
+
+
+/* Shine */
+
+.donate-option::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 80%;
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.7),
+        transparent
+    );
+
+    transform: skewX(-20deg);
+
+    transition: left .7s ease;
+
+}
+
+
+.donate-option:hover::before {
+    left: 130%;
+}
+
+
+.donate-option:hover {
+
+    transform: translateY(-10px);
+
+    background: white;
+
+    box-shadow:
+        0 18px 40px rgba(0, 0, 0, .10);
+
+}
+
+
+/* Option Icon */
+
+.donate-option > i {
+
+    display: inline-flex;
+
+    width: 58px;
+    height: 58px;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background: rgba(13, 110, 253, .10);
+
+    color: #0d6efd;
+
+    font-size: 26px;
+
+    transition:
+        transform .35s ease,
+        background .35s ease,
+        color .35s ease;
+
+}
+
+
+.donate-option:hover > i {
+
+    transform: rotate(-8deg) scale(1.12);
+
+    background: #0d6efd;
+
+    color: white;
+
+}
+
+
+/* ================================
+   BOTTOM MESSAGE
+================================ */
+
+.donate-bottom {
+
+    margin-top: 35px;
+
+    color: #6c757d;
+
+    animation: fadeUp .8s .6s both;
+
+}
+
+
+.donate-bottom i {
+
+    color: #0d6efd;
+
+}
+
+
+/* ================================
+   GENERAL ANIMATION
+================================ */
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 768px) {
+
+    .donate-card {
+
+        padding: 40px 22px;
+
+        border-radius: 22px;
+
+    }
+
+    .donate-icon {
+
+        width: 75px;
+        height: 75px;
+
+        font-size: 30px;
+
+    }
+
+}
+
+</style>
+
+
+
+
+
+<div class="donate-page">
+
+    <div class="container py-5">
+
+        <!-- =========================
+             HEADER
+        ========================== -->
+
+        <div class="text-center mb-5 donate-header">
+
+            <span class="donate-badge mb-3">
+
+                <i class="bi bi-heart-fill"></i>
+
+                {% trans "SUPPORT OUR WORK" %}
+
+            </span>
+
+
+            <h1 class="display-5 fw-bold mt-2">
+
+                {% trans "Support Nav Bharat Party" %}
+
+            </h1>
+
+
+            <p
+                class="text-muted mx-auto mt-3"
+                style="max-width: 700px;"
+            >
+
+                {% trans "Your support can help us carry out our programmes, activities and organisational work." %}
+
+            </p>
+
+        </div>
+
+
+        <!-- =========================
+             DONATION CARD
+        ========================== -->
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-8">
+
+                <div class="donate-card text-center">
+
+                    <!-- ICON -->
+
+                    <div class="donate-icon">
+
+                        <i class="bi bi-heart-fill"></i>
+
+                    </div>
+
+
+                    <!-- TITLE -->
+
+                    <h2 class="fw-bold mt-4">
+
+                        {% trans "Make a Contribution" %}
+
+                    </h2>
+
+
+                    <p class="text-muted mt-2">
+
+                        {% trans "Every contribution helps support our organisational activities and public initiatives." %}
+
+                    </p>
+
+
+                    <!-- INFO -->
+
+                    <div class="alert donate-alert text-start mt-4">
+
+                        <div class="d-flex align-items-start">
+
+                            <i class="bi bi-info-circle-fill fs-4 text-primary me-3"></i>
+
+                            <div>
+
+                                <strong>
+                                    {% trans "Important" %}
+                                </strong>
+
+                                <div class="small text-muted mt-1">
+
+                                    {% trans "Please use only the official donation channels of the organisation." %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- OPTIONS -->
+
+                    <div class="row g-4 mt-3">
+
+
+                        <!-- BANK -->
+
+                        <div class="col-md-6">
+
+                            <div class="donate-option">
+
+                                <i class="bi bi-bank"></i>
+
+
+                                <h5 class="fw-bold mt-3">
+
+                                    {% trans "Bank Transfer" %}
+
+                                </h5>
+
+
+                                <p class="text-muted small mb-0">
+
+                                    {% trans "Official bank details can be displayed here." %}
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ONLINE -->
+
+                        <div class="col-md-6">
+
+                            <div class="donate-option">
+
+                                <i class="bi bi-qr-code"></i>
+
+
+                                <h5 class="fw-bold mt-3">
+
+                                    {% trans "Online Payment" %}
+
+                                </h5>
+
+
+                                <p class="text-muted small mb-0">
+
+                                    {% trans "Official payment or QR details can be displayed here." %}
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- BOTTOM -->
+
+                    <div class="donate-bottom">
+
+                        <i class="bi bi-shield-check me-1"></i>
+
+                        {% trans "Secure & Official Contribution Channels" %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

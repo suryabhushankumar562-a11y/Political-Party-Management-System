@@ -1,0 +1,1159 @@
+{% extends "base.html" %}
+
+{% block title %}
+Registration Successful | Nav Bharat Party
+{% endblock %}
+
+
+{% block content %}
+
+<div class="registration-page">
+
+    <!-- BACKGROUND DECORATION -->
+
+    <div class="success-orb orb-one"></div>
+    <div class="success-orb orb-two"></div>
+    <div class="success-orb orb-three"></div>
+
+
+    <div class="container py-5">
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-9 col-lg-7">
+
+
+                <!-- SUCCESS CARD -->
+
+                <div class="success-card">
+
+
+                    <!-- SUCCESS ICON -->
+
+                    <div class="success-icon-wrapper">
+
+                        <div class="success-icon">
+
+                            <i class="bi bi-check-lg"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- TITLE -->
+
+                    <div class="text-center">
+
+                        <span class="success-label">
+                            APPLICATION SUBMITTED
+                        </span>
+
+                        <h1 class="success-title">
+                            Registration Successful!
+                        </h1>
+
+                        <p class="success-description">
+                            Your membership application has been
+                            submitted successfully.
+                        </p>
+
+                    </div>
+
+
+                    <!-- MEMBERSHIP ID -->
+
+                    <div class="membership-id-box">
+
+                        <div class="id-icon">
+
+                            <i class="bi bi-person-vcard"></i>
+
+                        </div>
+
+                        <div class="id-content">
+
+                            <span>
+                                YOUR MEMBERSHIP ID
+                            </span>
+
+                            <h2>
+                                {{ member.membership_id }}
+                            </h2>
+
+                        </div>
+
+                        <button
+                            type="button"
+                            class="copy-id-btn"
+                            onclick="copyMembershipId()"
+                            title="Copy Membership ID"
+                        >
+
+                            <i class="bi bi-copy"></i>
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- STATUS -->
+
+                    <div class="status-section">
+
+                        <div class="status-heading">
+
+                            <span>
+                                Application Status
+                            </span>
+
+                            <span class="status-badge">
+
+                                <span class="status-dot"></span>
+
+                                {{ member.get_membership_status_display }}
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="progress-wrapper">
+
+                            <div class="progress">
+
+                                <div
+                                    class="progress-bar"
+                                    role="progressbar"
+                                    style="width: 50%;"
+                                ></div>
+
+                            </div>
+
+                            <div class="progress-labels">
+
+                                <span class="active">
+                                    Submitted
+                                </span>
+
+                                <span>
+                                    Under Review
+                                </span>
+
+                                <span>
+                                    Approved
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- INFORMATION -->
+
+                    <div class="info-box">
+
+                        <div class="info-icon">
+
+                            <i class="bi bi-info-circle-fill"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h6>
+                                What happens next?
+                            </h6>
+
+                            <p>
+                                Your membership application is currently
+                                pending approval by the administrator.
+                                Once reviewed, your membership status
+                                will be updated accordingly.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ACTIONS -->
+
+                    <div class="success-actions">
+
+                        <a
+                            href="{% url 'member_login' %}"
+                            class="primary-action"
+                        >
+
+                            <span>
+                                Login to Member Area
+                            </span>
+
+                            <i class="bi bi-arrow-right"></i>
+
+                        </a>
+
+
+                        <a
+                            href="{% url 'home' %}"
+                            class="secondary-action"
+                        >
+
+                            <i class="bi bi-house me-2"></i>
+
+                            Back to Home
+
+                        </a>
+
+                    </div>
+
+
+                    <!-- FOOTER NOTE -->
+
+                    <div class="success-footer">
+
+                        <i class="bi bi-shield-check"></i>
+
+                        <span>
+                            Keep your Membership ID safe for future reference.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+
+{% block js %}
+
+<style>
+
+/* =====================================================
+   PAGE
+   ===================================================== */
+
+.registration-page {
+
+    position: relative;
+
+    min-height: calc(100vh - 80px);
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(13, 110, 253, 0.08),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(25, 135, 84, 0.08),
+            transparent 30%
+        ),
+        #f8fafc;
+
+}
+
+
+/* =====================================================
+   FLOATING ORBS
+   ===================================================== */
+
+.success-orb {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(2px);
+
+    pointer-events: none;
+
+    animation: floatOrb 7s ease-in-out infinite;
+
+}
+
+
+.orb-one {
+
+    width: 180px;
+
+    height: 180px;
+
+    background: rgba(13, 110, 253, 0.07);
+
+    top: 8%;
+
+    left: -70px;
+
+}
+
+
+.orb-two {
+
+    width: 130px;
+
+    height: 130px;
+
+    background: rgba(25, 135, 84, 0.08);
+
+    right: 5%;
+
+    top: 15%;
+
+    animation-delay: 1.5s;
+
+}
+
+
+.orb-three {
+
+    width: 220px;
+
+    height: 220px;
+
+    background: rgba(13, 110, 253, 0.05);
+
+    bottom: -100px;
+
+    left: 45%;
+
+    animation-delay: 3s;
+
+}
+
+
+@keyframes floatOrb {
+
+    0%,
+    100% {
+
+        transform: translateY(0);
+
+    }
+
+    50% {
+
+        transform: translateY(-18px);
+
+    }
+
+}
+
+
+/* =====================================================
+   MAIN CARD
+   ===================================================== */
+
+.success-card {
+
+    position: relative;
+
+    background: rgba(255, 255, 255, 0.94);
+
+    backdrop-filter: blur(15px);
+
+    border: 1px solid rgba(255, 255, 255, 0.8);
+
+    border-radius: 28px;
+
+    padding: 48px;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.08);
+
+    animation: cardEnter 0.7s ease forwards;
+
+}
+
+
+@keyframes cardEnter {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(30px)
+            scale(0.98);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* =====================================================
+   SUCCESS ICON
+   ===================================================== */
+
+.success-icon-wrapper {
+
+    display: flex;
+
+    justify-content: center;
+
+    margin-bottom: 24px;
+
+}
+
+
+.success-icon {
+
+    width: 86px;
+
+    height: 86px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: linear-gradient(
+        135deg,
+        #198754,
+        #20c997
+    );
+
+    color: white;
+
+    font-size: 42px;
+
+    box-shadow:
+        0 12px 30px rgba(25, 135, 84, 0.25);
+
+    animation: successPop 0.7s
+        cubic-bezier(.17,.67,.42,1.4);
+
+}
+
+
+.success-icon::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 105px;
+
+    height: 105px;
+
+    border-radius: 50%;
+
+    border: 2px solid rgba(25, 135, 84, 0.15);
+
+    animation: successPulse 2s infinite;
+
+}
+
+
+@keyframes successPop {
+
+    0% {
+
+        opacity: 0;
+
+        transform: scale(0.3);
+
+    }
+
+    70% {
+
+        transform: scale(1.1);
+
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform: scale(1);
+
+    }
+
+}
+
+
+@keyframes successPulse {
+
+    0% {
+
+        transform: scale(0.85);
+
+        opacity: 0.8;
+
+    }
+
+    100% {
+
+        transform: scale(1.25);
+
+        opacity: 0;
+
+    }
+
+}
+
+
+/* =====================================================
+   HEADING
+   ===================================================== */
+
+.success-label {
+
+    display: inline-block;
+
+    color: #198754;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.success-title {
+
+    font-weight: 800;
+
+    font-size: clamp(2rem, 5vw, 2.7rem);
+
+    margin-bottom: 12px;
+
+    color: #172033;
+
+}
+
+
+.success-description {
+
+    color: #6c757d;
+
+    font-size: 1.05rem;
+
+    margin-bottom: 32px;
+
+}
+
+
+/* =====================================================
+   MEMBERSHIP ID
+   ===================================================== */
+
+.membership-id-box {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    padding: 20px;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f0f6ff,
+            #f8fbff
+        );
+
+    border: 1px solid #dbe8ff;
+
+    margin-bottom: 24px;
+
+    transition: all 0.3s ease;
+
+}
+
+
+.membership-id-box:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 25px rgba(13, 110, 253, 0.08);
+
+}
+
+
+.id-icon {
+
+    width: 50px;
+
+    height: 50px;
+
+    border-radius: 14px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #0d6efd;
+
+    color: white;
+
+    font-size: 22px;
+
+}
+
+
+.id-content {
+
+    flex: 1;
+
+}
+
+
+.id-content span {
+
+    display: block;
+
+    color: #6c757d;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+}
+
+
+.id-content h2 {
+
+    margin: 3px 0 0;
+
+    color: #0d6efd;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+}
+
+
+.copy-id-btn {
+
+    width: 42px;
+
+    height: 42px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: white;
+
+    color: #0d6efd;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,.06);
+
+    transition: .25s;
+
+}
+
+
+.copy-id-btn:hover {
+
+    background: #0d6efd;
+
+    color: white;
+
+    transform: scale(1.05);
+
+}
+
+
+/* =====================================================
+   STATUS
+   ===================================================== */
+
+.status-section {
+
+    padding: 22px;
+
+    border-radius: 18px;
+
+    background: #fafafa;
+
+    border: 1px solid #eee;
+
+    margin-bottom: 24px;
+
+}
+
+
+.status-heading {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 18px;
+
+    font-weight: 700;
+
+}
+
+
+.status-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    background: #fff3cd;
+
+    color: #856404;
+
+    padding: 7px 13px;
+
+    border-radius: 50px;
+
+    font-size: 13px;
+
+}
+
+
+.status-dot {
+
+    width: 7px;
+
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #ffc107;
+
+    animation: statusBlink 1.5s infinite;
+
+}
+
+
+@keyframes statusBlink {
+
+    50% {
+
+        opacity: .35;
+
+    }
+
+}
+
+
+/* =====================================================
+   PROGRESS
+   ===================================================== */
+
+.progress-wrapper {
+
+    margin-top: 10px;
+
+}
+
+
+.progress {
+
+    height: 7px;
+
+    border-radius: 20px;
+
+    background: #e9ecef;
+
+    overflow: hidden;
+
+}
+
+
+.progress-bar {
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #0d6efd,
+            #20c997
+        );
+
+    animation: progressLoad 1.2s ease;
+
+}
+
+
+@keyframes progressLoad {
+
+    from {
+
+        width: 0 !important;
+
+    }
+
+}
+
+
+.progress-labels {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 8px;
+
+    font-size: 11px;
+
+    color: #adb5bd;
+
+}
+
+
+.progress-labels .active {
+
+    color: #0d6efd;
+
+    font-weight: 700;
+
+}
+
+
+/* =====================================================
+   INFO BOX
+   ===================================================== */
+
+.info-box {
+
+    display: flex;
+
+    gap: 14px;
+
+    padding: 18px;
+
+    border-radius: 16px;
+
+    background: #eef7ff;
+
+    border: 1px solid #d7ebff;
+
+    margin-bottom: 28px;
+
+}
+
+
+.info-icon {
+
+    color: #0d6efd;
+
+    font-size: 22px;
+
+}
+
+
+.info-box h6 {
+
+    font-weight: 700;
+
+    margin-bottom: 5px;
+
+}
+
+
+.info-box p {
+
+    color: #6c757d;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    margin: 0;
+
+}
+
+
+/* =====================================================
+   ACTIONS
+   ===================================================== */
+
+.success-actions {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+}
+
+
+.primary-action {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    padding: 14px 20px;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd,
+            #0b5ed7
+        );
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition: .3s;
+
+    box-shadow:
+        0 8px 20px rgba(13, 110, 253, .2);
+
+}
+
+
+.primary-action:hover {
+
+    color: white;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 28px rgba(13, 110, 253, .3);
+
+}
+
+
+.primary-action i {
+
+    transition: .3s;
+
+}
+
+
+.primary-action:hover i {
+
+    transform: translateX(5px);
+
+}
+
+
+.secondary-action {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 12px;
+
+    border-radius: 13px;
+
+    color: #495057;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition: .25s;
+
+}
+
+
+.secondary-action:hover {
+
+    background: #f1f3f5;
+
+    color: #0d6efd;
+
+}
+
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+
+.success-footer {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-top: 25px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #eee;
+
+    color: #6c757d;
+
+    font-size: 12px;
+
+}
+
+
+.success-footer i {
+
+    color: #198754;
+
+    font-size: 16px;
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+
+@media (max-width: 576px) {
+
+    .registration-page .container {
+
+        padding-left: 15px;
+
+        padding-right: 15px;
+
+    }
+
+
+    .success-card {
+
+        padding: 30px 20px;
+
+        border-radius: 22px;
+
+    }
+
+
+    .membership-id-box {
+
+        padding: 15px;
+
+    }
+
+
+    .id-icon {
+
+        width: 44px;
+
+        height: 44px;
+
+    }
+
+
+    .id-content h2 {
+
+        font-size: 1.25rem;
+
+    }
+
+
+    .status-heading {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+
+    .progress-labels {
+
+        font-size: 9px;
+
+    }
+
+}
+
+</style>
+
+
+<script>
+
+function copyMembershipId() {
+
+    const membershipId =
+        "{{ member.membership_id }}";
+
+    navigator.clipboard.writeText(
+        membershipId
+    ).then(function () {
+
+        const button =
+            document.querySelector(
+                ".copy-id-btn"
+            );
+
+        const icon =
+            button.querySelector("i");
+
+        icon.className =
+            "bi bi-check-lg";
+
+        setTimeout(function () {
+
+            icon.className =
+                "bi bi-copy";
+
+        }, 1800);
+
+    });
+
+}
+
+</script>
+
+{% endblock %}

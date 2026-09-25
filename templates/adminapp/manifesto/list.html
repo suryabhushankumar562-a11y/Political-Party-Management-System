@@ -1,0 +1,2026 @@
+{% extends "base.html" %}
+
+{% block title %}
+Manifesto Management | Admin Panel
+{% endblock %}
+
+
+{% block content %}
+
+<div class="manifesto-page">
+
+    <!-- BACKGROUND DECORATION -->
+    <div class="manifesto-orb orb-one"></div>
+    <div class="manifesto-orb orb-two"></div>
+
+
+    <div class="container-fluid py-5 manifesto-container">
+
+
+        <!-- ================================================= -->
+        <!-- HEADER -->
+        <!-- ================================================= -->
+
+        <div class="manifesto-header">
+
+            <div class="header-content">
+
+                <div class="title-icon">
+                    <i class="bi bi-journal-text"></i>
+                </div>
+
+                <div>
+
+                    <span class="section-label">
+                        CONTENT MANAGEMENT
+                    </span>
+
+                    <h1 class="manifesto-title">
+                        Manifesto Management
+                    </h1>
+
+                    <p class="manifesto-subtitle">
+                        Manage the party's manifesto items and priorities.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-actions">
+
+                <a
+                    href="{% url 'admin_dashboard' %}"
+                    class="dashboard-button"
+                >
+
+                    <i class="bi bi-speedometer2"></i>
+
+                    <span>
+                        Dashboard
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="{% url 'admin_manifesto_add' %}"
+                    class="add-button"
+                >
+
+                    <span class="add-icon">
+                        <i class="bi bi-plus-lg"></i>
+                    </span>
+
+                    <span>
+                        Add Manifesto
+                    </span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================================================= -->
+        <!-- STATISTICS -->
+        <!-- ================================================= -->
+
+        <div class="row g-4 mb-4">
+
+
+            <!-- TOTAL -->
+
+            <div class="col-md-4">
+
+                <div class="stat-card total-card">
+
+                    <div class="stat-content">
+
+                        <div>
+
+                            <span class="stat-label">
+                                Total Items
+                            </span>
+
+                            <h2 class="stat-number">
+                                {{ total_manifesto }}
+                            </h2>
+
+                            <small>
+                                All manifesto priorities
+                            </small>
+
+                        </div>
+
+
+                        <div class="stat-icon total-icon">
+
+                            <i class="bi bi-list-check"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-line"></div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PUBLISHED -->
+
+            <div class="col-md-4">
+
+                <div class="stat-card published-card">
+
+                    <div class="stat-content">
+
+                        <div>
+
+                            <span class="stat-label">
+                                Published
+                            </span>
+
+                            <h2 class="stat-number">
+                                {{ published_manifesto }}
+                            </h2>
+
+                            <small>
+                                Currently visible
+                            </small>
+
+                        </div>
+
+
+                        <div class="stat-icon published-icon">
+
+                            <i class="bi bi-check-circle-fill"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-line"></div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- DRAFT -->
+
+            <div class="col-md-4">
+
+                <div class="stat-card draft-card">
+
+                    <div class="stat-content">
+
+                        <div>
+
+                            <span class="stat-label">
+                                Draft
+                            </span>
+
+                            <h2 class="stat-number">
+                                {{ draft_manifesto }}
+                            </h2>
+
+                            <small>
+                                Not published yet
+                            </small>
+
+                        </div>
+
+
+                        <div class="stat-icon draft-icon">
+
+                            <i class="bi bi-eye-slash-fill"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-line"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================================================= -->
+        <!-- MANIFESTO LIST -->
+        <!-- ================================================= -->
+
+        <div class="manifesto-list-card">
+
+
+            <!-- CARD HEADER -->
+
+            <div class="list-card-header">
+
+                <div class="list-heading">
+
+                    <div class="list-heading-icon">
+
+                        <i class="bi bi-collection"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h4>
+                            Manifesto Items
+                        </h4>
+
+                        <p>
+                            Items are displayed according to their display order.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="item-counter">
+
+                    <i class="bi bi-layers me-1"></i>
+
+                    {{ page_obj.paginator.count }} Items
+
+                </div>
+
+            </div>
+
+
+
+            <!-- LIST -->
+
+            <div class="list-card-body">
+
+                <div class="row g-4">
+
+
+                    {% for item in manifesto_items %}
+
+                    <div class="col-md-6 col-xl-4">
+
+                        <div class="manifesto-item-card">
+
+
+                            <!-- TOP -->
+
+                            <div class="item-top">
+
+                                <div class="manifesto-icon">
+
+                                    {% if item.icon %}
+
+                                        <i class="{{ item.icon }}"></i>
+
+                                    {% else %}
+
+                                        <i class="bi bi-check2-circle"></i>
+
+                                    {% endif %}
+
+                                </div>
+
+
+                                {% if item.published %}
+
+                                    <span class="status-badge published">
+
+                                        <span class="status-dot"></span>
+
+                                        Published
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="status-badge draft">
+
+                                        <span class="status-dot"></span>
+
+                                        Draft
+
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+
+
+                            <!-- TITLE -->
+
+                            <div class="item-title-wrapper">
+
+                                <h5>
+                                    {{ item.title }}
+                                </h5>
+
+                            </div>
+
+
+
+                            <!-- DESCRIPTION -->
+
+                            <p class="item-description">
+
+                                {{ item.description|truncatechars:160 }}
+
+                            </p>
+
+
+
+                            <!-- ORDER -->
+
+                            <div class="order-info">
+
+                                <div class="order-icon">
+
+                                    <i class="bi bi-sort-numeric-down"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <span>
+                                        Display Order
+                                    </span>
+
+                                    <strong>
+                                        {{ item.order }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- DIVIDER -->
+
+                            <div class="item-divider"></div>
+
+
+
+                            <!-- ACTIONS -->
+
+                            <div class="item-actions">
+
+
+                                <a
+                                    href="{% url 'admin_manifesto_edit' item.pk %}"
+                                    class="edit-button"
+                                >
+
+                                    <i class="bi bi-pencil-square"></i>
+
+                                    <span>
+                                        Edit
+                                    </span>
+
+                                </a>
+
+
+
+                                <form
+                                    method="post"
+                                    action="{% url 'admin_manifesto_delete' item.pk %}"
+                                    onsubmit="return confirm('Are you sure you want to delete this manifesto item?');"
+                                >
+
+                                    {% csrf_token %}
+
+                                    <button
+                                        type="submit"
+                                        class="delete-button"
+                                        title="Delete"
+                                    >
+
+                                        <i class="bi bi-trash3"></i>
+
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                    {% empty %}
+
+
+                    <!-- ================================================= -->
+                    <!-- EMPTY STATE -->
+                    <!-- ================================================= -->
+
+                    <div class="col-12">
+
+                        <div class="empty-state">
+
+                            <div class="empty-icon">
+
+                                <i class="bi bi-journal-x"></i>
+
+                            </div>
+
+
+                            <h4>
+                                No Manifesto Items
+                            </h4>
+
+
+                            <p>
+                                Start by adding the first manifesto item.
+                            </p>
+
+
+                            <a
+                                href="{% url 'admin_manifesto_add' %}"
+                                class="empty-action"
+                            >
+
+                                <i class="bi bi-plus-lg"></i>
+
+                                Add Manifesto
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    {% endfor %}
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================================= -->
+            <!-- PAGINATION -->
+            <!-- ================================================= -->
+
+            {% if is_paginated %}
+
+            <div class="pagination-wrapper">
+
+                <div class="pagination-info">
+
+                    Page
+                    <strong>
+                        {{ page_obj.number }}
+                    </strong>
+                    of
+                    <strong>
+                        {{ page_obj.paginator.num_pages }}
+                    </strong>
+
+                </div>
+
+
+                <nav>
+
+                    <ul class="pagination custom-pagination mb-0">
+
+
+                        <!-- PREVIOUS -->
+
+                        {% if page_obj.has_previous %}
+
+                        <li class="page-item">
+
+                            <a
+                                class="page-link"
+                                href="?page={{ page_obj.previous_page_number }}"
+                            >
+
+                                <i class="bi bi-chevron-left"></i>
+
+                            </a>
+
+                        </li>
+
+                        {% else %}
+
+                        <li class="page-item disabled">
+
+                            <span class="page-link">
+
+                                <i class="bi bi-chevron-left"></i>
+
+                            </span>
+
+                        </li>
+
+                        {% endif %}
+
+
+
+                        <!-- PAGE NUMBERS -->
+
+                        {% for num in page_obj.paginator.page_range %}
+
+                            {% if page_obj.number == num %}
+
+                            <li class="page-item active">
+
+                                <span class="page-link">
+                                    {{ num }}
+                                </span>
+
+                            </li>
+
+                            {% else %}
+
+                            <li class="page-item">
+
+                                <a
+                                    class="page-link"
+                                    href="?page={{ num }}"
+                                >
+
+                                    {{ num }}
+
+                                </a>
+
+                            </li>
+
+                            {% endif %}
+
+                        {% endfor %}
+
+
+
+                        <!-- NEXT -->
+
+                        {% if page_obj.has_next %}
+
+                        <li class="page-item">
+
+                            <a
+                                class="page-link"
+                                href="?page={{ page_obj.next_page_number }}"
+                            >
+
+                                <i class="bi bi-chevron-right"></i>
+
+                            </a>
+
+                        </li>
+
+                        {% else %}
+
+                        <li class="page-item disabled">
+
+                            <span class="page-link">
+
+                                <i class="bi bi-chevron-right"></i>
+
+                            </span>
+
+                        </li>
+
+                        {% endif %}
+
+
+                    </ul>
+
+                </nav>
+
+            </div>
+
+            {% endif %}
+
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+
+{% block js %}
+
+<style>
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.manifesto-page {
+
+    position: relative;
+
+    min-height: 100vh;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f8faff 0%,
+            #f4f7ff 45%,
+            #ffffff 100%
+        );
+
+}
+
+
+/* =========================================================
+   BACKGROUND ORBS
+   ========================================================= */
+
+.manifesto-orb {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(70px);
+
+    opacity: .35;
+
+    pointer-events: none;
+
+}
+
+
+.orb-one {
+
+    width: 280px;
+
+    height: 280px;
+
+    background: #cfe2ff;
+
+    top: 30px;
+
+    right: -100px;
+
+}
+
+
+.orb-two {
+
+    width: 220px;
+
+    height: 220px;
+
+    background: #dff7e8;
+
+    bottom: 150px;
+
+    left: -100px;
+
+}
+
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.manifesto-container {
+
+    position: relative;
+
+    z-index: 2;
+
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.manifesto-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 25px;
+
+    margin-bottom: 30px;
+
+    animation: fadeDown .65s ease both;
+
+}
+
+
+.header-content {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+}
+
+
+.title-icon {
+
+    width: 62px;
+
+    height: 62px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd,
+            #4d94ff
+        );
+
+    color: white;
+
+    font-size: 27px;
+
+    box-shadow:
+        0 12px 30px rgba(13,110,253,.22);
+
+}
+
+
+.section-label {
+
+    display: inline-block;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.6px;
+
+    color: #0d6efd;
+
+    margin-bottom: 5px;
+
+}
+
+
+.manifesto-title {
+
+    font-size: clamp(26px, 3vw, 36px);
+
+    font-weight: 800;
+
+    letter-spacing: -.6px;
+
+    margin: 0;
+
+    color: #172033;
+
+}
+
+
+.manifesto-subtitle {
+
+    color: #737b8c;
+
+    margin: 5px 0 0;
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================================
+   HEADER BUTTONS
+   ========================================================= */
+
+.header-actions {
+
+    display: flex;
+
+    gap: 10px;
+
+}
+
+
+.dashboard-button,
+.add-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 11px 17px;
+
+    border-radius: 12px;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    font-size: 14px;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        background .25s ease;
+
+}
+
+
+.dashboard-button {
+
+    color: #0d6efd;
+
+    background: rgba(255,255,255,.85);
+
+    border: 1px solid #dbe5f5;
+
+}
+
+
+.add-button {
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd,
+            #246fd1
+        );
+
+    box-shadow:
+        0 8px 20px rgba(13,110,253,.20);
+
+}
+
+
+.dashboard-button:hover,
+.add-button:hover {
+
+    transform: translateY(-3px);
+
+}
+
+
+.dashboard-button:hover {
+
+    background: #fff;
+
+    box-shadow:
+        0 8px 22px rgba(0,0,0,.07);
+
+}
+
+
+.add-button:hover {
+
+    color: white;
+
+    box-shadow:
+        0 12px 28px rgba(13,110,253,.28);
+
+}
+
+
+.add-icon {
+
+    width: 23px;
+
+    height: 23px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 7px;
+
+    background: rgba(255,255,255,.18);
+
+}
+
+
+/* =========================================================
+   STAT CARDS
+   ========================================================= */
+
+.stat-card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: rgba(255,255,255,.88);
+
+    border: 1px solid rgba(225,231,241,.85);
+
+    border-radius: 20px;
+
+    padding: 23px;
+
+    min-height: 145px;
+
+    box-shadow:
+        0 8px 30px rgba(35,52,80,.06);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+
+    animation: fadeUp .7s ease both;
+
+}
+
+
+.stat-card:hover {
+
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 18px 38px rgba(35,52,80,.11);
+
+}
+
+
+.stat-content {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+
+.stat-label {
+
+    display: block;
+
+    color: #7b8495;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    margin-bottom: 7px;
+
+}
+
+
+.stat-number {
+
+    color: #182235;
+
+    font-size: 30px;
+
+    margin: 0 0 3px;
+
+}
+
+
+.stat-card small {
+
+    color: #9aa2b1;
+
+    font-size: 12px;
+
+}
+
+
+.stat-icon {
+
+    width: 58px;
+
+    height: 58px;
+
+    border-radius: 17px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 25px;
+
+    transition: transform .3s ease;
+
+}
+
+
+.stat-card:hover .stat-icon {
+
+    transform: rotate(-7deg) scale(1.08);
+
+}
+
+
+.total-icon {
+
+    background: #e9f2ff;
+
+    color: #0d6efd;
+
+}
+
+
+.published-icon {
+
+    background: #e6f8ee;
+
+    color: #198754;
+
+}
+
+
+.draft-icon {
+
+    background: #f0f1f3;
+
+    color: #6c757d;
+
+}
+
+
+.stat-line {
+
+    position: absolute;
+
+    left: 0;
+
+    bottom: 0;
+
+    width: 100%;
+
+    height: 3px;
+
+}
+
+
+.total-card .stat-line {
+
+    background: #0d6efd;
+
+}
+
+
+.published-card .stat-line {
+
+    background: #198754;
+
+}
+
+
+.draft-card .stat-line {
+
+    background: #6c757d;
+
+}
+
+
+/* =========================================================
+   LIST CARD
+   ========================================================= */
+
+.manifesto-list-card {
+
+    overflow: hidden;
+
+    background: rgba(255,255,255,.94);
+
+    border: 1px solid #e7ebf2;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 10px 35px rgba(35,52,80,.07);
+
+    animation: fadeUp .8s ease both;
+
+}
+
+
+.list-card-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 23px 26px;
+
+    border-bottom: 1px solid #edf0f5;
+
+}
+
+
+.list-heading {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+}
+
+
+.list-heading-icon {
+
+    width: 44px;
+
+    height: 44px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background: #edf4ff;
+
+    color: #0d6efd;
+
+    font-size: 19px;
+
+}
+
+
+.list-heading h4 {
+
+    margin: 0 0 3px;
+
+    font-size: 18px;
+
+    font-weight: 750;
+
+    color: #1c2638;
+
+}
+
+
+.list-heading p {
+
+    margin: 0;
+
+    font-size: 12px;
+
+    color: #8992a2;
+
+}
+
+
+.item-counter {
+
+    padding: 8px 13px;
+
+    border-radius: 30px;
+
+    background: #edf4ff;
+
+    color: #0d6efd;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+}
+
+
+.list-card-body {
+
+    padding: 26px;
+
+}
+
+
+/* =========================================================
+   MANIFESTO ITEM
+   ========================================================= */
+
+.manifesto-item-card {
+
+    position: relative;
+
+    height: 100%;
+
+    padding: 22px;
+
+    border: 1px solid #e7ebf2;
+
+    border-radius: 18px;
+
+    background: #fff;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        border-color .3s ease;
+
+    animation: cardAppear .6s ease both;
+
+}
+
+
+.manifesto-item-card:hover {
+
+    transform: translateY(-7px);
+
+    border-color: #cfe0ff;
+
+    box-shadow:
+        0 18px 38px rgba(29,56,100,.10);
+
+}
+
+
+.item-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 18px;
+
+}
+
+
+.manifesto-icon {
+
+    width: 52px;
+
+    height: 52px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #edf4ff,
+            #e4efff
+        );
+
+    color: #0d6efd;
+
+    font-size: 23px;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+
+}
+
+
+.manifesto-item-card:hover .manifesto-icon {
+
+    transform: rotate(-5deg) scale(1.08);
+
+    box-shadow:
+        0 8px 20px rgba(13,110,253,.13);
+
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.status-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 6px 10px;
+
+    border-radius: 30px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+}
+
+
+.status-badge.published {
+
+    color: #198754;
+
+    background: #e9f8f0;
+
+}
+
+
+.status-badge.draft {
+
+    color: #6c757d;
+
+    background: #f0f1f3;
+
+}
+
+
+.status-dot {
+
+    width: 6px;
+
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: currentColor;
+
+}
+
+
+.published .status-dot {
+
+    animation: pulse 1.8s infinite;
+
+}
+
+
+/* =========================================================
+   ITEM TEXT
+   ========================================================= */
+
+.item-title-wrapper {
+
+    min-height: 48px;
+
+}
+
+
+.item-title-wrapper h5 {
+
+    color: #202b3d;
+
+    font-weight: 750;
+
+    font-size: 17px;
+
+    line-height: 1.4;
+
+    margin: 0;
+
+}
+
+
+.item-description {
+
+    color: #7d8798;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+
+    min-height: 66px;
+
+    margin: 8px 0 17px;
+
+}
+
+
+/* =========================================================
+   ORDER
+   ========================================================= */
+
+.order-info {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 10px 12px;
+
+    border-radius: 11px;
+
+    background: #f8f9fb;
+
+}
+
+
+.order-icon {
+
+    width: 29px;
+
+    height: 29px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background: white;
+
+    color: #0d6efd;
+
+    font-size: 14px;
+
+}
+
+
+.order-info span {
+
+    display: block;
+
+    color: #9098a7;
+
+    font-size: 10px;
+
+    text-transform: uppercase;
+
+    letter-spacing: .6px;
+
+}
+
+
+.order-info strong {
+
+    display: block;
+
+    color: #283347;
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.item-divider {
+
+    height: 1px;
+
+    background: #edf0f4;
+
+    margin: 18px 0;
+
+}
+
+
+.item-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+}
+
+
+.item-actions form {
+
+    margin: 0;
+
+}
+
+
+.edit-button {
+
+    flex: 1;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 9px 12px;
+
+    border-radius: 10px;
+
+    border: 1px solid #cfe0ff;
+
+    background: #f7faff;
+
+    color: #0d6efd;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    transition: .25s ease;
+
+}
+
+
+.edit-button:hover {
+
+    background: #0d6efd;
+
+    color: white;
+
+    transform: translateY(-2px);
+
+}
+
+
+.delete-button {
+
+    width: 39px;
+
+    height: 39px;
+
+    border-radius: 10px;
+
+    border: 1px solid #ffd6dc;
+
+    background: #fff8f9;
+
+    color: #dc3545;
+
+    transition: .25s ease;
+
+}
+
+
+.delete-button:hover {
+
+    color: white;
+
+    background: #dc3545;
+
+    border-color: #dc3545;
+
+    transform: translateY(-2px);
+
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.empty-state {
+
+    padding: 70px 20px;
+
+    text-align: center;
+
+}
+
+
+.empty-icon {
+
+    width: 85px;
+
+    height: 85px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin: 0 auto 20px;
+
+    border-radius: 25px;
+
+    background: #f1f5fa;
+
+    color: #9ba5b4;
+
+    font-size: 38px;
+
+}
+
+
+.empty-state h4 {
+
+    font-weight: 750;
+
+    color: #263146;
+
+}
+
+
+.empty-state p {
+
+    color: #8b94a3;
+
+    font-size: 14px;
+
+}
+
+
+.empty-action {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-top: 10px;
+
+    padding: 11px 18px;
+
+    border-radius: 11px;
+
+    color: white;
+
+    background: #0d6efd;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    transition: .25s ease;
+
+}
+
+
+.empty-action:hover {
+
+    color: white;
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 24px rgba(13,110,253,.22);
+
+}
+
+
+/* =========================================================
+   PAGINATION
+   ========================================================= */
+
+.pagination-wrapper {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 20px 26px;
+
+    border-top: 1px solid #edf0f5;
+
+}
+
+
+.pagination-info {
+
+    color: #8b94a3;
+
+    font-size: 12px;
+
+}
+
+
+.pagination-info strong {
+
+    color: #263146;
+
+}
+
+
+.custom-pagination {
+
+    gap: 5px;
+
+}
+
+
+.custom-pagination .page-link {
+
+    width: 36px;
+
+    height: 36px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 1px solid #e1e6ee;
+
+    border-radius: 9px !important;
+
+    color: #526075;
+
+    background: white;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    transition: .2s ease;
+
+}
+
+
+.custom-pagination .page-link:hover {
+
+    color: #0d6efd;
+
+    background: #f0f6ff;
+
+    border-color: #cfe0ff;
+
+}
+
+
+.custom-pagination .page-item.active .page-link {
+
+    color: white;
+
+    background: #0d6efd;
+
+    border-color: #0d6efd;
+
+    box-shadow:
+        0 5px 15px rgba(13,110,253,.22);
+
+}
+
+
+.custom-pagination .page-item.disabled .page-link {
+
+    color: #c0c6cf;
+
+    background: #f8f9fa;
+
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes fadeDown {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(-15px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+
+@keyframes fadeUp {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(20px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+
+@keyframes cardAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(18px) scale(.98);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0) scale(1);
+
+    }
+
+}
+
+
+@keyframes pulse {
+
+    0% {
+
+        box-shadow: 0 0 0 0 rgba(25,135,84,.35);
+
+    }
+
+    70% {
+
+        box-shadow: 0 0 0 6px rgba(25,135,84,0);
+
+    }
+
+    100% {
+
+        box-shadow: 0 0 0 0 rgba(25,135,84,0);
+
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .manifesto-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+
+    .header-actions {
+
+        width: 100%;
+
+    }
+
+
+    .dashboard-button,
+    .add-button {
+
+        flex: 1;
+
+        justify-content: center;
+
+    }
+
+
+    .list-card-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+
+    .pagination-wrapper {
+
+        flex-direction: column;
+
+    }
+
+
+    .pagination-info {
+
+        order: 2;
+
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .header-content {
+
+        align-items: flex-start;
+
+    }
+
+
+    .title-icon {
+
+        width: 52px;
+
+        height: 52px;
+
+        font-size: 22px;
+
+    }
+
+
+    .manifesto-title {
+
+        font-size: 25px;
+
+    }
+
+
+    .header-actions {
+
+        flex-direction: column;
+
+    }
+
+
+    .dashboard-button,
+    .add-button {
+
+        width: 100%;
+
+    }
+
+
+    .list-card-body {
+
+        padding: 17px;
+
+    }
+
+
+    .list-card-header {
+
+        padding: 19px;
+
+    }
+
+}
+
+</style>
+
+{% endblock %}

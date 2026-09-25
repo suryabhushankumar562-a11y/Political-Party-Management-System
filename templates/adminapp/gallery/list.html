@@ -1,0 +1,1708 @@
+{% extends "base.html" %}
+
+{% block title %}
+Gallery Management | Admin Panel
+{% endblock %}
+
+{% block content %}
+
+<div class="gallery-page">
+
+    <!-- =========================
+         HERO / HEADER
+    ========================== -->
+
+    <div class="gallery-hero">
+
+        <div class="container-fluid">
+
+            <div class="d-flex flex-column flex-lg-row
+                        justify-content-between
+                        align-items-lg-center
+                        gap-4">
+
+                <div>
+
+                    <div class="hero-badge">
+                        <i class="bi bi-images"></i>
+                        Content Management
+                    </div>
+
+                    <h1 class="gallery-title">
+                        Gallery Management
+                    </h1>
+
+                    <p class="gallery-subtitle">
+                        Upload, organize and manage images displayed
+                        across your party website.
+                    </p>
+
+                </div>
+
+
+                <div class="hero-actions">
+
+                    <a
+                        href="{% url 'admin_dashboard' %}"
+                        class="dashboard-btn"
+                    >
+                        <i class="bi bi-speedometer2"></i>
+                        Dashboard
+                    </a>
+
+                    <a
+                        href="{% url 'admin_gallery_add' %}"
+                        class="add-image-btn"
+                    >
+                        <i class="bi bi-plus-lg"></i>
+                        Add Image
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="container-fluid gallery-content">
+
+
+        <!-- =========================
+             STATISTICS
+        ========================== -->
+
+        <div class="row g-4 stats-row">
+
+            <!-- TOTAL -->
+
+            <div class="col-md-4">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon blue">
+                        <i class="bi bi-images"></i>
+                    </div>
+
+                    <div class="stat-info">
+
+                        <span>
+                            Total Images
+                        </span>
+
+                        <strong>
+                            {{ total_images }}
+                        </strong>
+
+                    </div>
+
+                    <div class="stat-decoration">
+                        <i class="bi bi-images"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PUBLISHED -->
+
+            <div class="col-md-4">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon green">
+                        <i class="bi bi-check-circle"></i>
+                    </div>
+
+                    <div class="stat-info">
+
+                        <span>
+                            Published Images
+                        </span>
+
+                        <strong class="green-text">
+                            {{ published_images }}
+                        </strong>
+
+                    </div>
+
+                    <div class="stat-decoration">
+                        <i class="bi bi-check-circle"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- DRAFT -->
+
+            <div class="col-md-4">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon gray">
+                        <i class="bi bi-eye-slash"></i>
+                    </div>
+
+                    <div class="stat-info">
+
+                        <span>
+                            Draft Images
+                        </span>
+
+                        <strong class="gray-text">
+                            {{ draft_images }}
+                        </strong>
+
+                    </div>
+
+                    <div class="stat-decoration">
+                        <i class="bi bi-eye-slash"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             GALLERY SECTION
+        ========================== -->
+
+        <div class="gallery-panel">
+
+
+            <!-- PANEL HEADER -->
+
+            <div class="gallery-panel-header">
+
+                <div>
+
+                    <div class="section-icon">
+                        <i class="bi bi-grid-3x3-gap"></i>
+                    </div>
+
+                    <div class="section-heading">
+
+                        <h4>
+                            Gallery Images
+                        </h4>
+
+                        <p>
+                            Latest uploaded images appear first.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="image-count">
+
+                    <i class="bi bi-collection"></i>
+
+                    {{ page_obj.paginator.count }}
+
+                    <span>
+                        Images
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================
+                 GALLERY GRID
+            ========================== -->
+
+            <div class="gallery-panel-body">
+
+                <div class="row g-4">
+
+                    {% for image in gallery_images %}
+
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+
+                        <div class="gallery-card">
+
+
+                            <!-- IMAGE -->
+
+                            <div class="gallery-image-wrapper">
+
+                                <img
+                                    src="{{ image.image.url }}"
+                                    alt="{{ image.title|default:'Gallery Image' }}"
+                                    class="gallery-image"
+                                >
+
+                                <!-- IMAGE OVERLAY -->
+
+                                <div class="image-overlay">
+
+                                    <span>
+                                        <i class="bi bi-image"></i>
+                                    </span>
+
+                                </div>
+
+
+                                <!-- STATUS -->
+
+                                <div class="image-status">
+
+                                    {% if image.published %}
+
+                                        <span class="status published">
+                                            <span class="status-dot"></span>
+                                            Published
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="status draft">
+                                            <span class="status-dot"></span>
+                                            Draft
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- CONTENT -->
+
+                            <div class="gallery-card-body">
+
+
+                                <!-- TITLE -->
+
+                                <h5 class="gallery-card-title">
+
+                                    {% if image.title %}
+
+                                        {{ image.title }}
+
+                                    {% else %}
+
+                                        Untitled Image
+
+                                    {% endif %}
+
+                                </h5>
+
+
+                                <!-- DESCRIPTION -->
+
+                                {% if image.description %}
+
+                                <p class="gallery-description">
+
+                                    {{ image.description|truncatechars:70 }}
+
+                                </p>
+
+                                {% else %}
+
+                                <p class="gallery-description empty-description">
+
+                                    No description available
+
+                                </p>
+
+                                {% endif %}
+
+
+
+                                <!-- DATE -->
+
+                                <div class="gallery-date">
+
+                                    <i class="bi bi-calendar3"></i>
+
+                                    {{ image.created_at|date:"d M Y" }}
+
+                                </div>
+
+
+
+                                <!-- ACTIONS -->
+
+                                <div class="gallery-actions">
+
+                                    <a
+                                        href="{% url 'admin_gallery_edit' image.pk %}"
+                                        class="edit-btn"
+                                    >
+
+                                        <i class="bi bi-pencil"></i>
+
+                                        Edit
+
+                                    </a>
+
+
+                                    <form
+                                        method="post"
+                                        action="{% url 'admin_gallery_delete' image.pk %}"
+                                        onsubmit="return confirm('Are you sure you want to delete this image?');"
+                                    >
+
+                                        {% csrf_token %}
+
+                                        <button
+                                            type="submit"
+                                            class="delete-btn"
+                                            title="Delete"
+                                        >
+
+                                            <i class="bi bi-trash3"></i>
+
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    {% empty %}
+
+                    <!-- =========================
+                         EMPTY STATE
+                    ========================== -->
+
+                    <div class="col-12">
+
+                        <div class="empty-gallery">
+
+                            <div class="empty-icon">
+
+                                <i class="bi bi-images"></i>
+
+                            </div>
+
+                            <h4>
+                                No Gallery Images
+                            </h4>
+
+                            <p>
+                                Your gallery is empty.
+                                Start by uploading your first image.
+                            </p>
+
+                            <a
+                                href="{% url 'admin_gallery_add' %}"
+                                class="add-image-btn empty-add-btn"
+                            >
+
+                                <i class="bi bi-plus-lg"></i>
+
+                                Add Your First Image
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================
+                 PAGINATION
+            ========================== -->
+
+            {% if is_paginated %}
+
+            <div class="gallery-pagination">
+
+                <nav>
+
+                    <ul class="pagination-custom">
+
+
+                        <!-- PREVIOUS -->
+
+                        {% if page_obj.has_previous %}
+
+                        <li>
+
+                            <a
+                                href="?page={{ page_obj.previous_page_number }}"
+                                class="pagination-arrow"
+                            >
+
+                                <i class="bi bi-chevron-left"></i>
+
+                            </a>
+
+                        </li>
+
+                        {% else %}
+
+                        <li>
+
+                            <span class="pagination-arrow disabled">
+
+                                <i class="bi bi-chevron-left"></i>
+
+                            </span>
+
+                        </li>
+
+                        {% endif %}
+
+
+
+                        <!-- PAGE NUMBERS -->
+
+                        {% for num in page_obj.paginator.page_range %}
+
+                            {% if page_obj.number == num %}
+
+                            <li>
+
+                                <span class="pagination-number active">
+                                    {{ num }}
+                                </span>
+
+                            </li>
+
+                            {% else %}
+
+                            <li>
+
+                                <a
+                                    href="?page={{ num }}"
+                                    class="pagination-number"
+                                >
+                                    {{ num }}
+                                </a>
+
+                            </li>
+
+                            {% endif %}
+
+                        {% endfor %}
+
+
+
+                        <!-- NEXT -->
+
+                        {% if page_obj.has_next %}
+
+                        <li>
+
+                            <a
+                                href="?page={{ page_obj.next_page_number }}"
+                                class="pagination-arrow"
+                            >
+
+                                <i class="bi bi-chevron-right"></i>
+
+                            </a>
+
+                        </li>
+
+                        {% else %}
+
+                        <li>
+
+                            <span class="pagination-arrow disabled">
+
+                                <i class="bi bi-chevron-right"></i>
+
+                            </span>
+
+                        </li>
+
+                        {% endif %}
+
+                    </ul>
+
+                </nav>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+
+{% block js %}
+
+<style>
+
+/* =========================================
+   GALLERY PAGE
+========================================= */
+
+.gallery-page {
+
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(13, 110, 253, 0.07),
+            transparent 30%
+        ),
+        #f6f8fc;
+
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.gallery-hero {
+
+    padding: 45px 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #f4f7ff 100%
+        );
+
+    border-bottom: 1px solid #e9edf5;
+
+}
+
+
+.hero-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 8px 14px;
+
+    border-radius: 30px;
+
+    background: rgba(13, 110, 253, 0.09);
+
+    color: #0d6efd;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: .7px;
+
+    margin-bottom: 12px;
+
+}
+
+
+.gallery-title {
+
+    margin: 0;
+
+    font-size: clamp(28px, 4vw, 42px);
+
+    font-weight: 800;
+
+    letter-spacing: -1px;
+
+    color: #182230;
+
+}
+
+
+.gallery-subtitle {
+
+    margin: 10px 0 0;
+
+    color: #6c757d;
+
+    max-width: 620px;
+
+    font-size: 15px;
+
+}
+
+
+.hero-actions {
+
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+}
+
+
+.dashboard-btn,
+.add-image-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 11px 18px;
+
+    border-radius: 12px;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition: all .25s ease;
+
+}
+
+
+.dashboard-btn {
+
+    color: #0d6efd;
+
+    border: 1px solid #bcd3ff;
+
+    background: #fff;
+
+}
+
+
+.dashboard-btn:hover {
+
+    background: #eef5ff;
+
+    transform: translateY(-2px);
+
+}
+
+
+.add-image-btn {
+
+    color: #fff;
+
+    background: linear-gradient(
+        135deg,
+        #0d6efd,
+        #4d8dff
+    );
+
+    border: none;
+
+    box-shadow: 0 8px 20px rgba(13,110,253,.20);
+
+}
+
+
+.add-image-btn:hover {
+
+    color: #fff;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 12px 25px rgba(13,110,253,.28);
+
+}
+
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.gallery-content {
+
+    padding-top: 32px;
+
+    padding-bottom: 50px;
+
+}
+
+
+
+/* =========================================
+   STATISTICS
+========================================= */
+
+.stats-row {
+
+    margin-bottom: 28px;
+
+}
+
+
+.stat-card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    min-height: 130px;
+
+    padding: 24px;
+
+    background: #fff;
+
+    border: 1px solid #edf0f5;
+
+    border-radius: 18px;
+
+    box-shadow: 0 8px 30px rgba(28, 39, 60, .06);
+
+    transition: transform .25s ease,
+                box-shadow .25s ease;
+
+}
+
+
+.stat-card:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow: 0 15px 35px rgba(28, 39, 60, .10);
+
+}
+
+
+.stat-icon {
+
+    width: 56px;
+
+    height: 56px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 15px;
+
+    font-size: 24px;
+
+}
+
+
+.stat-icon.blue {
+
+    color: #0d6efd;
+
+    background: #eaf2ff;
+
+}
+
+
+.stat-icon.green {
+
+    color: #198754;
+
+    background: #e8f7ef;
+
+}
+
+
+.stat-icon.gray {
+
+    color: #6c757d;
+
+    background: #f0f1f3;
+
+}
+
+
+.stat-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+
+}
+
+
+.stat-info span {
+
+    color: #7a8492;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+}
+
+
+.stat-info strong {
+
+    color: #202936;
+
+    font-size: 29px;
+
+    line-height: 1;
+
+}
+
+
+.green-text {
+
+    color: #198754 !important;
+
+}
+
+
+.gray-text {
+
+    color: #6c757d !important;
+
+}
+
+
+.stat-decoration {
+
+    position: absolute;
+
+    right: -12px;
+
+    bottom: -22px;
+
+    font-size: 85px;
+
+    opacity: .035;
+
+}
+
+
+
+/* =========================================
+   GALLERY PANEL
+========================================= */
+
+.gallery-panel {
+
+    overflow: hidden;
+
+    background: #fff;
+
+    border: 1px solid #edf0f5;
+
+    border-radius: 20px;
+
+    box-shadow: 0 10px 35px rgba(28, 39, 60, .07);
+
+}
+
+
+.gallery-panel-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 24px 26px;
+
+    border-bottom: 1px solid #edf0f5;
+
+}
+
+
+.gallery-panel-header > div:first-child {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+}
+
+
+.section-icon {
+
+    width: 45px;
+
+    height: 45px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background: #edf4ff;
+
+    color: #0d6efd;
+
+    font-size: 20px;
+
+}
+
+
+.section-heading h4 {
+
+    margin: 0;
+
+    font-size: 19px;
+
+    font-weight: 750;
+
+    color: #202936;
+
+}
+
+
+.section-heading p {
+
+    margin: 3px 0 0;
+
+    color: #8a93a0;
+
+    font-size: 13px;
+
+}
+
+
+.image-count {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 8px 13px;
+
+    border-radius: 30px;
+
+    background: #edf4ff;
+
+    color: #0d6efd;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+
+.image-count span {
+
+    font-weight: 500;
+
+}
+
+
+
+/* =========================================
+   GALLERY GRID
+========================================= */
+
+.gallery-panel-body {
+
+    padding: 26px;
+
+}
+
+
+.gallery-card {
+
+    height: 100%;
+
+    overflow: hidden;
+
+    background: #fff;
+
+    border: 1px solid #e9edf3;
+
+    border-radius: 17px;
+
+    box-shadow: 0 5px 18px rgba(20, 30, 50, .055);
+
+    transition: transform .3s ease,
+                box-shadow .3s ease;
+
+}
+
+
+.gallery-card:hover {
+
+    transform: translateY(-6px);
+
+    box-shadow: 0 16px 35px rgba(20, 30, 50, .12);
+
+}
+
+
+
+/* =========================================
+   IMAGE
+========================================= */
+
+.gallery-image-wrapper {
+
+    position: relative;
+
+    height: 205px;
+
+    overflow: hidden;
+
+    background: #edf0f4;
+
+}
+
+
+.gallery-image {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition:
+        transform .45s ease,
+        filter .35s ease;
+
+}
+
+
+.gallery-card:hover .gallery-image {
+
+    transform: scale(1.07);
+
+    filter: brightness(.82);
+
+}
+
+
+.image-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    opacity: 0;
+
+    transition: opacity .3s ease;
+
+    background: rgba(0, 0, 0, .15);
+
+}
+
+
+.gallery-card:hover .image-overlay {
+
+    opacity: 1;
+
+}
+
+
+.image-overlay span {
+
+    width: 48px;
+
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    color: #fff;
+
+    background: rgba(255,255,255,.20);
+
+    backdrop-filter: blur(8px);
+
+    border: 1px solid rgba(255,255,255,.35);
+
+    font-size: 20px;
+
+}
+
+
+.image-status {
+
+    position: absolute;
+
+    top: 12px;
+
+    right: 12px;
+
+}
+
+
+.status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 6px 10px;
+
+    border-radius: 30px;
+
+    background: rgba(255,255,255,.94);
+
+    backdrop-filter: blur(8px);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,.10);
+
+}
+
+
+.status-dot {
+
+    width: 7px;
+
+    height: 7px;
+
+    border-radius: 50%;
+
+    display: inline-block;
+
+}
+
+
+.status.published {
+
+    color: #198754;
+
+}
+
+
+.status.published .status-dot {
+
+    background: #198754;
+
+}
+
+
+.status.draft {
+
+    color: #6c757d;
+
+}
+
+
+.status.draft .status-dot {
+
+    background: #6c757d;
+
+}
+
+
+
+/* =========================================
+   CARD CONTENT
+========================================= */
+
+.gallery-card-body {
+
+    padding: 18px;
+
+}
+
+
+.gallery-card-title {
+
+    overflow: hidden;
+
+    margin: 0 0 8px;
+
+    color: #202936;
+
+    font-size: 16px;
+
+    font-weight: 750;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+
+}
+
+
+.gallery-description {
+
+    min-height: 38px;
+
+    margin: 0 0 13px;
+
+    color: #737d8b;
+
+    font-size: 13px;
+
+    line-height: 1.55;
+
+}
+
+
+.empty-description {
+
+    opacity: .65;
+
+    font-style: italic;
+
+}
+
+
+.gallery-date {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    margin-bottom: 15px;
+
+    color: #8a93a0;
+
+    font-size: 12px;
+
+}
+
+
+.gallery-date i {
+
+    color: #0d6efd;
+
+}
+
+
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.gallery-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+
+.gallery-actions form {
+
+    margin: 0;
+
+}
+
+
+.edit-btn,
+.delete-btn {
+
+    height: 36px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+
+    font-weight: 650;
+
+    transition: all .2s ease;
+
+}
+
+
+.edit-btn {
+
+    flex: 1;
+
+    gap: 6px;
+
+    color: #0d6efd;
+
+    text-decoration: none;
+
+    border: 1px solid #cfe0ff;
+
+    background: #f7faff;
+
+}
+
+
+.edit-btn:hover {
+
+    color: #fff;
+
+    background: #0d6efd;
+
+    border-color: #0d6efd;
+
+}
+
+
+.delete-btn {
+
+    width: 38px;
+
+    color: #dc3545;
+
+    border: 1px solid #f2c5ca;
+
+    background: #fff7f8;
+
+}
+
+
+.delete-btn:hover {
+
+    color: #fff;
+
+    background: #dc3545;
+
+    border-color: #dc3545;
+
+}
+
+
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.empty-gallery {
+
+    padding: 70px 20px;
+
+    text-align: center;
+
+}
+
+
+.empty-icon {
+
+    width: 85px;
+
+    height: 85px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 24px;
+
+    color: #0d6efd;
+
+    background: #edf4ff;
+
+    font-size: 38px;
+
+}
+
+
+.empty-gallery h4 {
+
+    margin-bottom: 8px;
+
+    font-weight: 750;
+
+    color: #202936;
+
+}
+
+
+.empty-gallery p {
+
+    margin-bottom: 22px;
+
+    color: #7d8794;
+
+}
+
+
+.empty-add-btn {
+
+    display: inline-flex;
+
+}
+
+
+
+/* =========================================
+   PAGINATION
+========================================= */
+
+.gallery-pagination {
+
+    display: flex;
+
+    justify-content: center;
+
+    padding: 22px 26px;
+
+    border-top: 1px solid #edf0f5;
+
+}
+
+
+.pagination-custom {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin: 0;
+
+    padding: 0;
+
+    list-style: none;
+
+}
+
+
+.pagination-number,
+.pagination-arrow {
+
+    width: 38px;
+
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 10px;
+
+    color: #596575;
+
+    text-decoration: none;
+
+    background: #fff;
+
+    border: 1px solid #e3e7ed;
+
+    font-size: 13px;
+
+    font-weight: 650;
+
+    transition: all .2s ease;
+
+}
+
+
+.pagination-number:hover,
+.pagination-arrow:hover {
+
+    color: #0d6efd;
+
+    border-color: #bcd3ff;
+
+    background: #f3f7ff;
+
+}
+
+
+.pagination-number.active {
+
+    color: #fff;
+
+    background: #0d6efd;
+
+    border-color: #0d6efd;
+
+    box-shadow: 0 5px 14px rgba(13,110,253,.22);
+
+}
+
+
+.pagination-arrow.disabled {
+
+    opacity: .4;
+
+    cursor: not-allowed;
+
+}
+
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 767px) {
+
+    .gallery-hero {
+
+        padding: 30px 0;
+
+    }
+
+
+    .gallery-content {
+
+        padding-top: 22px;
+
+    }
+
+
+    .hero-actions {
+
+        width: 100%;
+
+    }
+
+
+    .dashboard-btn,
+    .add-image-btn {
+
+        flex: 1;
+
+    }
+
+
+    .gallery-panel-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        padding: 20px;
+
+    }
+
+
+    .gallery-panel-body {
+
+        padding: 18px;
+
+    }
+
+
+    .gallery-image-wrapper {
+
+        height: 220px;
+
+    }
+
+}
+
+
+@media (max-width: 420px) {
+
+    .gallery-title {
+
+        font-size: 29px;
+
+    }
+
+
+    .dashboard-btn,
+    .add-image-btn {
+
+        width: 100%;
+
+        flex: unset;
+
+    }
+
+
+    .hero-actions {
+
+        flex-direction: column;
+
+    }
+
+
+    .pagination-number,
+    .pagination-arrow {
+
+        width: 34px;
+
+        height: 34px;
+
+    }
+
+}
+
+</style>
+
+{% endblock %}

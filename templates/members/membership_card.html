@@ -1,0 +1,1071 @@
+{% extends "base.html" %}
+
+{% block title %}
+Membership Card | Nav Bharat Party
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   MEMBERSHIP CARD PAGE
+   ========================================================= */
+
+.membership-page {
+    min-height: calc(100vh - 120px);
+    padding: 65px 20px 80px;
+
+    background:
+        radial-gradient(
+            circle at 10% 15%,
+            rgba(13,110,253,.10),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 85%,
+            rgba(255,193,7,.10),
+            transparent 30%
+        ),
+        #f6f8fb;
+
+    overflow: hidden;
+}
+
+
+/* Page heading */
+
+.membership-heading {
+    animation: headingIn .7s cubic-bezier(.22,1,.36,1);
+}
+
+
+.membership-heading h2 {
+    font-weight: 800;
+    letter-spacing: -.5px;
+}
+
+
+.membership-heading p {
+    color: #6c757d;
+}
+
+
+@keyframes headingIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.membership-card {
+    width: min(900px, 100%);
+    margin: 35px auto 0;
+
+    position: relative;
+    overflow: hidden;
+
+    border-radius: 26px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #f8fbff 100%
+        );
+
+    border: 1px solid rgba(255,255,255,.9);
+
+    box-shadow:
+        0 30px 70px rgba(15,23,42,.14),
+        0 8px 25px rgba(15,23,42,.06);
+
+    animation:
+        cardEnter .9s cubic-bezier(.22,1,.36,1);
+
+    transition:
+        transform .45s ease,
+        box-shadow .45s ease;
+}
+
+
+.membership-card:hover {
+
+    transform: translateY(-7px) rotateX(1deg);
+
+    box-shadow:
+        0 38px 85px rgba(15,23,42,.18),
+        0 12px 35px rgba(15,23,42,.08);
+}
+
+
+@keyframes cardEnter {
+
+    0% {
+        opacity: 0;
+        transform:
+            translateY(70px)
+            scale(.92)
+            rotateX(8deg);
+    }
+
+    70% {
+        opacity: 1;
+        transform:
+            translateY(-5px)
+            scale(1.01);
+    }
+
+    100% {
+        opacity: 1;
+        transform:
+            translateY(0)
+            scale(1)
+            rotateX(0);
+    }
+
+}
+
+
+/* Decorative circles */
+
+.membership-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 280px;
+    height: 280px;
+
+    border-radius: 50%;
+
+    background: rgba(13,110,253,.055);
+
+    top: -170px;
+    right: -80px;
+
+    pointer-events: none;
+
+}
+
+
+.membership-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    border-radius: 50%;
+
+    background: rgba(255,193,7,.06);
+
+    bottom: -100px;
+    left: -60px;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.membership-card-header {
+
+    position: relative;
+    z-index: 2;
+
+    padding: 25px 32px;
+
+    color: white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            120deg,
+            #071f4f,
+            #0d6efd,
+            #0755c9
+        );
+
+    background-size: 200% 200%;
+
+    animation: gradientMove 7s ease infinite;
+}
+
+
+@keyframes gradientMove {
+
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+
+}
+
+
+.membership-card-header::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 400px;
+    height: 400px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    right: -170px;
+    top: -260px;
+
+}
+
+
+.party-name {
+
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+
+.card-title {
+
+    margin-top: 3px;
+
+    font-size: .72rem;
+    letter-spacing: 2px;
+
+    opacity: .75;
+}
+
+
+/* Verified */
+
+.verified-badge {
+
+    position: relative;
+    z-index: 3;
+
+    padding: 8px 13px;
+
+    border-radius: 999px;
+
+    background: rgba(255,255,255,.14);
+
+    border: 1px solid rgba(255,255,255,.25);
+
+    font-size: .75rem;
+    font-weight: 800;
+    letter-spacing: .5px;
+
+    backdrop-filter: blur(8px);
+
+    animation: verifiedPulse 2.5s ease-in-out infinite;
+}
+
+
+@keyframes verifiedPulse {
+
+    0%, 100% {
+        box-shadow: 0 0 0 rgba(255,255,255,0);
+    }
+
+    50% {
+        box-shadow:
+            0 0 0 6px rgba(255,255,255,.05);
+    }
+
+}
+
+
+/* =========================================================
+   BODY
+   ========================================================= */
+
+.membership-card-body {
+
+    position: relative;
+    z-index: 2;
+
+    padding: 40px 42px;
+
+    display: grid;
+
+    grid-template-columns: 1fr auto;
+
+    gap: 40px;
+
+    align-items: center;
+}
+
+
+/* Member details */
+
+.member-details {
+
+    animation: detailsIn 1s .25s both;
+}
+
+
+@keyframes detailsIn {
+
+    from {
+        opacity: 0;
+        transform: translateX(-25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+}
+
+
+.member-name {
+
+    font-size: 2rem;
+
+    font-weight: 800;
+
+    color: #17202a;
+
+    margin-bottom: 25px;
+
+    letter-spacing: -.7px;
+}
+
+
+.detail-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 25px;
+
+    max-width: 560px;
+
+    padding: 13px 0;
+
+    border-bottom: 1px solid #edf0f3;
+
+    transition:
+        padding-left .25s ease,
+        background .25s ease;
+}
+
+
+.detail-row:hover {
+
+    padding-left: 8px;
+
+}
+
+
+.detail-row span {
+
+    color: #7a858e;
+
+    font-size: .9rem;
+
+}
+
+
+.detail-row strong {
+
+    color: #263238;
+
+    font-size: .95rem;
+
+}
+
+
+.status-approved {
+
+    color: #198754 !important;
+
+}
+
+
+/* =========================================================
+   QR
+   ========================================================= */
+
+.qr-section {
+
+    min-width: 175px;
+
+    padding: 18px;
+
+    border-radius: 20px;
+
+    background: #fff;
+
+    border: 1px solid #e9edf2;
+
+    box-shadow:
+        0 12px 30px rgba(15,23,42,.08);
+
+    text-align: center;
+
+    animation: qrIn 1s .45s both;
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease;
+}
+
+
+.qr-section:hover {
+
+    transform: translateY(-5px) scale(1.02);
+
+    box-shadow:
+        0 18px 38px rgba(15,23,42,.12);
+}
+
+
+@keyframes qrIn {
+
+    from {
+        opacity: 0;
+        transform: translateX(30px) scale(.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+
+}
+
+
+.membership-qr {
+
+    width: 135px;
+    height: 135px;
+
+    display: block;
+
+    margin: auto;
+
+    object-fit: contain;
+
+}
+
+
+.qr-label {
+
+    display: block;
+
+    margin-top: 10px;
+
+    font-size: .65rem;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    color: #6c757d;
+}
+
+
+.qr-missing {
+
+    min-height: 135px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: .8rem;
+
+    color: #6c757d;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.membership-card-footer {
+
+    position: relative;
+    z-index: 2;
+
+    padding: 15px 32px;
+
+    border-top: 1px solid #e9edf2;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: .75rem;
+
+    font-weight: 600;
+
+    color: #7a858e;
+
+    background: rgba(248,250,252,.8);
+}
+
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.membership-actions {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 28px;
+
+    animation: actionsIn .8s .55s both;
+}
+
+
+@keyframes actionsIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+.membership-actions .btn {
+
+    border-radius: 12px;
+
+    padding: 11px 20px;
+
+    font-weight: 650;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+
+.membership-actions .btn:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 22px rgba(15,23,42,.12);
+}
+
+
+/* =========================================================
+   NOT APPROVED
+   ========================================================= */
+
+.membership-warning {
+
+    max-width: 650px;
+
+    margin: 50px auto;
+
+    padding: 35px;
+
+    border: 0;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 20px 50px rgba(15,23,42,.08);
+
+    animation: cardEnter .7s ease;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .membership-page {
+
+        padding: 45px 15px 60px;
+
+    }
+
+
+    .membership-card {
+
+        border-radius: 20px;
+
+    }
+
+
+    .membership-card-header {
+
+        padding: 22px;
+
+    }
+
+
+    .party-name {
+
+        font-size: 1.1rem;
+
+    }
+
+
+    .card-title {
+
+        font-size: .58rem;
+
+    }
+
+
+    .verified-badge {
+
+        font-size: .65rem;
+
+        padding: 7px 9px;
+
+    }
+
+
+    .membership-card-body {
+
+        grid-template-columns: 1fr;
+
+        padding: 30px 24px;
+
+        gap: 25px;
+
+    }
+
+
+    .member-name {
+
+        font-size: 1.5rem;
+
+        margin-bottom: 18px;
+
+    }
+
+
+    .detail-row {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 4px;
+
+    }
+
+
+    .qr-section {
+
+        width: 190px;
+
+        margin: auto;
+
+    }
+
+
+    .membership-card-footer {
+
+        padding: 14px 20px;
+
+        font-size: .68rem;
+
+    }
+
+
+    .membership-actions {
+
+        flex-direction: column;
+
+    }
+
+
+    .membership-actions .btn {
+
+        width: min(300px, 100%);
+
+    }
+
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+
+    }
+
+}
+
+
+/* =========================================================
+   PRINT
+   ========================================================= */
+
+@media print {
+
+    body {
+
+        background: #fff !important;
+
+    }
+
+
+    .no-print {
+
+        display: none !important;
+
+    }
+
+
+    .membership-page {
+
+        min-height: auto;
+
+        padding: 0;
+
+        background: #fff !important;
+
+    }
+
+
+    .membership-card {
+
+        width: 900px;
+
+        max-width: 100%;
+
+        margin: 0 auto;
+
+        box-shadow: none !important;
+
+        border: 1px solid #ddd;
+
+        transform: none !important;
+
+        animation: none !important;
+
+    }
+
+
+    .membership-card-header {
+
+        animation: none !important;
+
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+
+    }
+
+
+    .membership-card::before,
+    .membership-card::after {
+
+        display: none;
+
+    }
+
+}
+
+</style>
+
+
+<div class="membership-page">
+
+
+    <!-- PAGE TITLE -->
+
+    <div class="text-center mb-4 no-print membership-heading">
+
+        <h2 class="fw-bold">
+            Digital Membership Card
+        </h2>
+
+        <p class="mb-0">
+            Your official Nav Bharat Party membership card
+        </p>
+
+    </div>
+
+
+    {% if member.membership_status == "APPROVED" %}
+
+
+    <!-- =====================================================
+         MEMBERSHIP CARD
+         ===================================================== -->
+
+    <div class="membership-card">
+
+
+        <!-- HEADER -->
+
+        <div class="membership-card-header">
+
+            <div>
+
+                <div class="party-name">
+                    NAV BHARAT PARTY
+                </div>
+
+                <div class="card-title">
+                    DIGITAL MEMBERSHIP CARD
+                </div>
+
+            </div>
+
+
+            <div class="verified-badge">
+                ✓ VERIFIED
+            </div>
+
+        </div>
+
+
+        <!-- BODY -->
+
+        <div class="membership-card-body">
+
+
+            <!-- DETAILS -->
+
+            <div class="member-details">
+
+                <div class="member-name">
+
+                    {% if member.user.get_full_name %}
+
+                        {{ member.user.get_full_name }}
+
+                    {% else %}
+
+                        {{ member.user.username }}
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <span>
+                        Membership ID
+                    </span>
+
+                    <strong>
+                        {{ member.membership_id }}
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <span>
+                        Joining Date
+                    </span>
+
+                    <strong>
+                        {{ member.joining_date|date:"d M Y" }}
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <span>
+                        Status
+                    </span>
+
+                    <strong class="status-approved">
+                        APPROVED
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- QR -->
+
+            <div class="qr-section">
+
+                {% if member.qr_code %}
+
+                    <img
+                        src="{{ member.qr_code.url }}"
+                        alt="Membership Verification QR Code"
+                        class="membership-qr"
+                    >
+
+                    <small class="qr-label">
+                        SCAN TO VERIFY
+                    </small>
+
+                {% else %}
+
+                    <div class="qr-missing">
+                        QR Code unavailable
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <div class="membership-card-footer">
+
+            <span>
+                Official Membership
+            </span>
+
+            <span>
+                Nav Bharat Party
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         ACTION BUTTONS
+         ===================================================== -->
+
+    <div class="membership-actions no-print">
+
+        <button
+            type="button"
+            onclick="window.print()"
+            class="btn btn-primary"
+        >
+
+            <i class="bi bi-printer me-2"></i>
+
+            Print Membership Card
+
+        </button>
+
+
+        {% if member.qr_code %}
+
+            <a
+                href="{{ member.qr_code.url }}"
+                target="_blank"
+                class="btn btn-outline-dark"
+            >
+
+                <i class="bi bi-qr-code me-2"></i>
+
+                View QR Code
+
+            </a>
+
+        {% endif %}
+
+    </div>
+
+
+    {% else %}
+
+
+    <!-- =====================================================
+         NOT APPROVED
+         ===================================================== -->
+
+    <div class="alert alert-warning text-center no-print membership-warning">
+
+        <div class="mb-3">
+
+            <i
+                class="bi bi-shield-lock"
+                style="font-size: 42px;"
+            ></i>
+
+        </div>
+
+        <h5 class="fw-bold">
+            Membership Card Unavailable
+        </h5>
+
+        <p class="mb-0">
+
+            Your membership must be approved before
+            a digital membership card can be issued.
+
+        </p>
+
+    </div>
+
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

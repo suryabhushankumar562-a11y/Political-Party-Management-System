@@ -1,0 +1,1104 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}
+About Us | Nav Bharat Party
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   ABOUT PAGE
+   ========================================================= */
+
+.about-page {
+    --about-blue: #123b7a;
+    --about-blue-dark: #092956;
+    --about-gold: #f4b400;
+    --about-light: #f7f9fc;
+    --about-border: rgba(18, 59, 122, .10);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.about-hero {
+    position: relative;
+    padding: 85px 25px 75px;
+    text-align: center;
+    border-radius: 0 0 40px 40px;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(244,180,0,.13),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(18,59,122,.10),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f4f7fc
+        );
+
+    animation: aboutHeroReveal .8s ease both;
+}
+
+
+/* Decorative circles */
+
+.about-hero::before,
+.about-hero::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.about-hero::before {
+    width: 260px;
+    height: 260px;
+    top: -150px;
+    left: -90px;
+    background: rgba(244,180,0,.08);
+    animation: aboutFloat 7s ease-in-out infinite;
+}
+
+.about-hero::after {
+    width: 320px;
+    height: 320px;
+    right: -160px;
+    bottom: -180px;
+    background: rgba(18,59,122,.07);
+    animation: aboutFloatReverse 8s ease-in-out infinite;
+}
+
+
+.about-badge {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 9px 18px;
+
+    color: var(--about-blue);
+    background: rgba(18,59,122,.07);
+
+    border: 1px solid rgba(18,59,122,.10);
+    border-radius: 50px;
+
+    font-size: .82rem;
+    font-weight: 700;
+    letter-spacing: .5px;
+
+    animation: fadeUp .7s ease both;
+}
+
+
+.about-badge::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--about-gold);
+    box-shadow: 0 0 0 5px rgba(244,180,0,.12);
+}
+
+
+.about-hero h1 {
+    position: relative;
+
+    margin-top: 24px;
+    margin-bottom: 18px;
+
+    color: var(--about-blue-dark);
+
+    font-size: clamp(2.3rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -1.5px;
+
+    animation: fadeUp .8s ease .1s both;
+}
+
+
+.about-hero h1 span {
+    color: var(--about-blue);
+}
+
+
+.about-hero-description {
+    max-width: 780px;
+    margin: auto;
+
+    color: #667085;
+
+    font-size: 1.08rem;
+    line-height: 1.8;
+
+    animation: fadeUp .8s ease .2s both;
+}
+
+
+/* Gold separator */
+
+.about-divider {
+    width: 75px;
+    height: 4px;
+
+    margin: 27px auto 0;
+
+    background: var(--about-gold);
+    border-radius: 20px;
+
+    animation:
+        dividerGrow .8s ease .35s both,
+        dividerGlow 2.5s ease-in-out 1.2s infinite;
+}
+
+
+/* =========================================================
+   SECTION HEADINGS
+   ========================================================= */
+
+.about-section {
+    padding: 75px 0 20px;
+}
+
+
+.about-section-heading {
+    margin-bottom: 42px;
+}
+
+
+.about-section-heading .eyebrow {
+    display: inline-block;
+
+    margin-bottom: 10px;
+
+    color: var(--about-gold);
+
+    font-size: .78rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+
+.about-section-heading h2 {
+    margin-bottom: 10px;
+
+    color: var(--about-blue-dark);
+
+    font-size: clamp(1.9rem, 4vw, 2.7rem);
+    font-weight: 800;
+}
+
+
+.about-section-heading p {
+    max-width: 650px;
+    margin: auto;
+
+    color: #6b7280;
+}
+
+
+/* =========================================================
+   ABOUT CARDS
+   ========================================================= */
+
+.about-info-card {
+    position: relative;
+
+    height: 100%;
+
+    padding: 38px;
+
+    background: #ffffff;
+
+    border: 1px solid var(--about-border);
+    border-radius: 22px;
+
+    box-shadow: 0 10px 35px rgba(18,59,122,.07);
+
+    overflow: hidden;
+
+    transition:
+        transform .5s cubic-bezier(.2,.8,.2,1),
+        box-shadow .5s ease,
+        border-color .35s ease;
+
+    animation: cardReveal .75s ease both;
+}
+
+
+.about-info-card:nth-child(2) {
+    animation-delay: .14s;
+}
+
+
+/* Top accent */
+
+.about-info-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 4px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--about-blue),
+            var(--about-gold)
+        );
+
+    transform: scaleX(0);
+    transform-origin: left;
+
+    transition: transform .5s ease;
+}
+
+
+/* Shine */
+
+.about-info-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    right: -100px;
+    bottom: -100px;
+
+    border-radius: 50%;
+
+    background: rgba(244,180,0,.08);
+
+    transition:
+        transform .5s ease,
+        opacity .5s ease;
+}
+
+
+.about-info-card:hover {
+    transform: translateY(-10px);
+
+    border-color: rgba(244,180,0,.25);
+
+    box-shadow:
+        0 25px 55px rgba(18,59,122,.13),
+        0 0 30px rgba(244,180,0,.06);
+}
+
+
+.about-info-card:hover::before {
+    transform: scaleX(1);
+}
+
+
+.about-info-card:hover::after {
+    transform: scale(1.5);
+}
+
+
+.about-card-icon {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 58px;
+    height: 58px;
+
+    margin-bottom: 22px;
+
+    color: var(--about-blue);
+
+    background: rgba(18,59,122,.07);
+
+    border-radius: 16px;
+
+    font-size: 1.5rem;
+
+    transition:
+        transform .4s ease,
+        background .4s ease,
+        color .4s ease;
+}
+
+
+.about-info-card:hover .about-card-icon {
+    transform: rotate(-5deg) scale(1.08);
+
+    color: #ffffff;
+
+    background: var(--about-blue);
+}
+
+
+.about-info-card h3 {
+    position: relative;
+    z-index: 1;
+
+    margin-bottom: 15px;
+
+    color: var(--about-blue-dark);
+
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+
+.about-info-card p {
+    position: relative;
+    z-index: 1;
+
+    margin-bottom: 12px;
+
+    color: #667085;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   VISION / MISSION / VALUES
+   ========================================================= */
+
+.about-values-section {
+    padding: 70px 0;
+}
+
+
+.value-card {
+    position: relative;
+
+    height: 100%;
+
+    padding: 35px 28px;
+
+    text-align: center;
+
+    background: #ffffff;
+
+    border: 1px solid var(--about-border);
+    border-radius: 22px;
+
+    box-shadow: 0 8px 30px rgba(18,59,122,.06);
+
+    overflow: hidden;
+
+    transition:
+        transform .45s cubic-bezier(.2,.8,.2,1),
+        box-shadow .45s ease,
+        border-color .35s ease;
+
+    animation: cardReveal .7s ease both;
+}
+
+
+.value-card:nth-child(1) {
+    animation-delay: .05s;
+}
+
+.value-card:nth-child(2) {
+    animation-delay: .15s;
+}
+
+.value-card:nth-child(3) {
+    animation-delay: .25s;
+}
+
+
+/* Bottom light */
+
+.value-card::after {
+    content: "";
+
+    position: absolute;
+
+    left: 15%;
+    right: 15%;
+    bottom: -35px;
+
+    height: 60px;
+
+    background: rgba(244,180,0,.18);
+
+    filter: blur(25px);
+
+    opacity: 0;
+
+    transition: opacity .45s ease;
+}
+
+
+.value-card:hover {
+    transform: translateY(-11px);
+
+    border-color: rgba(244,180,0,.30);
+
+    box-shadow:
+        0 25px 55px rgba(18,59,122,.13);
+}
+
+
+.value-card:hover::after {
+    opacity: 1;
+}
+
+
+.value-icon {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 75px;
+    height: 75px;
+
+    margin: 0 auto 22px;
+
+    border-radius: 22px;
+
+    font-size: 2rem;
+
+    transition:
+        transform .45s ease,
+        box-shadow .45s ease;
+}
+
+
+.value-card:hover .value-icon {
+    transform: translateY(-4px) scale(1.08);
+}
+
+
+.value-icon-blue {
+    color: var(--about-blue);
+    background: rgba(18,59,122,.08);
+}
+
+
+.value-icon-green {
+    color: #198754;
+    background: rgba(25,135,84,.08);
+}
+
+
+.value-icon-gold {
+    color: #c58b00;
+    background: rgba(244,180,0,.12);
+}
+
+
+.value-card h4 {
+    margin-bottom: 13px;
+
+    color: var(--about-blue-dark);
+
+    font-weight: 800;
+}
+
+
+.value-card p {
+    margin-bottom: 0;
+
+    color: #667085;
+
+    line-height: 1.75;
+}
+
+
+/* =========================================================
+   JOIN CTA
+   ========================================================= */
+
+.about-join {
+    position: relative;
+
+    margin-top: 35px;
+    margin-bottom: 35px;
+
+    padding: 65px 30px;
+
+    text-align: center;
+
+    color: #ffffff;
+
+    border-radius: 28px;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(244,180,0,.18),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(255,255,255,.08),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #123b7a,
+            #092956
+        );
+
+    box-shadow: 0 25px 60px rgba(18,59,122,.20);
+
+    animation: cardReveal .8s ease .25s both;
+}
+
+
+.about-join::before {
+    content: "";
+
+    position: absolute;
+
+    width: 250px;
+    height: 250px;
+
+    top: -150px;
+    right: -80px;
+
+    border: 1px solid rgba(244,180,0,.25);
+
+    border-radius: 50%;
+
+    animation: aboutFloat 8s ease-in-out infinite;
+}
+
+
+.about-join::after {
+    content: "";
+
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    bottom: -70px;
+    left: 10%;
+
+    border: 1px solid rgba(255,255,255,.10);
+
+    border-radius: 50%;
+}
+
+
+.about-join-content {
+    position: relative;
+    z-index: 2;
+}
+
+
+.about-join h2 {
+    margin-bottom: 15px;
+
+    font-size: clamp(1.8rem, 4vw, 2.7rem);
+    font-weight: 800;
+}
+
+
+.about-join p {
+    max-width: 650px;
+
+    margin: 0 auto 28px;
+
+    color: rgba(255,255,255,.82);
+
+    line-height: 1.8;
+}
+
+
+.about-join .join-btn {
+    position: relative;
+
+    padding: 13px 30px;
+
+    color: var(--about-blue-dark);
+
+    background: #ffffff;
+
+    border: none;
+    border-radius: 50px;
+
+    font-weight: 800;
+
+    box-shadow: 0 10px 25px rgba(0,0,0,.15);
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease,
+        background .35s ease;
+}
+
+
+.about-join .join-btn:hover {
+    transform: translateY(-4px);
+
+    color: #ffffff;
+
+    background: var(--about-gold);
+
+    box-shadow:
+        0 15px 30px rgba(0,0,0,.20);
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes aboutHeroReveal {
+
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+@keyframes cardReveal {
+
+    from {
+        opacity: 0;
+        transform: translateY(35px) scale(.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+
+@keyframes dividerGrow {
+
+    from {
+        width: 0;
+        opacity: 0;
+    }
+
+    to {
+        width: 75px;
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes dividerGlow {
+
+    0%, 100% {
+        box-shadow: 0 0 0 rgba(244,180,0,0);
+    }
+
+    50% {
+        box-shadow: 0 0 18px rgba(244,180,0,.35);
+    }
+
+}
+
+
+@keyframes aboutFloat {
+
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(18px, 15px);
+    }
+
+}
+
+
+@keyframes aboutFloatReverse {
+
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(-15px, -18px);
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .about-hero {
+        padding: 60px 18px 55px;
+        border-radius: 0 0 28px 28px;
+    }
+
+
+    .about-hero h1 {
+        letter-spacing: -.7px;
+    }
+
+
+    .about-section {
+        padding-top: 55px;
+    }
+
+
+    .about-info-card {
+        padding: 28px;
+    }
+
+
+    .value-card {
+        padding: 30px 22px;
+    }
+
+
+    .about-join {
+        padding: 50px 22px;
+        border-radius: 22px;
+    }
+
+
+    .about-info-card:hover,
+    .value-card:hover {
+        transform: translateY(-6px);
+    }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .about-page *,
+    .about-page *::before,
+    .about-page *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+
+}
+
+</style>
+
+
+{% load i18n %}
+
+<div class="about-page">
+
+    <!-- HERO -->
+
+    <section class="about-hero">
+
+        <div class="container">
+
+            <span class="about-badge">
+                {% trans "About Nav Bharat Party" %}
+            </span>
+
+
+            <h1>
+                {% trans "Building a Better" %}
+                <span>{% trans "Bharat Together" %}</span>
+            </h1>
+
+
+            <p class="about-hero-description">
+
+                {% trans "Nav Bharat Party is committed to serving citizens, strengthening democracy, and working towards a progressive and inclusive India." %}
+
+            </p>
+
+            <div class="about-divider"></div>
+
+        </div>
+
+    </section>
+
+
+    <div class="container">
+
+
+        <!-- WHO WE ARE / PURPOSE -->
+
+        <section class="about-section">
+
+            <div class="about-section-heading text-center">
+
+                <span class="eyebrow">
+                    {% trans "Our Foundation" %}
+                </span>
+
+                <h2>
+                    {% trans "Who We Are" %}
+                </h2>
+
+                <p>
+                    {% trans "A platform for citizens to participate, contribute and work towards constructive development." %}
+                </p>
+
+            </div>
+
+
+            <div class="row g-4">
+
+                <!-- WHO WE ARE -->
+
+                <div class="col-lg-6">
+
+                    <div class="about-info-card">
+
+                        <div class="about-card-icon">
+                            <i class="bi bi-people-fill"></i>
+                        </div>
+
+
+                        <h3>
+                            {% trans "Who We Are" %}
+                        </h3>
+
+
+                        <p>
+                            {% trans "Nav Bharat Party aims to provide a platform where citizens can participate in democratic activities and contribute to the development of the nation." %}
+                        </p>
+
+
+                        <p class="mb-0">
+                            {% trans "Our focus is on responsible leadership, public participation, transparency and constructive development." %}
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- OUR PURPOSE -->
+
+                <div class="col-lg-6">
+
+                    <div class="about-info-card">
+
+                        <div class="about-card-icon">
+                            <i class="bi bi-bullseye"></i>
+                        </div>
+
+
+                        <h3>
+                            {% trans "Our Purpose" %}
+                        </h3>
+
+
+                        <p>
+                            {% trans "We believe that meaningful change begins with active participation of citizens." %}
+                        </p>
+
+
+                        <p class="mb-0">
+                            {% trans "Through our organization, we seek to connect citizens, encourage participation and work towards a stronger and more responsible society." %}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- VISION / MISSION / VALUES -->
+
+        <section class="about-values-section">
+
+            <div class="about-section-heading text-center">
+
+                <span class="eyebrow">
+                    {% trans "What Guides Us" %}
+                </span>
+
+                <h2>
+                    {% trans "Our Vision & Values" %}
+                </h2>
+
+                <p>
+                    {% trans "Principles that guide our work and our commitment to citizens." %}
+                </p>
+
+            </div>
+
+
+            <div class="row g-4">
+
+                <!-- VISION -->
+
+                <div class="col-md-4">
+
+                    <div class="value-card">
+
+                        <div class="value-icon value-icon-blue">
+                            <i class="bi bi-eye-fill"></i>
+                        </div>
+
+
+                        <h4>
+                            {% trans "Our Vision" %}
+                        </h4>
+
+
+                        <p>
+                            {% trans "To contribute towards a progressive, responsible and inclusive India." %}
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MISSION -->
+
+                <div class="col-md-4">
+
+                    <div class="value-card">
+
+                        <div class="value-icon value-icon-green">
+                            <i class="bi bi-bullseye"></i>
+                        </div>
+
+
+                        <h4>
+                            {% trans "Our Mission" %}
+                        </h4>
+
+
+                        <p>
+                            {% trans "To encourage citizen participation and work towards constructive social and national development." %}
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- VALUES -->
+
+                <div class="col-md-4">
+
+                    <div class="value-card">
+
+                        <div class="value-icon value-icon-gold">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+
+
+                        <h4>
+                            {% trans "Our Values" %}
+                        </h4>
+
+
+                        <p>
+                            {% trans "Transparency, responsibility, public participation and integrity." %}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- JOIN CTA -->
+
+        <section class="about-join">
+
+            <div class="about-join-content">
+
+                <h2>
+                    {% trans "Become a Part of the Journey" %}
+                </h2>
+
+
+                <p>
+                    {% trans "Citizens can participate and contribute by becoming a member of Nav Bharat Party." %}
+                </p>
+
+
+                <a
+                    href="{% url 'member_register' %}"
+                    class="btn join-btn"
+                >
+
+                    <i class="bi bi-person-plus-fill me-2"></i>
+
+                    {% trans "Join Us" %}
+
+                </a>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</div>
+
+{% endblock %}

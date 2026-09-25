@@ -1,0 +1,908 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}
+Leadership | Nav Bharat Party
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   LEADERSHIP PAGE
+   ========================================================= */
+
+.leadership-page {
+    --lead-blue: #123b7a;
+    --lead-dark: #092956;
+    --lead-gold: #f4b400;
+    --lead-muted: #667085;
+    --lead-border: rgba(18, 59, 122, .10);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   HERO / PAGE HEADER
+   ========================================================= */
+
+.leadership-hero {
+    position: relative;
+
+    padding: 75px 20px 65px;
+
+    text-align: center;
+
+    overflow: hidden;
+
+    border-radius: 0 0 40px 40px;
+
+    background:
+        radial-gradient(
+            circle at 12% 25%,
+            rgba(244,180,0,.13),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 88% 75%,
+            rgba(18,59,122,.10),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f4f7fc
+        );
+
+    animation: leadershipHero .8s ease both;
+}
+
+
+/* Decorative circles */
+
+.leadership-hero::before {
+    content: "";
+
+    position: absolute;
+
+    width: 260px;
+    height: 260px;
+
+    left: -130px;
+    top: -130px;
+
+    border: 1px solid rgba(244,180,0,.15);
+
+    border-radius: 50%;
+
+    animation: floatCircle 7s ease-in-out infinite;
+}
+
+
+.leadership-hero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 330px;
+    height: 330px;
+
+    right: -170px;
+    bottom: -180px;
+
+    border: 1px solid rgba(18,59,122,.10);
+
+    border-radius: 50%;
+
+    animation: floatCircleReverse 8s ease-in-out infinite;
+}
+
+
+.leadership-badge {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 9px 18px;
+
+    color: var(--lead-blue);
+
+    background: rgba(18,59,122,.07);
+
+    border: 1px solid rgba(18,59,122,.10);
+
+    border-radius: 50px;
+
+    font-size: .8rem;
+    font-weight: 800;
+    letter-spacing: .7px;
+
+    animation: fadeUp .7s ease both;
+}
+
+
+.leadership-badge::before {
+    content: "";
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: var(--lead-gold);
+
+    box-shadow:
+        0 0 0 5px rgba(244,180,0,.12);
+}
+
+
+.leadership-hero h1 {
+    position: relative;
+
+    margin-top: 22px;
+    margin-bottom: 15px;
+
+    color: var(--lead-dark);
+
+    font-size: clamp(2.3rem, 5vw, 3.7rem);
+
+    font-weight: 800;
+
+    letter-spacing: -1.2px;
+
+    animation: fadeUp .8s ease .1s both;
+}
+
+
+.leadership-hero h1 span {
+    color: var(--lead-blue);
+}
+
+
+.leadership-description {
+    max-width: 720px;
+
+    margin: auto;
+
+    color: var(--lead-muted);
+
+    font-size: 1.05rem;
+
+    line-height: 1.8;
+
+    animation: fadeUp .8s ease .2s both;
+}
+
+
+.leadership-divider {
+    width: 70px;
+    height: 4px;
+
+    margin: 25px auto 0;
+
+    background: var(--lead-gold);
+
+    border-radius: 50px;
+
+    animation:
+        dividerGrow .8s ease .3s both,
+        goldPulse 2.5s ease-in-out 1.2s infinite;
+}
+
+
+/* =========================================================
+   LEADER GRID
+   ========================================================= */
+
+.leadership-section {
+    padding: 70px 0 80px;
+}
+
+
+.leader-card {
+    position: relative;
+
+    height: 100%;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 1px solid var(--lead-border);
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 10px 35px rgba(18,59,122,.07);
+
+    transition:
+        transform .5s cubic-bezier(.2,.8,.2,1),
+        box-shadow .5s ease,
+        border-color .35s ease;
+
+    animation: leaderReveal .75s cubic-bezier(.2,.8,.2,1) both;
+}
+
+
+/* Staggered card entrance */
+
+.leader-column:nth-child(1) .leader-card {
+    animation-delay: .05s;
+}
+
+.leader-column:nth-child(2) .leader-card {
+    animation-delay: .15s;
+}
+
+.leader-column:nth-child(3) .leader-card {
+    animation-delay: .25s;
+}
+
+.leader-column:nth-child(4) .leader-card {
+    animation-delay: .35s;
+}
+
+.leader-column:nth-child(5) .leader-card {
+    animation-delay: .45s;
+}
+
+.leader-column:nth-child(6) .leader-card {
+    animation-delay: .55s;
+}
+
+
+/* Top gold line */
+
+.leader-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 4px;
+
+    z-index: 5;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--lead-blue),
+            var(--lead-gold)
+        );
+
+    transform: scaleX(0);
+
+    transform-origin: left;
+
+    transition: transform .5s ease;
+}
+
+
+/* Bottom glow */
+
+.leader-card::after {
+    content: "";
+
+    position: absolute;
+
+    left: 15%;
+    right: 15%;
+    bottom: -40px;
+
+    height: 65px;
+
+    background: rgba(244,180,0,.16);
+
+    filter: blur(28px);
+
+    opacity: 0;
+
+    transition:
+        opacity .5s ease,
+        transform .5s ease;
+
+    pointer-events: none;
+}
+
+
+.leader-card:hover {
+    transform: translateY(-12px);
+
+    border-color: rgba(244,180,0,.30);
+
+    box-shadow:
+        0 28px 60px rgba(18,59,122,.15),
+        0 0 30px rgba(244,180,0,.07);
+}
+
+
+.leader-card:hover::before {
+    transform: scaleX(1);
+}
+
+
+.leader-card:hover::after {
+    opacity: 1;
+
+    transform: translateY(-8px);
+}
+
+
+/* =========================================================
+   LEADER IMAGE
+   ========================================================= */
+
+.leader-image-wrapper {
+    position: relative;
+
+    overflow: hidden;
+
+    height: 330px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef3fa,
+            #dfe7f3
+        );
+}
+
+
+/* Image */
+
+.leader-image {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition:
+        transform .75s cubic-bezier(.2,.8,.2,1),
+        filter .5s ease;
+}
+
+
+.leader-card:hover .leader-image {
+    transform: scale(1.07);
+
+    filter:
+        saturate(1.05)
+        contrast(1.02);
+}
+
+
+/* Image overlay */
+
+.leader-image-wrapper::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(9,41,86,.55),
+            transparent 48%
+        );
+
+    opacity: .55;
+
+    transition: opacity .45s ease;
+
+    pointer-events: none;
+}
+
+
+.leader-card:hover .leader-image-wrapper::after {
+    opacity: .75;
+}
+
+
+/* =========================================================
+   IMAGE PLACEHOLDER
+   ========================================================= */
+
+.leader-image-placeholder {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    height: 330px;
+
+    color: rgba(18,59,122,.30);
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(244,180,0,.12),
+            transparent 55%
+        ),
+        linear-gradient(
+            135deg,
+            #edf2f8,
+            #dce5f1
+        );
+
+    font-size: 5rem;
+
+    transition:
+        transform .5s ease,
+        color .5s ease;
+}
+
+
+.leader-card:hover .leader-image-placeholder {
+    color: rgba(18,59,122,.45);
+
+    transform: scale(1.03);
+}
+
+
+/* =========================================================
+   LEADER CONTENT
+   ========================================================= */
+
+.leader-content {
+    position: relative;
+
+    padding: 28px 25px 30px;
+
+    background: #ffffff;
+
+    z-index: 2;
+}
+
+
+.leader-name {
+    margin-bottom: 7px;
+
+    color: var(--lead-dark);
+
+    font-size: 1.35rem;
+
+    font-weight: 800;
+
+    transition:
+        color .35s ease,
+        transform .35s ease;
+}
+
+
+.leader-card:hover .leader-name {
+    color: var(--lead-blue);
+
+    transform: translateY(-2px);
+}
+
+
+.leader-designation {
+    display: inline-block;
+
+    margin-bottom: 15px;
+
+    padding: 6px 13px;
+
+    color: #a87500;
+
+    background: rgba(244,180,0,.11);
+
+    border: 1px solid rgba(244,180,0,.16);
+
+    border-radius: 50px;
+
+    font-size: .78rem;
+
+    font-weight: 800;
+
+    letter-spacing: .3px;
+}
+
+
+.leader-bio {
+    color: var(--lead-muted);
+
+    font-size: .93rem;
+
+    line-height: 1.75;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.leadership-empty {
+    padding: 70px 25px;
+
+    text-align: center;
+
+    background: #ffffff;
+
+    border: 1px solid var(--lead-border);
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 10px 35px rgba(18,59,122,.06);
+
+    animation: leaderReveal .7s ease both;
+}
+
+
+.leadership-empty-icon {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 90px;
+    height: 90px;
+
+    margin: 0 auto 22px;
+
+    color: var(--lead-blue);
+
+    background: rgba(18,59,122,.07);
+
+    border-radius: 50%;
+
+    font-size: 2.5rem;
+}
+
+
+.leadership-empty h4 {
+    color: var(--lead-dark);
+
+    font-weight: 800;
+}
+
+
+.leadership-empty p {
+    color: var(--lead-muted);
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes leadershipHero {
+
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+@keyframes leaderReveal {
+
+    from {
+        opacity: 0;
+        transform: translateY(45px) scale(.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+
+@keyframes dividerGrow {
+
+    from {
+        width: 0;
+        opacity: 0;
+    }
+
+    to {
+        width: 70px;
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes goldPulse {
+
+    0%, 100% {
+        box-shadow: 0 0 0 rgba(244,180,0,0);
+    }
+
+    50% {
+        box-shadow: 0 0 18px rgba(244,180,0,.35);
+    }
+
+}
+
+
+@keyframes floatCircle {
+
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(18px, 15px);
+    }
+
+}
+
+
+@keyframes floatCircleReverse {
+
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(-18px, -15px);
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .leadership-hero {
+        padding: 58px 18px 52px;
+
+        border-radius: 0 0 28px 28px;
+    }
+
+
+    .leadership-hero h1 {
+        letter-spacing: -.7px;
+    }
+
+
+    .leadership-section {
+        padding-top: 50px;
+    }
+
+
+    .leader-image-wrapper,
+    .leader-image-placeholder {
+        height: 290px;
+    }
+
+
+    .leader-card:hover {
+        transform: translateY(-6px);
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .leadership-page *,
+    .leadership-page *::before,
+    .leadership-page *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+
+}
+
+</style>
+
+
+
+<div class="leadership-page">
+
+
+    <!-- =====================================================
+         PAGE HERO
+         ===================================================== -->
+
+    <section class="leadership-hero">
+
+        <div class="container">
+
+            <span class="leadership-badge">
+
+                {% trans "Our Leadership" %}
+
+            </span>
+
+
+            <h1>
+
+                {% trans "Party" %}
+                <span>{% trans "Leadership" %}</span>
+
+            </h1>
+
+
+            <p class="leadership-description">
+
+                {% trans "Meet the leadership team of Nav Bharat Party and discover the people working towards responsible public participation and development." %}
+
+            </p>
+
+
+            <div class="leadership-divider"></div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         LEADERS
+         ===================================================== -->
+
+    <section class="leadership-section">
+
+        <div class="container">
+
+
+            {% if leaders %}
+
+            <div class="row g-4 justify-content-center">
+
+                {% for leader in leaders %}
+
+                <div class="col-sm-6 col-lg-4 leader-column">
+
+                    <div class="leader-card">
+
+
+                        <!-- IMAGE -->
+
+                        <div class="leader-image-wrapper">
+
+                            {% if leader.profile_image %}
+
+                                <img
+                                    src="{{ leader.profile_image.url }}"
+                                    alt="{{ leader.name }}"
+                                    class="leader-image"
+                                    loading="lazy"
+                                >
+
+                            {% else %}
+
+                                <div class="leader-image-placeholder">
+
+                                    <i class="bi bi-person-fill"></i>
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+
+                        <!-- CONTENT -->
+
+                        <div class="leader-content text-center">
+
+                            <h4 class="leader-name">
+
+                                {{ leader.name }}
+
+                            </h4>
+
+
+                            <div class="leader-designation">
+
+                                {{ leader.designation }}
+
+                            </div>
+
+
+                            {% if leader.bio %}
+
+                                <p class="leader-bio mb-0">
+
+                                    {{ leader.bio }}
+
+                                </p>
+
+                            {% endif %}
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            {% else %}
+
+
+            <!-- =================================================
+                 EMPTY STATE
+                 ================================================= -->
+
+            <div class="leadership-empty">
+
+                <div class="leadership-empty-icon">
+
+                    <i class="bi bi-people-fill"></i>
+
+                </div>
+
+
+                <h4>
+
+                    {% trans "Leadership Information Coming Soon" %}
+
+                </h4>
+
+
+                <p class="mb-0">
+
+                    {% trans "Leadership profiles will appear here once they are published." %}
+
+                </p>
+
+            </div>
+
+
+            {% endif %}
+
+
+        </div>
+
+    </section>
+
+
+</div>
+
+{% endblock %}

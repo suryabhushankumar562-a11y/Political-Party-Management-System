@@ -1,0 +1,2568 @@
+{% extends "base.html" %}
+
+{% block title %}
+Member Details | Admin Panel
+{% endblock %}
+
+
+{% block content %}
+
+<div class="member-detail-page">
+
+    <!-- BACKGROUND DECORATION -->
+
+    <div class="detail-orb orb-1"></div>
+    <div class="detail-orb orb-2"></div>
+
+
+    <div class="container-fluid py-5">
+
+        <!-- =====================================================
+             TOP HEADER
+             ===================================================== -->
+
+        <div class="detail-topbar">
+
+            <div>
+
+                <a
+                    href="{% url 'admin_member_list' %}"
+                    class="back-link"
+                >
+                    <i class="bi bi-arrow-left"></i>
+                    Back to Members
+                </a>
+
+                <div class="page-label">
+                    MEMBER MANAGEMENT
+                </div>
+
+                <h1 class="page-title">
+                    Member Details
+                </h1>
+
+                <p class="page-subtitle">
+                    Review member information and manage membership status.
+                </p>
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="header-status">
+
+                <span class="status-caption">
+                    CURRENT STATUS
+                </span>
+
+
+                {% if member.membership_status == "APPROVED" %}
+
+                    <span class="premium-status status-approved">
+                        <i class="bi bi-check-circle-fill"></i>
+                        Approved
+                    </span>
+
+                {% elif member.membership_status == "PENDING" %}
+
+                    <span class="premium-status status-pending">
+                        <i class="bi bi-clock-fill"></i>
+                        Pending
+                    </span>
+
+                {% elif member.membership_status == "REJECTED" %}
+
+                    <span class="premium-status status-rejected">
+                        <i class="bi bi-x-circle-fill"></i>
+                        Rejected
+                    </span>
+
+                {% elif member.membership_status == "SUSPENDED" %}
+
+                    <span class="premium-status status-suspended">
+                        <i class="bi bi-pause-circle-fill"></i>
+                        Suspended
+                    </span>
+
+                {% else %}
+
+                    <span class="premium-status status-inactive">
+                        <i class="bi bi-dash-circle-fill"></i>
+                        Inactive
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             PROFILE HERO
+             ===================================================== -->
+
+        <div class="profile-hero">
+
+            <div class="profile-hero-glow"></div>
+
+            <div class="profile-main">
+
+
+                <!-- PROFILE PHOTO -->
+
+                <div class="profile-photo-wrapper">
+
+                    {% if member.profile_picture %}
+
+                        <img
+                            src="{{ member.profile_picture.url }}"
+                            alt="Member Photo"
+                            class="profile-photo"
+                        >
+
+                    {% else %}
+
+                        <div class="profile-photo-placeholder">
+
+                            {{ member.user.first_name|first|upper }}
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <div class="photo-status-dot"></div>
+
+                </div>
+
+
+
+                <!-- MEMBER NAME -->
+
+                <div class="profile-identity">
+
+                    <span class="identity-label">
+                        REGISTERED MEMBER
+                    </span>
+
+                    <h2>
+
+                        {{ member.user.first_name }}
+                        {{ member.user.last_name }}
+
+                    </h2>
+
+                    <p>
+                        <i class="bi bi-at"></i>
+                        {{ member.user.username }}
+                    </p>
+
+                </div>
+
+
+
+                <!-- MEMBERSHIP ID -->
+
+                <div class="membership-id">
+
+                    <span>
+                        MEMBERSHIP ID
+                    </span>
+
+                    <strong>
+                        {{ member.membership_id }}
+                    </strong>
+
+                    <i class="bi bi-person-vcard"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             MAIN GRID
+             ===================================================== -->
+
+        <div class="row g-4 mt-1">
+
+
+            <!-- =================================================
+                 PERSONAL INFORMATION
+                 ================================================= -->
+
+            <div class="col-xl-8">
+
+                <div class="detail-card">
+
+                    <div class="card-heading">
+
+                        <div class="heading-icon blue">
+                            <i class="bi bi-person-lines-fill"></i>
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                Personal Information
+                            </h4>
+
+                            <p>
+                                Registered personal details
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-grid">
+
+
+                        <div class="info-item">
+
+                            <span>
+                                <i class="bi bi-person"></i>
+                                Full Name
+                            </span>
+
+                            <strong>
+                                {{ member.user.first_name }}
+                                {{ member.user.last_name }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <span>
+                                <i class="bi bi-envelope"></i>
+                                Email Address
+                            </span>
+
+                            <strong>
+                                {{ member.user.email }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <span>
+                                <i class="bi bi-telephone"></i>
+                                Phone Number
+                            </span>
+
+                            <strong>
+                                {{ member.phone_number }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <span>
+                                <i class="bi bi-telephone-plus"></i>
+                                Alternate Phone
+                            </span>
+
+                            <strong>
+                                {{ member.alternate_phone|default:"Not provided" }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <span>
+                                <i class="bi bi-gender-ambiguous"></i>
+                                Gender
+                            </span>
+
+                            <strong>
+                                {{ member.get_gender_display }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-item">
+
+                            <span>
+                                <i class="bi bi-calendar3"></i>
+                                Date of Birth
+                            </span>
+
+                            <strong>
+                                {{ member.date_of_birth|date:"d M Y" }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     ADDRESS
+                     ================================================= -->
+
+                <div class="detail-card">
+
+                    <div class="card-heading">
+
+                        <div class="heading-icon purple">
+                            <i class="bi bi-geo-alt-fill"></i>
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                Address Information
+                            </h4>
+
+                            <p>
+                                Registered residential address
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="address-box">
+
+                        <div class="address-icon">
+                            <i class="bi bi-house-door-fill"></i>
+                        </div>
+
+                        <div>
+
+                            <span>
+                                FULL ADDRESS
+                            </span>
+
+                            <p>
+                                {{ member.full_address }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="location-grid">
+
+
+                        <div class="location-item">
+
+                            <span>State</span>
+
+                            <strong>
+                                {{ member.state }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="location-item">
+
+                            <span>District</span>
+
+                            <strong>
+                                {{ member.district }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="location-item">
+
+                            <span>City</span>
+
+                            <strong>
+                                {{ member.city }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="location-item">
+
+                            <span>Pincode</span>
+
+                            <strong>
+                                {{ member.pincode }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     MEMBERSHIP INFORMATION
+                     ================================================= -->
+
+                <div class="detail-card">
+
+                    <div class="card-heading">
+
+                        <div class="heading-icon green">
+                            <i class="bi bi-person-vcard-fill"></i>
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                Membership Information
+                            </h4>
+
+                            <p>
+                                Membership application details
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="membership-info-grid">
+
+
+                        <div class="membership-info-item">
+
+                            <span>
+                                Membership ID
+                            </span>
+
+                            <strong class="id-highlight">
+                                {{ member.membership_id }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="membership-info-item">
+
+                            <span>
+                                Joining Date
+                            </span>
+
+                            <strong>
+                                {{ member.joining_date|date:"d M Y" }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="membership-info-item">
+
+                            <span>
+                                Current Status
+                            </span>
+
+                            <strong>
+
+                                {% if member.membership_status == "APPROVED" %}
+
+                                    <em class="mini-status approved">
+                                        <i class="bi bi-check-circle-fill"></i>
+                                        Approved
+                                    </em>
+
+                                {% elif member.membership_status == "PENDING" %}
+
+                                    <em class="mini-status pending">
+                                        <i class="bi bi-clock-fill"></i>
+                                        Pending
+                                    </em>
+
+                                {% elif member.membership_status == "REJECTED" %}
+
+                                    <em class="mini-status rejected">
+                                        <i class="bi bi-x-circle-fill"></i>
+                                        Rejected
+                                    </em>
+
+                                {% elif member.membership_status == "SUSPENDED" %}
+
+                                    <em class="mini-status suspended">
+                                        <i class="bi bi-pause-circle-fill"></i>
+                                        Suspended
+                                    </em>
+
+                                {% else %}
+
+                                    <em class="mini-status inactive">
+                                        Inactive
+                                    </em>
+
+                                {% endif %}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div class="membership-info-item">
+
+                            <span>
+                                Application Date
+                            </span>
+
+                            <strong>
+                                {{ member.created_at|date:"d M Y, h:i A" }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     REJECTION REMARKS
+                     ================================================= -->
+
+                {% if member.membership_status == "REJECTED" and member.remarks %}
+
+                <div class="rejection-card">
+
+                    <div class="rejection-icon">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                    </div>
+
+                    <div>
+
+                        <span>
+                            REJECTION REMARKS
+                        </span>
+
+                        <p>
+                            {{ member.remarks }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RIGHT SIDEBAR
+                 ================================================= -->
+
+            <div class="col-xl-4">
+
+
+                <!-- =============================================
+                     QR CARD
+                     ============================================= -->
+
+                <div class="detail-card qr-card">
+
+                    <div class="card-heading">
+
+                        <div class="heading-icon orange">
+                            <i class="bi bi-qr-code"></i>
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                Membership QR
+                            </h4>
+
+                            <p>
+                                Verification code
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    {% if member.qr_code %}
+
+                        <div class="qr-wrapper">
+
+                            <div class="qr-glow"></div>
+
+                            <img
+                                src="{{ member.qr_code.url }}"
+                                alt="Membership QR Code"
+                            >
+
+                        </div>
+
+                        <p class="qr-help">
+                            Scan this QR code to verify membership.
+                        </p>
+
+
+                        <a
+                            href="{{ member.qr_code.url }}"
+                            target="_blank"
+                            class="qr-button"
+                        >
+
+                            <i class="bi bi-box-arrow-up-right"></i>
+
+                            Open QR Code
+
+                        </a>
+
+                    {% else %}
+
+                        <div class="qr-empty">
+
+                            <i class="bi bi-qr-code"></i>
+
+                            <h6>
+                                QR Code Not Available
+                            </h6>
+
+                            <p>
+                                No verification QR has been generated.
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+
+                <!-- =============================================
+                     ADMIN ACTIONS
+                     ============================================= -->
+
+                <div class="action-card">
+
+                    <div class="action-header">
+
+                        <div class="heading-icon dark">
+                            <i class="bi bi-shield-lock-fill"></i>
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                Membership Actions
+                            </h4>
+
+                            <p>
+                                Manage member status
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="action-list">
+
+
+                        <!-- APPROVE -->
+
+                        {% if member.membership_status != "APPROVED" %}
+
+                        <form
+                            method="post"
+                            action="{% url 'admin_approve_member' member.pk %}"
+                        >
+
+                            {% csrf_token %}
+
+                            <button
+                                type="submit"
+                                class="action-button approve"
+                                onclick="return confirm('Are you sure you want to approve this membership?');"
+                            >
+
+                                <span class="action-icon">
+                                    <i class="bi bi-check-lg"></i>
+                                </span>
+
+                                <span>
+                                    <strong>Approve Member</strong>
+                                    <small>Approve this membership application</small>
+                                </span>
+
+                                <i class="bi bi-chevron-right arrow"></i>
+
+                            </button>
+
+                        </form>
+
+                        {% endif %}
+
+
+
+                        <!-- REJECT -->
+
+                        {% if member.membership_status != "REJECTED" %}
+
+                        <a
+                            href="{% url 'admin_reject_member' member.pk %}"
+                            class="action-button reject"
+                        >
+
+                            <span class="action-icon">
+                                <i class="bi bi-x-lg"></i>
+                            </span>
+
+                            <span>
+                                <strong>Reject Membership</strong>
+                                <small>Reject with a reason</small>
+                            </span>
+
+                            <i class="bi bi-chevron-right arrow"></i>
+
+                        </a>
+
+                        {% endif %}
+
+
+
+                        <!-- SUSPEND -->
+
+                        {% if member.membership_status == "APPROVED" %}
+
+                        <form
+                            method="POST"
+                            action="{% url 'admin_suspend_member' member.pk %}"
+                        >
+
+                            {% csrf_token %}
+
+                            <button
+                                type="submit"
+                                class="action-button suspend"
+                                onclick="return confirm('Are you sure you want to suspend this membership?');"
+                            >
+
+                                <span class="action-icon">
+                                    <i class="bi bi-pause-fill"></i>
+                                </span>
+
+                                <span>
+                                    <strong>Suspend Member</strong>
+                                    <small>Temporarily suspend access</small>
+                                </span>
+
+                                <i class="bi bi-chevron-right arrow"></i>
+
+                            </button>
+
+                        </form>
+
+                        {% endif %}
+
+
+
+                        <!-- UNSUSPEND -->
+
+                        {% if member.membership_status == "SUSPENDED" %}
+
+                        <form
+                            method="POST"
+                            action="{% url 'admin_unsuspend_member' member.pk %}"
+                        >
+
+                            {% csrf_token %}
+
+                            <button
+                                type="submit"
+                                class="action-button activate"
+                                onclick="return confirm('Activate this membership again?');"
+                            >
+
+                                <span class="action-icon">
+                                    <i class="bi bi-arrow-clockwise"></i>
+                                </span>
+
+                                <span>
+                                    <strong>Activate Member</strong>
+                                    <small>Restore membership access</small>
+                                </span>
+
+                                <i class="bi bi-chevron-right arrow"></i>
+
+                            </button>
+
+                        </form>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =============================================
+                     SECURITY NOTE
+                     ============================================= -->
+
+                <div class="security-note">
+
+                    <i class="bi bi-shield-check"></i>
+
+                    <div>
+
+                        <strong>
+                            Admin Protected
+                        </strong>
+
+                        <p>
+                            Membership actions are restricted
+                            to authorised administrators.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+
+{% block js %}
+
+<style>
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.member-detail-page {
+
+    position: relative;
+
+    min-height: 100vh;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f8faff 0%,
+            #f4f7fc 50%,
+            #eef3fa 100%
+        );
+
+}
+
+
+/* =========================================================
+   BACKGROUND ORBS
+   ========================================================= */
+
+.detail-orb {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(2px);
+
+    pointer-events: none;
+
+    opacity: .45;
+
+}
+
+.orb-1 {
+
+    width: 300px;
+    height: 300px;
+
+    background: rgba(13,110,253,.08);
+
+    top: -100px;
+    right: -80px;
+
+}
+
+.orb-2 {
+
+    width: 240px;
+    height: 240px;
+
+    background: rgba(111,66,193,.07);
+
+    bottom: 200px;
+    left: -100px;
+
+}
+
+
+/* =========================================================
+   TOP BAR
+   ========================================================= */
+
+.detail-topbar {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-end;
+
+    gap: 30px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.back-link {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    text-decoration: none;
+
+    color: #0d6efd;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    margin-bottom: 18px;
+
+    transition: .25s ease;
+
+}
+
+.back-link:hover {
+
+    transform: translateX(-4px);
+
+    color: #084298;
+
+}
+
+
+.page-label {
+
+    display: inline-block;
+
+    padding: 6px 12px;
+
+    border-radius: 30px;
+
+    background: rgba(13,110,253,.09);
+
+    color: #0d6efd;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.4px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.page-title {
+
+    margin: 0;
+
+    font-size: clamp(28px, 4vw, 40px);
+
+    font-weight: 800;
+
+    color: #172033;
+
+    letter-spacing: -.7px;
+
+}
+
+
+.page-subtitle {
+
+    margin: 7px 0 0;
+
+    color: #7b8494;
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================================
+   HEADER STATUS
+   ========================================================= */
+
+.header-status {
+
+    text-align: right;
+
+}
+
+
+.status-caption {
+
+    display: block;
+
+    color: #9aa2af;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.3px;
+
+    margin-bottom: 7px;
+
+}
+
+
+.premium-status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 10px 17px;
+
+    border-radius: 50px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    border: 1px solid transparent;
+
+}
+
+
+.status-approved {
+
+    color: #087443;
+
+    background: #e8f8ef;
+
+    border-color: #bdebd0;
+
+}
+
+.status-pending {
+
+    color: #956600;
+
+    background: #fff5d9;
+
+    border-color: #f5dfa0;
+
+}
+
+.status-rejected {
+
+    color: #b42332;
+
+    background: #ffebee;
+
+    border-color: #f3c4ca;
+
+}
+
+.status-suspended {
+
+    color: #343a40;
+
+    background: #e9ecef;
+
+    border-color: #d6d9dc;
+
+}
+
+.status-inactive {
+
+    color: #667085;
+
+    background: #f0f2f5;
+
+    border-color: #dfe3e8;
+
+}
+
+
+/* =========================================================
+   PROFILE HERO
+   ========================================================= */
+
+.profile-hero {
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 1px solid rgba(13,110,253,.08);
+
+    border-radius: 24px;
+
+    padding: 27px;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 15px 45px rgba(20,38,70,.07);
+
+    animation: fadeUp .55s ease both;
+
+}
+
+
+.profile-hero:before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 5px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #0d6efd,
+            #6f42c1
+        );
+
+}
+
+
+.profile-hero-glow {
+
+    position: absolute;
+
+    width: 260px;
+    height: 260px;
+
+    border-radius: 50%;
+
+    background: rgba(13,110,253,.045);
+
+    right: -80px;
+    top: -130px;
+
+}
+
+
+.profile-main {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 22px;
+
+}
+
+
+.profile-photo-wrapper {
+
+    position: relative;
+
+    flex: 0 0 auto;
+
+}
+
+
+.profile-photo,
+.profile-photo-placeholder {
+
+    width: 92px;
+    height: 92px;
+
+    border-radius: 22px;
+
+    object-fit: cover;
+
+}
+
+
+.profile-photo {
+
+    border: 4px solid #fff;
+
+    box-shadow:
+        0 8px 25px rgba(13,110,253,.18);
+
+}
+
+
+.profile-photo-placeholder {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd,
+            #6f42c1
+        );
+
+    color: #fff;
+
+    font-size: 35px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 8px 25px rgba(13,110,253,.18);
+
+}
+
+
+.photo-status-dot {
+
+    position: absolute;
+
+    width: 17px;
+    height: 17px;
+
+    right: -3px;
+    bottom: 3px;
+
+    border-radius: 50%;
+
+    background: #20c997;
+
+    border: 4px solid #fff;
+
+}
+
+
+.profile-identity {
+
+    min-width: 0;
+
+    flex: 1;
+
+}
+
+
+.identity-label {
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    color: #0d6efd;
+
+    letter-spacing: 1.4px;
+
+}
+
+
+.profile-identity h2 {
+
+    margin: 5px 0 3px;
+
+    font-size: 25px;
+
+    font-weight: 800;
+
+    color: #172033;
+
+}
+
+
+.profile-identity p {
+
+    margin: 0;
+
+    color: #8992a1;
+
+    font-size: 13px;
+
+}
+
+
+.membership-id {
+
+    position: relative;
+
+    min-width: 190px;
+
+    padding: 16px 45px 16px 18px;
+
+    border-radius: 15px;
+
+    background: #f7f9fc;
+
+    border: 1px solid #e8edf4;
+
+}
+
+
+.membership-id span {
+
+    display: block;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    color: #929baa;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 4px;
+
+}
+
+
+.membership-id strong {
+
+    font-size: 16px;
+
+    color: #172033;
+
+    word-break: break-all;
+
+}
+
+
+.membership-id > i {
+
+    position: absolute;
+
+    right: 15px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    font-size: 25px;
+
+    color: #0d6efd;
+
+    opacity: .8;
+
+}
+
+
+/* =========================================================
+   DETAIL CARDS
+   ========================================================= */
+
+.detail-card,
+.action-card {
+
+    background: #fff;
+
+    border: 1px solid #e8edf4;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 35px rgba(20,38,70,.055);
+
+    padding: 25px;
+
+    margin-bottom: 25px;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+
+    animation: fadeUp .65s ease both;
+
+}
+
+
+.detail-card:hover,
+.action-card:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 17px 40px rgba(20,38,70,.09);
+
+}
+
+
+.card-heading,
+.action-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    padding-bottom: 20px;
+
+    margin-bottom: 5px;
+
+    border-bottom: 1px solid #edf0f4;
+
+}
+
+
+.heading-icon {
+
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    font-size: 19px;
+
+}
+
+
+.heading-icon.blue {
+
+    color: #0d6efd;
+    background: #eaf2ff;
+
+}
+
+
+.heading-icon.purple {
+
+    color: #6f42c1;
+    background: #f0eaff;
+
+}
+
+
+.heading-icon.green {
+
+    color: #198754;
+    background: #e9f8f0;
+
+}
+
+
+.heading-icon.orange {
+
+    color: #fd7e14;
+    background: #fff1e6;
+
+}
+
+
+.heading-icon.dark {
+
+    color: #343a40;
+    background: #eef0f2;
+
+}
+
+
+.card-heading h4,
+.action-header h4 {
+
+    margin: 0;
+
+    font-size: 17px;
+
+    font-weight: 800;
+
+    color: #172033;
+
+}
+
+
+.card-heading p,
+.action-header p {
+
+    margin: 3px 0 0;
+
+    color: #8b94a2;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   INFO GRID
+   ========================================================= */
+
+.info-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+}
+
+
+.info-item {
+
+    padding: 20px 18px;
+
+    border-bottom: 1px solid #edf0f4;
+
+}
+
+
+.info-item:nth-child(odd) {
+
+    border-right: 1px solid #edf0f4;
+
+}
+
+
+.info-item:nth-last-child(-n+2) {
+
+    border-bottom: 0;
+
+}
+
+
+.info-item span {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: #8d96a4;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    margin-bottom: 7px;
+
+}
+
+
+.info-item span i {
+
+    color: #0d6efd;
+
+}
+
+
+.info-item strong {
+
+    color: #202939;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    word-break: break-word;
+
+}
+
+
+/* =========================================================
+   ADDRESS
+   ========================================================= */
+
+.address-box {
+
+    display: flex;
+
+    gap: 15px;
+
+    padding: 18px;
+
+    margin-top: 10px;
+
+    border-radius: 14px;
+
+    background: #f8faff;
+
+    border: 1px solid #e8edf8;
+
+}
+
+
+.address-icon {
+
+    flex: 0 0 42px;
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #eee9ff;
+
+    color: #6f42c1;
+
+}
+
+
+.address-box span {
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    color: #939baa;
+
+}
+
+
+.address-box p {
+
+    margin: 4px 0 0;
+
+    color: #293244;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+}
+
+
+.location-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    margin-top: 16px;
+
+}
+
+
+.location-item {
+
+    padding: 12px 15px;
+
+    border-right: 1px solid #edf0f4;
+
+}
+
+
+.location-item:last-child {
+
+    border-right: 0;
+
+}
+
+
+.location-item span {
+
+    display: block;
+
+    font-size: 10px;
+
+    color: #929aa7;
+
+    margin-bottom: 5px;
+
+}
+
+
+.location-item strong {
+
+    font-size: 13px;
+
+    color: #293244;
+
+}
+
+
+/* =========================================================
+   MEMBERSHIP INFO
+   ========================================================= */
+
+.membership-info-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+}
+
+
+.membership-info-item {
+
+    padding: 19px;
+
+    border-bottom: 1px solid #edf0f4;
+
+}
+
+
+.membership-info-item:nth-child(odd) {
+
+    border-right: 1px solid #edf0f4;
+
+}
+
+
+.membership-info-item:nth-last-child(-n+2) {
+
+    border-bottom: 0;
+
+}
+
+
+.membership-info-item span {
+
+    display: block;
+
+    color: #929aa7;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    margin-bottom: 6px;
+
+}
+
+
+.membership-info-item strong {
+
+    font-size: 14px;
+
+    color: #202939;
+
+}
+
+
+.id-highlight {
+
+    color: #0d6efd !important;
+
+}
+
+
+/* =========================================================
+   MINI STATUS
+   ========================================================= */
+
+.mini-status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    font-style: normal;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+}
+
+
+.mini-status.approved {
+    color: #198754;
+}
+
+.mini-status.pending {
+    color: #a06b00;
+}
+
+.mini-status.rejected {
+    color: #dc3545;
+}
+
+.mini-status.suspended {
+    color: #343a40;
+}
+
+.mini-status.inactive {
+    color: #6c757d;
+}
+
+
+/* =========================================================
+   REJECTION
+   ========================================================= */
+
+.rejection-card {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 15px;
+
+    padding: 20px;
+
+    margin-bottom: 25px;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff4f4,
+            #fffafa
+        );
+
+    border: 1px solid #f5c6cb;
+
+    box-shadow:
+        0 8px 25px rgba(220,53,69,.06);
+
+}
+
+
+.rejection-icon {
+
+    width: 42px;
+    height: 42px;
+
+    flex: 0 0 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    color: #dc3545;
+
+    background: #ffe1e4;
+
+}
+
+
+.rejection-card span {
+
+    display: block;
+
+    color: #dc3545;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 5px;
+
+}
+
+
+.rejection-card p {
+
+    margin: 0;
+
+    color: #6b2730;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+}
+
+
+/* =========================================================
+   QR
+   ========================================================= */
+
+.qr-card {
+
+    text-align: center;
+
+}
+
+
+.qr-card .card-heading {
+
+    text-align: left;
+
+}
+
+
+.qr-wrapper {
+
+    position: relative;
+
+    width: 190px;
+    height: 190px;
+
+    margin: 18px auto;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 25px;
+
+    background: #fff;
+
+    border: 1px solid #e4e9f0;
+
+    box-shadow:
+        0 12px 30px rgba(20,38,70,.08);
+
+}
+
+
+.qr-wrapper img {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: 155px;
+    height: 155px;
+
+    object-fit: contain;
+
+}
+
+
+.qr-glow {
+
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    border-radius: 50%;
+
+    background: rgba(13,110,253,.08);
+
+    filter: blur(25px);
+
+}
+
+
+.qr-help {
+
+    color: #8b94a2;
+
+    font-size: 12px;
+
+    max-width: 260px;
+
+    margin: 0 auto 16px;
+
+}
+
+
+.qr-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    width: 100%;
+
+    padding: 11px;
+
+    border-radius: 11px;
+
+    color: #0d6efd;
+
+    background: #eef5ff;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    transition: .25s ease;
+
+}
+
+
+.qr-button:hover {
+
+    color: #fff;
+
+    background: #0d6efd;
+
+    transform: translateY(-2px);
+
+}
+
+
+.qr-empty {
+
+    padding: 30px 15px;
+
+    color: #8c95a3;
+
+}
+
+
+.qr-empty > i {
+
+    font-size: 50px;
+
+    opacity: .4;
+
+}
+
+
+.qr-empty h6 {
+
+    margin-top: 12px;
+
+    color: #4b5563;
+
+}
+
+
+.qr-empty p {
+
+    font-size: 12px;
+
+    margin: 0;
+
+}
+
+
+/* =========================================================
+   ACTION CARD
+   ========================================================= */
+
+.action-card {
+
+    padding: 22px;
+
+}
+
+
+.action-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+    margin-top: 18px;
+
+}
+
+
+.action-list form {
+
+    width: 100%;
+
+}
+
+
+.action-button {
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 13px;
+
+    border-radius: 13px;
+
+    border: 1px solid #e8edf3;
+
+    background: #fff;
+
+    text-decoration: none;
+
+    text-align: left;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
+
+    cursor: pointer;
+
+}
+
+
+.action-button:hover {
+
+    transform: translateX(4px);
+
+    box-shadow:
+        0 7px 20px rgba(20,38,70,.08);
+
+}
+
+
+.action-button .action-icon {
+
+    width: 39px;
+    height: 39px;
+
+    flex: 0 0 39px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    font-size: 17px;
+
+}
+
+
+.action-button > span:nth-child(2) {
+
+    flex: 1;
+
+}
+
+
+.action-button strong {
+
+    display: block;
+
+    font-size: 12px;
+
+}
+
+
+.action-button small {
+
+    display: block;
+
+    margin-top: 2px;
+
+    font-size: 9px;
+
+    color: #939baa;
+
+}
+
+
+.action-button .arrow {
+
+    color: #adb5bd;
+
+    transition: .2s ease;
+
+}
+
+
+.action-button:hover .arrow {
+
+    transform: translateX(3px);
+
+}
+
+
+.action-button.approve {
+
+    color: #198754;
+
+}
+
+
+.action-button.approve .action-icon {
+
+    background: #e7f7ef;
+
+}
+
+
+.action-button.reject {
+
+    color: #dc3545;
+
+}
+
+
+.action-button.reject .action-icon {
+
+    background: #ffebee;
+
+}
+
+
+.action-button.suspend {
+
+    color: #a06b00;
+
+}
+
+
+.action-button.suspend .action-icon {
+
+    background: #fff4d8;
+
+}
+
+
+.action-button.activate {
+
+    color: #0d6efd;
+
+}
+
+
+.action-button.activate .action-icon {
+
+    background: #eaf2ff;
+
+}
+
+
+/* =========================================================
+   SECURITY NOTE
+   ========================================================= */
+
+.security-note {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    padding: 17px;
+
+    border-radius: 16px;
+
+    background: #172033;
+
+    color: #fff;
+
+    box-shadow:
+        0 12px 30px rgba(23,32,51,.15);
+
+}
+
+
+.security-note > i {
+
+    font-size: 22px;
+
+    color: #55d6a3;
+
+}
+
+
+.security-note strong {
+
+    display: block;
+
+    font-size: 12px;
+
+}
+
+
+.security-note p {
+
+    margin: 4px 0 0;
+
+    color: #aeb6c3;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+
+}
+
+
+/* =========================================================
+   ANIMATION
+   ========================================================= */
+
+@keyframes fadeUp {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(18px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1199px) {
+
+    .profile-main {
+
+        flex-wrap: wrap;
+
+    }
+
+    .membership-id {
+
+        margin-left: 114px;
+
+    }
+
+}
+
+
+@media (max-width: 767px) {
+
+    .container-fluid {
+
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+
+    }
+
+
+    .detail-topbar {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+
+    .header-status {
+
+        text-align: left;
+
+    }
+
+
+    .profile-hero {
+
+        padding: 22px;
+
+    }
+
+
+    .profile-main {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+
+    .profile-identity h2 {
+
+        font-size: 22px;
+
+    }
+
+
+    .membership-id {
+
+        margin-left: 0;
+
+        width: 100%;
+
+    }
+
+
+    .info-grid,
+    .membership-info-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .info-item:nth-child(odd),
+    .membership-info-item:nth-child(odd) {
+
+        border-right: 0;
+
+    }
+
+
+    .info-item:nth-last-child(-n+2),
+    .membership-info-item:nth-last-child(-n+2) {
+
+        border-bottom: 1px solid #edf0f4;
+
+    }
+
+
+    .info-item:last-child,
+    .membership-info-item:last-child {
+
+        border-bottom: 0;
+
+    }
+
+
+    .location-grid {
+
+        grid-template-columns: repeat(2, 1fr);
+
+    }
+
+
+    .location-item:nth-child(2) {
+
+        border-right: 0;
+
+    }
+
+
+    .location-item {
+
+        border-bottom: 1px solid #edf0f4;
+
+    }
+
+
+    .location-item:nth-last-child(-n+2) {
+
+        border-bottom: 0;
+
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .page-title {
+
+        font-size: 28px;
+
+    }
+
+
+    .profile-photo,
+    .profile-photo-placeholder {
+
+        width: 78px;
+        height: 78px;
+
+    }
+
+
+    .profile-photo-placeholder {
+
+        font-size: 28px;
+
+    }
+
+
+    .location-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .location-item {
+
+        border-right: 0;
+
+    }
+
+
+    .location-item:last-child {
+
+        border-bottom: 0;
+
+    }
+
+
+    .detail-card,
+    .action-card {
+
+        padding: 18px;
+
+        border-radius: 17px;
+
+    }
+
+}
+
+</style>
+
+{% endblock %}

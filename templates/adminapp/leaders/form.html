@@ -1,0 +1,1620 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% if leader %}
+Edit Leader | Admin Panel
+{% else %}
+Add Leader | Admin Panel
+{% endif %}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="leader-form-page">
+
+    <!-- BACKGROUND DECORATION -->
+    <div class="leader-orb leader-orb-one"></div>
+    <div class="leader-orb leader-orb-two"></div>
+
+    <div class="container py-5">
+
+        <!-- TOP HEADER -->
+
+        <div class="leader-topbar">
+
+            <div>
+
+                <a
+                    href="{% url 'admin_leader_list' %}"
+                    class="back-link"
+                >
+                    <i class="bi bi-arrow-left"></i>
+                    Back to Leaders
+                </a>
+
+                <div class="page-eyebrow">
+                    <i class="bi bi-people-fill"></i>
+                    Content Management
+                </div>
+
+                <h1 class="page-title">
+
+                    {% if leader %}
+                        Edit Leader
+                    {% else %}
+                        Add New Leader
+                    {% endif %}
+
+                </h1>
+
+                <p class="page-subtitle">
+
+                    {% if leader %}
+                        Update the leader's profile information.
+                    {% else %}
+                        Add a new party leader to the website.
+                    {% endif %}
+
+                </p>
+
+            </div>
+
+            <div class="header-icon d-none d-md-flex">
+
+                <i class="bi bi-person-badge"></i>
+
+            </div>
+
+        </div>
+
+
+        <!-- FORM CARD -->
+
+        <div class="row justify-content-center">
+
+            <div class="col-xl-9 col-lg-10">
+
+                <div class="leader-form-card">
+
+                    <!-- CARD HEADER -->
+
+                    <div class="form-card-header">
+
+                        <div class="header-symbol">
+
+                            <i class="bi bi-person-vcard"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                Leader Information
+                            </h4>
+
+                            <p>
+                                Fill in the details below to manage
+                                the leader profile.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FORM BODY -->
+
+                    <div class="form-card-body">
+
+                        <form
+                            method="post"
+                            enctype="multipart/form-data"
+                        >
+
+                            {% csrf_token %}
+
+
+                            <!-- NON FIELD ERRORS -->
+
+                            {% if form.non_field_errors %}
+
+                                <div class="custom-alert">
+
+                                    <div class="alert-icon">
+                                        <i class="bi bi-exclamation-triangle-fill"></i>
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            Please check the form
+                                        </strong>
+
+                                        {% for error in form.non_field_errors %}
+
+                                            <div class="small mt-1">
+                                                {{ error }}
+                                            </div>
+
+                                        {% endfor %}
+
+                                    </div>
+
+                                </div>
+
+                            {% endif %}
+
+
+                            <!-- BASIC INFORMATION -->
+
+                            <div class="section-heading">
+
+                                <div class="section-number">
+                                    01
+                                </div>
+
+                                <div>
+
+                                    <h5>
+                                        Basic Information
+                                    </h5>
+
+                                    <p>
+                                        Enter the leader's identity and role.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="row g-4">
+
+
+                                <!-- NAME -->
+
+                                <div class="col-md-6">
+
+                                    <label
+                                        for="{{ form.name.id_for_label }}"
+                                        class="modern-label"
+                                    >
+
+                                        <i class="bi bi-person"></i>
+                                        Leader Name
+
+                                    </label>
+
+                                    <div class="input-wrapper">
+
+                                        <i class="bi bi-person input-icon"></i>
+
+                                        {{ form.name }}
+
+                                    </div>
+
+                                    {% if form.name.errors %}
+
+                                        <div class="field-error">
+
+                                            <i class="bi bi-exclamation-circle"></i>
+
+                                            {{ form.name.errors }}
+
+                                        </div>
+
+                                    {% endif %}
+
+                                </div>
+
+
+                                <!-- DESIGNATION -->
+
+                                <div class="col-md-6">
+
+                                    <label
+                                        for="{{ form.designation.id_for_label }}"
+                                        class="modern-label"
+                                    >
+
+                                        <i class="bi bi-briefcase"></i>
+                                        Designation
+
+                                    </label>
+
+                                    <div class="input-wrapper">
+
+                                        <i class="bi bi-briefcase input-icon"></i>
+
+                                        {{ form.designation }}
+
+                                    </div>
+
+                                    {% if form.designation.errors %}
+
+                                        <div class="field-error">
+
+                                            <i class="bi bi-exclamation-circle"></i>
+
+                                            {{ form.designation.errors }}
+
+                                        </div>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- PROFILE IMAGE SECTION -->
+
+                            <div class="section-heading section-space">
+
+                                <div class="section-number">
+                                    02
+                                </div>
+
+                                <div>
+
+                                    <h5>
+                                        Profile Image
+                                    </h5>
+
+                                    <p>
+                                        Upload a clear and professional
+                                        profile photograph.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="image-upload-card">
+
+                                <div class="upload-icon">
+
+                                    <i class="bi bi-cloud-arrow-up"></i>
+
+                                </div>
+
+                                <div class="upload-content">
+
+                                    <label
+                                        for="{{ form.profile_image.id_for_label }}"
+                                        class="upload-title"
+                                    >
+
+                                        Choose Profile Image
+
+                                    </label>
+
+                                    <p>
+                                        JPG, JPEG or PNG recommended
+                                    </p>
+
+                                    <div class="custom-file-input">
+
+                                        {{ form.profile_image }}
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            {% if form.profile_image.errors %}
+
+                                <div class="field-error mt-2">
+
+                                    <i class="bi bi-exclamation-circle"></i>
+
+                                    {{ form.profile_image.errors }}
+
+                                </div>
+
+                            {% endif %}
+
+
+                            <!-- CURRENT IMAGE -->
+
+                            {% if leader and leader.profile_image %}
+
+                                <div class="current-image-box">
+
+                                    <div class="current-image-info">
+
+                                        <span class="current-label">
+                                            CURRENT IMAGE
+                                        </span>
+
+                                        <span class="current-description">
+                                            Existing profile photograph
+                                        </span>
+
+                                    </div>
+
+                                    <div class="current-image-preview">
+
+                                        <img
+                                            src="{{ leader.profile_image.url }}"
+                                            alt="{{ leader.name }}"
+                                        >
+
+                                    </div>
+
+                                </div>
+
+                            {% endif %}
+
+
+                            <!-- BIOGRAPHY -->
+
+                            <div class="section-heading section-space">
+
+                                <div class="section-number">
+                                    03
+                                </div>
+
+                                <div>
+
+                                    <h5>
+                                        Biography
+                                    </h5>
+
+                                    <p>
+                                        Add information about the leader.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="mb-4">
+
+                                <label
+                                    for="{{ form.bio.id_for_label }}"
+                                    class="modern-label"
+                                >
+
+                                    <i class="bi bi-file-text"></i>
+                                    Biography
+
+                                </label>
+
+                                <div class="textarea-wrapper">
+
+                                    <i class="bi bi-pencil-square textarea-icon"></i>
+
+                                    {{ form.bio }}
+
+                                </div>
+
+                                {% if form.bio.errors %}
+
+                                    <div class="field-error">
+
+                                        <i class="bi bi-exclamation-circle"></i>
+
+                                        {{ form.bio.errors }}
+
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <!-- SETTINGS -->
+
+                            <div class="section-heading section-space">
+
+                                <div class="section-number">
+                                    04
+                                </div>
+
+                                <div>
+
+                                    <h5>
+                                        Publishing Settings
+                                    </h5>
+
+                                    <p>
+                                        Control the order and visibility
+                                        of this leader.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="row g-4">
+
+
+                                <!-- ORDER -->
+
+                                <div class="col-md-5">
+
+                                    <label
+                                        for="{{ form.order.id_for_label }}"
+                                        class="modern-label"
+                                    >
+
+                                        <i class="bi bi-sort-numeric-down"></i>
+                                        Display Order
+
+                                    </label>
+
+                                    <div class="input-wrapper">
+
+                                        <i class="bi bi-list-ol input-icon"></i>
+
+                                        {{ form.order }}
+
+                                    </div>
+
+                                    <div class="helper-text">
+
+                                        Lower numbers appear first.
+
+                                    </div>
+
+                                    {% if form.order.errors %}
+
+                                        <div class="field-error">
+
+                                            <i class="bi bi-exclamation-circle"></i>
+
+                                            {{ form.order.errors }}
+
+                                        </div>
+
+                                    {% endif %}
+
+                                </div>
+
+
+                                <!-- PUBLISHED -->
+
+                                <div class="col-md-7">
+
+                                    <div class="publish-card">
+
+                                        <div class="publish-icon">
+
+                                            <i class="bi bi-globe2"></i>
+
+                                        </div>
+
+                                        <div class="publish-content">
+
+                                            <label
+                                                for="{{ form.published.id_for_label }}"
+                                                class="publish-title"
+                                            >
+
+                                                Publish this leader
+
+                                            </label>
+
+                                            <p>
+                                                Published leaders will appear
+                                                on the public leadership page.
+                                            </p>
+
+                                        </div>
+
+                                        <div class="publish-checkbox">
+
+                                            {{ form.published }}
+
+                                        </div>
+
+                                    </div>
+
+                                    {% if form.published.errors %}
+
+                                        <div class="field-error mt-2">
+
+                                            <i class="bi bi-exclamation-circle"></i>
+
+                                            {{ form.published.errors }}
+
+                                        </div>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- ACTIONS -->
+
+                            <div class="form-actions">
+
+                                <a
+                                    href="{% url 'admin_leader_list' %}"
+                                    class="cancel-btn"
+                                >
+
+                                    <i class="bi bi-x-lg"></i>
+
+                                    Cancel
+
+                                </a>
+
+
+                                <button
+                                    type="submit"
+                                    class="save-btn"
+                                >
+
+                                    {% if leader %}
+
+                                        <i class="bi bi-check-lg"></i>
+                                        Update Leader
+
+                                    {% else %}
+
+                                        <i class="bi bi-plus-lg"></i>
+                                        Add Leader
+
+                                    {% endif %}
+
+                                    <i class="bi bi-arrow-right save-arrow"></i>
+
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block js %}
+
+<style>
+
+/* =========================================================
+   LEADER FORM - MODERN ADMIN UI
+   ========================================================= */
+
+.leader-form-page {
+
+    position: relative;
+
+    min-height: 100vh;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(13, 110, 253, 0.08),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(111, 66, 193, 0.07),
+            transparent 30%
+        ),
+        #f7f9fc;
+
+}
+
+
+/* BACKGROUND ORBS */
+
+.leader-orb {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    filter: blur(2px);
+
+}
+
+.leader-orb-one {
+
+    width: 260px;
+
+    height: 260px;
+
+    background: rgba(13, 110, 253, 0.07);
+
+    top: -100px;
+
+    right: -80px;
+
+}
+
+.leader-orb-two {
+
+    width: 220px;
+
+    height: 220px;
+
+    background: rgba(111, 66, 193, 0.06);
+
+    bottom: -80px;
+
+    left: -80px;
+
+}
+
+
+/* TOP HEADER */
+
+.leader-topbar {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    gap: 25px;
+
+    margin-bottom: 35px;
+
+}
+
+.back-link {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    text-decoration: none;
+
+    color: #495057;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    margin-bottom: 20px;
+
+    transition: all 0.2s ease;
+
+}
+
+.back-link:hover {
+
+    color: #0d6efd;
+
+    transform: translateX(-3px);
+
+}
+
+
+.page-eyebrow {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    background: rgba(13, 110, 253, 0.09);
+
+    color: #0d6efd;
+
+    border: 1px solid rgba(13, 110, 253, 0.12);
+
+    border-radius: 50px;
+
+    padding: 7px 13px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: .4px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 12px;
+
+}
+
+.page-title {
+
+    font-size: clamp(30px, 4vw, 42px);
+
+    font-weight: 800;
+
+    letter-spacing: -1px;
+
+    margin: 0;
+
+    color: #172033;
+
+}
+
+.page-subtitle {
+
+    color: #6c757d;
+
+    margin: 8px 0 0;
+
+    font-size: 15px;
+
+}
+
+
+.header-icon {
+
+    width: 70px;
+
+    height: 70px;
+
+    border-radius: 20px;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: linear-gradient(
+        135deg,
+        #0d6efd,
+        #6f42c1
+    );
+
+    color: white;
+
+    font-size: 28px;
+
+    box-shadow:
+        0 15px 35px rgba(13, 110, 253, 0.20);
+
+}
+
+
+/* MAIN CARD */
+
+.leader-form-card {
+
+    background: rgba(255, 255, 255, 0.94);
+
+    border: 1px solid rgba(0, 0, 0, 0.055);
+
+    border-radius: 24px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 20px 60px rgba(20, 35, 60, 0.08);
+
+}
+
+
+/* CARD HEADER */
+
+.form-card-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    padding: 25px 30px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f8faff
+        );
+
+    border-bottom: 1px solid #edf0f5;
+
+}
+
+.header-symbol {
+
+    width: 50px;
+
+    height: 50px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background: rgba(13, 110, 253, 0.10);
+
+    color: #0d6efd;
+
+    font-size: 22px;
+
+}
+
+.form-card-header h4 {
+
+    margin: 0;
+
+    font-size: 18px;
+
+    font-weight: 750;
+
+    color: #172033;
+
+}
+
+.form-card-header p {
+
+    margin: 4px 0 0;
+
+    color: #7a8493;
+
+    font-size: 13px;
+
+}
+
+
+/* FORM BODY */
+
+.form-card-body {
+
+    padding: 32px;
+
+}
+
+
+/* ALERT */
+
+.custom-alert {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    padding: 15px 17px;
+
+    border-radius: 14px;
+
+    margin-bottom: 28px;
+
+    color: #842029;
+
+    background: #fff0f1;
+
+    border: 1px solid #ffd5d9;
+
+}
+
+.alert-icon {
+
+    font-size: 18px;
+
+}
+
+
+/* SECTION HEADINGS */
+
+.section-heading {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 13px;
+
+    margin-bottom: 22px;
+
+}
+
+.section-space {
+
+    margin-top: 38px;
+
+}
+
+.section-number {
+
+    min-width: 38px;
+
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #edf4ff;
+
+    color: #0d6efd;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+}
+
+.section-heading h5 {
+
+    margin: 0;
+
+    font-weight: 750;
+
+    color: #202939;
+
+    font-size: 16px;
+
+}
+
+.section-heading p {
+
+    margin: 4px 0 0;
+
+    color: #8a94a3;
+
+    font-size: 13px;
+
+}
+
+
+/* LABELS */
+
+.modern-label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-bottom: 9px;
+
+    color: #303a4c;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+.modern-label i {
+
+    color: #0d6efd;
+
+}
+
+
+/* INPUT WRAPPER */
+
+.input-wrapper {
+
+    position: relative;
+
+}
+
+.input-wrapper .input-icon {
+
+    position: absolute;
+
+    left: 15px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #9aa4b2;
+
+    z-index: 2;
+
+    pointer-events: none;
+
+}
+
+
+/*
+   Django generated inputs remain untouched.
+   CSS only changes their appearance.
+*/
+
+.input-wrapper input,
+.input-wrapper select {
+
+    width: 100%;
+
+    min-height: 50px;
+
+    padding: 12px 15px 12px 43px;
+
+    border: 1px solid #dfe4eb;
+
+    border-radius: 13px;
+
+    background: #fbfcfe;
+
+    color: #202939;
+
+    outline: none;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+
+}
+
+.input-wrapper input:focus,
+.input-wrapper select:focus {
+
+    background: #ffffff;
+
+    border-color: #86b7fe;
+
+    box-shadow:
+        0 0 0 4px rgba(13, 110, 253, 0.09);
+
+}
+
+
+/* IMAGE UPLOAD */
+
+.image-upload-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 22px;
+
+    border: 1px dashed #cbd5e1;
+
+    border-radius: 17px;
+
+    background: #fafcff;
+
+    transition: all .25s ease;
+
+}
+
+.image-upload-card:hover {
+
+    border-color: #86b7fe;
+
+    background: #f7faff;
+
+}
+
+.upload-icon {
+
+    width: 58px;
+
+    height: 58px;
+
+    min-width: 58px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background: #eaf2ff;
+
+    color: #0d6efd;
+
+    font-size: 25px;
+
+}
+
+.upload-title {
+
+    display: block;
+
+    color: #202939;
+
+    font-weight: 750;
+
+    font-size: 14px;
+
+    margin-bottom: 3px;
+
+}
+
+.upload-content p {
+
+    margin: 0 0 10px;
+
+    font-size: 12px;
+
+    color: #8a94a3;
+
+}
+
+.custom-file-input input[type="file"] {
+
+    max-width: 100%;
+
+    font-size: 13px;
+
+    color: #667085;
+
+}
+
+
+/* CURRENT IMAGE */
+
+.current-image-box {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 18px;
+
+    margin-top: 14px;
+
+    border-radius: 16px;
+
+    background: #f8f9fb;
+
+    border: 1px solid #edf0f4;
+
+}
+
+.current-image-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+}
+
+.current-label {
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: .7px;
+
+    color: #0d6efd;
+
+}
+
+.current-description {
+
+    color: #8a94a3;
+
+    font-size: 12px;
+
+}
+
+.current-image-preview {
+
+    width: 90px;
+
+    height: 90px;
+
+    overflow: hidden;
+
+    border-radius: 16px;
+
+    border: 3px solid white;
+
+    box-shadow:
+        0 7px 20px rgba(0, 0, 0, 0.10);
+
+}
+
+.current-image-preview img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+
+/* TEXTAREA */
+
+.textarea-wrapper {
+
+    position: relative;
+
+}
+
+.textarea-icon {
+
+    position: absolute;
+
+    top: 16px;
+
+    left: 16px;
+
+    color: #9aa4b2;
+
+    z-index: 2;
+
+    pointer-events: none;
+
+}
+
+.textarea-wrapper textarea {
+
+    width: 100%;
+
+    min-height: 180px;
+
+    padding: 15px 15px 15px 43px;
+
+    resize: vertical;
+
+    border: 1px solid #dfe4eb;
+
+    border-radius: 14px;
+
+    background: #fbfcfe;
+
+    outline: none;
+
+    transition: all .2s ease;
+
+}
+
+.textarea-wrapper textarea:focus {
+
+    background: #ffffff;
+
+    border-color: #86b7fe;
+
+    box-shadow:
+        0 0 0 4px rgba(13, 110, 253, 0.09);
+
+}
+
+
+/* HELPER */
+
+.helper-text {
+
+    margin-top: 7px;
+
+    color: #8a94a3;
+
+    font-size: 12px;
+
+}
+
+
+/* PUBLISH CARD */
+
+.publish-card {
+
+    min-height: 84px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 15px 17px;
+
+    border-radius: 16px;
+
+    border: 1px solid #e4e8ee;
+
+    background: #fbfcfe;
+
+}
+
+.publish-icon {
+
+    width: 43px;
+
+    height: 43px;
+
+    min-width: 43px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #eaf7ef;
+
+    color: #198754;
+
+    font-size: 18px;
+
+}
+
+.publish-content {
+
+    flex: 1;
+
+}
+
+.publish-title {
+
+    display: block;
+
+    color: #263143;
+
+    font-weight: 750;
+
+    font-size: 13px;
+
+    cursor: pointer;
+
+}
+
+.publish-content p {
+
+    margin: 3px 0 0;
+
+    color: #8a94a3;
+
+    font-size: 11px;
+
+    line-height: 1.4;
+
+}
+
+
+/* CHECKBOX */
+
+.publish-checkbox input[type="checkbox"] {
+
+    width: 22px;
+
+    height: 22px;
+
+    cursor: pointer;
+
+    accent-color: #0d6efd;
+
+}
+
+
+/* ERRORS */
+
+.field-error {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 5px;
+
+    color: #dc3545;
+
+    font-size: 12px;
+
+    margin-top: 7px;
+
+}
+
+
+/* ACTIONS */
+
+.form-actions {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    padding-top: 30px;
+
+    margin-top: 38px;
+
+    border-top: 1px solid #edf0f4;
+
+}
+
+.cancel-btn,
+.save-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    min-height: 48px;
+
+    padding: 0 20px;
+
+    border-radius: 13px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition: all .2s ease;
+
+}
+
+
+/* CANCEL */
+
+.cancel-btn {
+
+    color: #667085;
+
+    background: #ffffff;
+
+    border: 1px solid #dfe4eb;
+
+}
+
+.cancel-btn:hover {
+
+    color: #343a40;
+
+    background: #f8f9fa;
+
+}
+
+
+/* SAVE */
+
+.save-btn {
+
+    border: 0;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd,
+            #5b4ce2
+        );
+
+    box-shadow:
+        0 9px 22px rgba(13, 110, 253, 0.20);
+
+}
+
+.save-btn:hover {
+
+    color: white;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 13px 28px rgba(13, 110, 253, 0.28);
+
+}
+
+.save-arrow {
+
+    transition: transform .2s ease;
+
+}
+
+.save-btn:hover .save-arrow {
+
+    transform: translateX(4px);
+
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 767px) {
+
+    .leader-form-page .container {
+
+        padding-top: 30px !important;
+
+        padding-bottom: 30px !important;
+
+    }
+
+    .leader-topbar {
+
+        margin-bottom: 25px;
+
+    }
+
+    .page-title {
+
+        font-size: 30px;
+
+    }
+
+    .form-card-body {
+
+        padding: 22px 18px;
+
+    }
+
+    .form-card-header {
+
+        padding: 20px;
+
+    }
+
+    .image-upload-card {
+
+        align-items: flex-start;
+
+    }
+
+    .current-image-box {
+
+        align-items: flex-start;
+
+    }
+
+    .form-actions {
+
+        flex-direction: column-reverse;
+
+    }
+
+    .cancel-btn,
+    .save-btn {
+
+        width: 100%;
+
+    }
+
+}
+
+</style>
+
+{% endblock %}

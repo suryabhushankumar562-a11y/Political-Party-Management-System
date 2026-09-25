@@ -1,0 +1,1601 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% if manifesto %}
+Edit Manifesto | Admin Panel
+{% else %}
+Add Manifesto | Admin Panel
+{% endif %}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="manifesto-form-page">
+
+    <!-- BACKGROUND DECORATION -->
+
+    <div class="manifesto-orb orb-one"></div>
+    <div class="manifesto-orb orb-two"></div>
+    <div class="manifesto-grid"></div>
+
+
+    <div class="container py-5 position-relative">
+
+        <!-- ================= HEADER ================= -->
+
+        <div class="form-page-header">
+
+            <div>
+
+                <a
+                    href="{% url 'admin_manifesto_list' %}"
+                    class="back-button"
+                >
+
+                    <i class="bi bi-arrow-left"></i>
+
+                    <span>
+                        Back to Manifesto
+                    </span>
+
+                </a>
+
+
+                <div class="header-label">
+
+                    <span class="label-icon">
+                        <i class="bi bi-megaphone"></i>
+                    </span>
+
+                    <span>
+                        CONTENT MANAGEMENT
+                    </span>
+
+                </div>
+
+
+                <h1 class="page-title">
+
+                    {% if manifesto %}
+                        Edit Manifesto
+                    {% else %}
+                        Add New Manifesto
+                    {% endif %}
+
+                </h1>
+
+
+                <p class="page-description">
+
+                    {% if manifesto %}
+                        Update this manifesto item and keep your
+                        public commitments up to date.
+                    {% else %}
+                        Add a new priority or commitment to the
+                        party manifesto.
+                    {% endif %}
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= MAIN FORM ================= -->
+
+        <div class="row justify-content-center">
+
+            <div class="col-xl-9 col-lg-10">
+
+                <div class="manifesto-form-card">
+
+
+                    <!-- CARD TOP -->
+
+                    <div class="form-card-top">
+
+                        <div class="form-card-icon">
+
+                            <i class="bi bi-file-earmark-text"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h4>
+                                Manifesto Information
+                            </h4>
+
+                            <p>
+                                Fill in the details below carefully.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- FORM BODY -->
+
+                    <div class="form-card-body">
+
+                        <form method="post">
+
+                            {% csrf_token %}
+
+
+                            <!-- NON FIELD ERRORS -->
+
+                            {% if form.non_field_errors %}
+
+                                <div class="custom-error-box">
+
+                                    <div class="error-icon">
+
+                                        <i class="bi bi-exclamation-triangle-fill"></i>
+
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            Please correct the following:
+                                        </strong>
+
+                                        {% for error in form.non_field_errors %}
+
+                                            <div class="mt-1">
+                                                {{ error }}
+                                            </div>
+
+                                        {% endfor %}
+
+                                    </div>
+
+                                </div>
+
+                            {% endif %}
+
+
+
+                            <!-- ================= TITLE ================= -->
+
+                            <div class="form-group-modern">
+
+                                <label
+                                    for="{{ form.title.id_for_label }}"
+                                    class="modern-label"
+                                >
+
+                                    <span class="label-icon-small">
+                                        <i class="bi bi-type"></i>
+                                    </span>
+
+                                    Manifesto Title
+
+                                    <span class="required-star">
+                                        *
+                                    </span>
+
+                                </label>
+
+
+                                <div class="input-box">
+
+                                    <i class="bi bi-pencil input-icon"></i>
+
+                                    {{ form.title }}
+
+                                </div>
+
+
+                                {% if form.title.errors %}
+
+                                    <div class="field-error">
+
+                                        <i class="bi bi-exclamation-circle"></i>
+
+                                        {{ form.title.errors }}
+
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+
+
+                            <!-- ================= DESCRIPTION ================= -->
+
+                            <div class="form-group-modern">
+
+                                <label
+                                    for="{{ form.description.id_for_label }}"
+                                    class="modern-label"
+                                >
+
+                                    <span class="label-icon-small">
+                                        <i class="bi bi-card-text"></i>
+                                    </span>
+
+                                    Description
+
+                                    <span class="required-star">
+                                        *
+                                    </span>
+
+                                </label>
+
+
+                                <div class="input-box textarea-box">
+
+                                    <i class="bi bi-text-left input-icon textarea-icon"></i>
+
+                                    {{ form.description }}
+
+                                </div>
+
+
+                                {% if form.description.errors %}
+
+                                    <div class="field-error">
+
+                                        <i class="bi bi-exclamation-circle"></i>
+
+                                        {{ form.description.errors }}
+
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+
+
+                            <!-- ================= ICON + ORDER ================= -->
+
+                            <div class="row g-4">
+
+
+                                <!-- ICON -->
+
+                                <div class="col-md-7">
+
+                                    <div class="form-group-modern">
+
+                                        <label
+                                            for="{{ form.icon.id_for_label }}"
+                                            class="modern-label"
+                                        >
+
+                                            <span class="label-icon-small">
+                                                <i class="bi bi-stars"></i>
+                                            </span>
+
+                                            Bootstrap Icon
+
+                                        </label>
+
+
+                                        <div class="input-box">
+
+                                            <i class="bi bi-code-slash input-icon"></i>
+
+                                            {{ form.icon }}
+
+                                        </div>
+
+
+                                        <div class="helper-text">
+
+                                            <i class="bi bi-info-circle"></i>
+
+                                            Example:
+                                            <code>bi bi-people</code>
+
+                                        </div>
+
+
+                                        {% if form.icon.errors %}
+
+                                            <div class="field-error">
+
+                                                <i class="bi bi-exclamation-circle"></i>
+
+                                                {{ form.icon.errors }}
+
+                                            </div>
+
+                                        {% endif %}
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- ORDER -->
+
+                                <div class="col-md-5">
+
+                                    <div class="form-group-modern">
+
+                                        <label
+                                            for="{{ form.order.id_for_label }}"
+                                            class="modern-label"
+                                        >
+
+                                            <span class="label-icon-small">
+                                                <i class="bi bi-sort-numeric-down"></i>
+                                            </span>
+
+                                            Display Order
+
+                                        </label>
+
+
+                                        <div class="input-box">
+
+                                            <i class="bi bi-list-ol input-icon"></i>
+
+                                            {{ form.order }}
+
+                                        </div>
+
+
+                                        <div class="helper-text">
+
+                                            <i class="bi bi-arrow-down-up"></i>
+
+                                            Lower numbers appear first.
+
+                                        </div>
+
+
+                                        {% if form.order.errors %}
+
+                                            <div class="field-error">
+
+                                                <i class="bi bi-exclamation-circle"></i>
+
+                                                {{ form.order.errors }}
+
+                                            </div>
+
+                                        {% endif %}
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- ================= PUBLISHED ================= -->
+
+                            <div class="publish-box">
+
+                                <div class="publish-icon">
+
+                                    <i class="bi bi-broadcast-pin"></i>
+
+                                </div>
+
+
+                                <div class="publish-content">
+
+                                    <div class="publish-title">
+
+                                        Publish this manifesto item
+
+                                    </div>
+
+                                    <div class="publish-description">
+
+                                        Published items will appear on the
+                                        public manifesto page.
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="publish-switch">
+
+                                    {{ form.published }}
+
+                                </div>
+
+                            </div>
+
+
+                            {% if form.published.errors %}
+
+                                <div class="field-error mt-2">
+
+                                    <i class="bi bi-exclamation-circle"></i>
+
+                                    {{ form.published.errors }}
+
+                                </div>
+
+                            {% endif %}
+
+
+
+                            <!-- ================= BUTTONS ================= -->
+
+                            <div class="form-actions">
+
+                                <a
+                                    href="{% url 'admin_manifesto_list' %}"
+                                    class="cancel-button"
+                                >
+
+                                    <i class="bi bi-x-lg"></i>
+
+                                    <span>
+                                        Cancel
+                                    </span>
+
+                                </a>
+
+
+                                <button
+                                    type="submit"
+                                    class="save-button"
+                                >
+
+                                    <span class="button-icon">
+
+                                        {% if manifesto %}
+
+                                            <i class="bi bi-check-lg"></i>
+
+                                        {% else %}
+
+                                            <i class="bi bi-plus-lg"></i>
+
+                                        {% endif %}
+
+                                    </span>
+
+
+                                    <span>
+
+                                        {% if manifesto %}
+                                            Update Manifesto
+                                        {% else %}
+                                            Add Manifesto
+                                        {% endif %}
+
+                                    </span>
+
+
+                                    <i class="bi bi-arrow-right button-arrow"></i>
+
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ================= BOTTOM NOTE ================= -->
+
+                <div class="security-note">
+
+                    <i class="bi bi-shield-check"></i>
+
+                    <span>
+                        Your manifesto content is managed securely
+                        through the administration panel.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+
+{% block js %}
+
+<style>
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.manifesto-form-page {
+
+    position: relative;
+
+    min-height: calc(100vh - 80px);
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f8faff 0%,
+            #ffffff 45%,
+            #f5f8ff 100%
+        );
+
+}
+
+
+/* =========================================================
+   BACKGROUND DECORATION
+   ========================================================= */
+
+.manifesto-orb {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(2px);
+
+    pointer-events: none;
+
+    animation: floatOrb 8s ease-in-out infinite;
+
+}
+
+
+.orb-one {
+
+    width: 300px;
+
+    height: 300px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(13,110,253,.13),
+            transparent 70%
+        );
+
+    top: -100px;
+
+    right: -80px;
+
+}
+
+
+.orb-two {
+
+    width: 250px;
+
+    height: 250px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(111,66,193,.10),
+            transparent 70%
+        );
+
+    bottom: 80px;
+
+    left: -100px;
+
+    animation-delay: -3s;
+
+}
+
+
+.orb-three {
+
+    width: 180px;
+
+    height: 180px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(13,202,240,.08),
+            transparent 70%
+        );
+
+    top: 45%;
+
+    right: 5%;
+
+    animation-delay: -5s;
+
+}
+
+
+.manifesto-grid {
+
+    position: absolute;
+
+    inset: 0;
+
+    opacity: .35;
+
+    pointer-events: none;
+
+    background-image:
+        linear-gradient(
+            rgba(13,110,253,.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(13,110,253,.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 35px 35px;
+
+}
+
+
+@keyframes floatOrb {
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(-20px) scale(1.04);
+    }
+
+}
+
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.form-page-header {
+
+    margin-bottom: 35px;
+
+    animation: fadeDown .6s ease both;
+
+}
+
+
+.back-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 9px 15px;
+
+    margin-bottom: 25px;
+
+    border: 1px solid #dbe4f0;
+
+    border-radius: 10px;
+
+    background: rgba(255,255,255,.8);
+
+    color: #495057;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition: all .25s ease;
+
+}
+
+
+.back-button:hover {
+
+    color: #0d6efd;
+
+    border-color: #0d6efd;
+
+    transform: translateX(-4px);
+
+    box-shadow: 0 5px 18px rgba(13,110,253,.10);
+
+}
+
+
+.header-label {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: #0d6efd;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.header-label .label-icon {
+
+    width: 28px;
+
+    height: 28px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background: #eaf2ff;
+
+}
+
+
+.page-title {
+
+    font-size: clamp(2rem, 4vw, 2.8rem);
+
+    font-weight: 800;
+
+    letter-spacing: -1px;
+
+    color: #182230;
+
+    margin-bottom: 8px;
+
+}
+
+
+.page-description {
+
+    color: #6c757d;
+
+    max-width: 650px;
+
+    margin-bottom: 0;
+
+    font-size: 15px;
+
+}
+
+
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.manifesto-form-card {
+
+    position: relative;
+
+    background: rgba(255,255,255,.94);
+
+    border: 1px solid rgba(220,227,238,.8);
+
+    border-radius: 22px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 20px 60px rgba(30,50,90,.09);
+
+    animation: cardReveal .7s ease both;
+
+}
+
+
+.form-card-top {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    padding: 26px 30px;
+
+    border-bottom: 1px solid #edf1f6;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f8faff
+        );
+
+}
+
+
+.form-card-icon {
+
+    width: 52px;
+
+    height: 52px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 15px;
+
+    color: #0d6efd;
+
+    background: linear-gradient(
+        135deg,
+        #eaf2ff,
+        #f1f6ff
+    );
+
+    font-size: 23px;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(13,110,253,.08);
+
+}
+
+
+.form-card-top h4 {
+
+    font-size: 18px;
+
+    font-weight: 750;
+
+    margin: 0 0 4px;
+
+    color: #212529;
+
+}
+
+
+.form-card-top p {
+
+    margin: 0;
+
+    color: #7a8594;
+
+    font-size: 13px;
+
+}
+
+
+.form-card-body {
+
+    padding: 32px;
+
+}
+
+
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+.custom-error-box {
+
+    display: flex;
+
+    gap: 13px;
+
+    padding: 15px 17px;
+
+    margin-bottom: 25px;
+
+    border-radius: 13px;
+
+    color: #842029;
+
+    background: #fff1f2;
+
+    border: 1px solid #f5c2c7;
+
+    animation: shake .35s ease;
+
+}
+
+
+.error-icon {
+
+    font-size: 19px;
+
+}
+
+
+
+/* =========================================================
+   FORM GROUPS
+   ========================================================= */
+
+.form-group-modern {
+
+    margin-bottom: 27px;
+
+}
+
+
+.modern-label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 9px;
+
+    color: #344054;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+}
+
+
+.label-icon-small {
+
+    color: #0d6efd;
+
+    font-size: 14px;
+
+}
+
+
+.required-star {
+
+    color: #dc3545;
+
+}
+
+
+.input-box {
+
+    position: relative;
+
+}
+
+
+.input-icon {
+
+    position: absolute;
+
+    z-index: 2;
+
+    left: 16px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #9aa5b1;
+
+    pointer-events: none;
+
+    transition: color .25s ease;
+
+}
+
+
+.input-box input,
+.input-box select,
+.input-box textarea {
+
+    width: 100%;
+
+    border: 1px solid #dce3ec;
+
+    border-radius: 12px;
+
+    background: #fbfcfe;
+
+    color: #202733;
+
+    padding: 13px 15px 13px 43px;
+
+    outline: none;
+
+    transition:
+        border-color .25s ease,
+        box-shadow .25s ease,
+        background .25s ease,
+        transform .25s ease;
+
+}
+
+
+.input-box textarea {
+
+    min-height: 150px;
+
+    resize: vertical;
+
+    padding-top: 14px;
+
+}
+
+
+.textarea-icon {
+
+    top: 20px;
+
+    transform: none;
+
+}
+
+
+.input-box input:hover,
+.input-box select:hover,
+.input-box textarea:hover {
+
+    background: #ffffff;
+
+    border-color: #b9c9dc;
+
+}
+
+
+.input-box input:focus,
+.input-box select:focus,
+.input-box textarea:focus {
+
+    background: #ffffff;
+
+    border-color: #0d6efd;
+
+    box-shadow:
+        0 0 0 4px rgba(13,110,253,.10);
+
+    transform: translateY(-1px);
+
+}
+
+
+.input-box:focus-within .input-icon {
+
+    color: #0d6efd;
+
+}
+
+
+.field-error {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 6px;
+
+    margin-top: 7px;
+
+    color: #dc3545;
+
+    font-size: 12px;
+
+}
+
+
+.helper-text {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    margin-top: 8px;
+
+    color: #8994a3;
+
+    font-size: 12px;
+
+}
+
+
+.helper-text code {
+
+    color: #0d6efd;
+
+    background: #eef5ff;
+
+    padding: 3px 7px;
+
+    border-radius: 5px;
+
+}
+
+
+
+/* =========================================================
+   PUBLISH BOX
+   ========================================================= */
+
+.publish-box {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 17px 19px;
+
+    margin-top: 3px;
+
+    margin-bottom: 28px;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f7faff,
+            #ffffff
+        );
+
+    border: 1px solid #e1e8f1;
+
+    transition: all .25s ease;
+
+}
+
+
+.publish-box:hover {
+
+    border-color: #bcd0ea;
+
+    box-shadow:
+        0 8px 25px rgba(13,110,253,.06);
+
+    transform: translateY(-1px);
+
+}
+
+
+.publish-icon {
+
+    width: 43px;
+
+    height: 43px;
+
+    flex: 0 0 43px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background: #e9f7ef;
+
+    color: #198754;
+
+    font-size: 19px;
+
+}
+
+
+.publish-content {
+
+    flex: 1;
+
+}
+
+
+.publish-title {
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    color: #344054;
+
+    margin-bottom: 3px;
+
+}
+
+
+.publish-description {
+
+    font-size: 12px;
+
+    color: #8a95a3;
+
+}
+
+
+/* Keep Django checkbox functional */
+
+.publish-switch input[type="checkbox"] {
+
+    width: 44px;
+
+    height: 22px;
+
+    cursor: pointer;
+
+    accent-color: #0d6efd;
+
+}
+
+
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.form-actions {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding-top: 24px;
+
+    border-top: 1px solid #edf0f4;
+
+}
+
+
+.cancel-button,
+.save-button {
+
+    min-height: 48px;
+
+    padding: 0 19px;
+
+    border-radius: 11px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    transition: all .25s ease;
+
+}
+
+
+.cancel-button {
+
+    color: #596575;
+
+    background: #ffffff;
+
+    border: 1px solid #dce3eb;
+
+}
+
+
+.cancel-button:hover {
+
+    color: #343a40;
+
+    background: #f7f8fa;
+
+    transform: translateY(-2px);
+
+}
+
+
+.save-button {
+
+    position: relative;
+
+    overflow: hidden;
+
+    color: #ffffff;
+
+    border: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd,
+            #0756d8
+        );
+
+    box-shadow:
+        0 8px 20px rgba(13,110,253,.22);
+
+    cursor: pointer;
+
+}
+
+
+.save-button::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: -100%;
+
+    width: 70%;
+
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.22),
+            transparent
+        );
+
+    transform: skewX(-20deg);
+
+    transition: left .55s ease;
+
+}
+
+
+.save-button:hover::before {
+
+    left: 140%;
+
+}
+
+
+.save-button:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 28px rgba(13,110,253,.30);
+
+}
+
+
+.save-button:active {
+
+    transform: translateY(0);
+
+}
+
+
+.button-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+.button-arrow {
+
+    transition: transform .25s ease;
+
+}
+
+
+.save-button:hover .button-arrow {
+
+    transform: translateX(4px);
+
+}
+
+
+
+/* =========================================================
+   SECURITY NOTE
+   ========================================================= */
+
+.security-note {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    color: #8994a3;
+
+    font-size: 12px;
+
+    padding: 18px 10px 5px;
+
+}
+
+
+.security-note i {
+
+    color: #198754;
+
+    font-size: 15px;
+
+}
+
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes fadeDown {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(-15px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+
+@keyframes cardReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(25px) scale(.985);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0) scale(1);
+
+    }
+
+}
+
+
+@keyframes shake {
+
+    0%,100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+
+}
+
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .manifesto-form-page .container {
+
+        padding-left: 16px;
+
+        padding-right: 16px;
+
+    }
+
+
+    .form-card-body {
+
+        padding: 22px 18px;
+
+    }
+
+
+    .form-card-top {
+
+        padding: 21px 18px;
+
+    }
+
+
+    .page-title {
+
+        font-size: 2rem;
+
+    }
+
+
+    .form-actions {
+
+        flex-direction: column-reverse;
+
+        align-items: stretch;
+
+    }
+
+
+    .cancel-button,
+    .save-button {
+
+        width: 100%;
+
+    }
+
+
+    .publish-box {
+
+        align-items: flex-start;
+
+    }
+
+
+    .publish-switch {
+
+        margin-top: 8px;
+
+    }
+
+}
+
+</style>
+
+{% endblock %}

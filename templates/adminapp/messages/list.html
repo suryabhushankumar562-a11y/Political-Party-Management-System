@@ -1,0 +1,1522 @@
+{% extends "base.html" %}
+
+{% block title %}
+Contact Messages | Admin Panel
+{% endblock %}
+
+{% block content %}
+
+<div class="contact-admin-page">
+
+    <!-- DECORATIVE BACKGROUND -->
+    <div class="contact-orb orb-1"></div>
+    <div class="contact-orb orb-2"></div>
+
+    <div class="container-fluid py-5">
+
+        <!-- ================= HEADER ================= -->
+
+        <div class="admin-page-header">
+
+            <div>
+
+                <div class="section-label">
+                    <i class="bi bi-chat-square-text"></i>
+                    COMMUNICATION CENTER
+                </div>
+
+                <h2 class="admin-page-title">
+                    Contact Messages
+                </h2>
+
+                <p class="admin-page-subtitle">
+                    View and manage messages received from website visitors.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{% url 'admin_dashboard' %}"
+                class="dashboard-button"
+            >
+
+                <i class="bi bi-speedometer2"></i>
+
+                <span>Dashboard</span>
+
+                <i class="bi bi-arrow-up-right arrow-icon"></i>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- ================= MESSAGE CARD ================= -->
+
+        <div class="messages-card">
+
+            <!-- CARD HEADER -->
+
+            <div class="messages-card-header">
+
+                <div class="header-left">
+
+                    <div class="header-icon">
+
+                        <i class="bi bi-envelope-paper"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h5>
+                            Received Messages
+                        </h5>
+
+                        <p>
+                            Latest messages appear first.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="message-count">
+
+                    <span class="count-dot"></span>
+
+                    {{ page_obj.paginator.count }}
+
+                    <span class="count-label">
+                        Messages
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= TABLE ================= -->
+
+            <div class="messages-table-wrapper">
+
+                <div class="table-responsive">
+
+                    <table class="table messages-table align-middle mb-0">
+
+                        <thead>
+
+                            <tr>
+
+                                <th class="sender-column">
+                                    Sender
+                                </th>
+
+                                <th>
+                                    Subject
+                                </th>
+
+                                <th>
+                                    Message
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Date
+                                </th>
+
+                                <th class="text-end">
+                                    Action
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            {% for message in messages %}
+
+                            <tr
+                                {% if not message.is_read %}
+                                    class="unread-message"
+                                {% endif %}
+                            >
+
+                                <!-- SENDER -->
+
+                                <td>
+
+                                    <div class="sender-box">
+
+                                        <div class="sender-avatar">
+
+                                            {{ message.name|first|upper }}
+
+                                        </div>
+
+                                        <div class="sender-details">
+
+                                            <div class="sender-name">
+
+                                                {{ message.name }}
+
+                                                {% if not message.is_read %}
+
+                                                    <span class="new-dot"></span>
+
+                                                {% endif %}
+
+                                            </div>
+
+                                            <div class="sender-email">
+
+                                                <i class="bi bi-envelope"></i>
+
+                                                {{ message.email }}
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+
+                                <!-- SUBJECT -->
+
+                                <td>
+
+                                    <div class="subject-text">
+
+                                        {{ message.subject }}
+
+                                    </div>
+
+                                </td>
+
+
+
+                                <!-- MESSAGE -->
+
+                                <td>
+
+                                    <div class="message-preview">
+
+                                        {{ message.message|truncatechars:80 }}
+
+                                    </div>
+
+                                </td>
+
+
+
+                                <!-- STATUS -->
+
+                                <td>
+
+                                    {% if message.is_read %}
+
+                                        <span class="status-badge status-read">
+
+                                            <i class="bi bi-check-circle-fill"></i>
+
+                                            Read
+
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="status-badge status-unread">
+
+                                            <i class="bi bi-envelope-fill"></i>
+
+                                            Unread
+
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+
+                                <!-- DATE -->
+
+                                <td>
+
+                                    <div class="date-box">
+
+                                        <span class="date-main">
+
+                                            {{ message.created_at|date:"d M Y" }}
+
+                                        </span>
+
+                                        <span class="date-time">
+
+                                            <i class="bi bi-clock"></i>
+
+                                            {{ message.created_at|time:"h:i A" }}
+
+                                        </span>
+
+                                    </div>
+
+                                </td>
+
+
+
+                                <!-- ACTION -->
+
+                                <td class="text-end">
+
+                                    <a
+                                        href="{% url 'admin_contact_message_detail' message.pk %}"
+                                        class="view-message-btn"
+                                    >
+
+                                        <span>
+                                            View
+                                        </span>
+
+                                        <i class="bi bi-arrow-right"></i>
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+
+                            {% empty %}
+
+                            <tr>
+
+                                <td colspan="6">
+
+                                    <div class="empty-messages">
+
+                                        <div class="empty-icon">
+
+                                            <i class="bi bi-envelope-open"></i>
+
+                                        </div>
+
+                                        <h5>
+                                            No Messages
+                                        </h5>
+
+                                        <p>
+                                            There are currently no contact messages.
+                                        </p>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= PAGINATION ================= -->
+
+            {% if is_paginated %}
+
+            <div class="messages-pagination">
+
+                <nav>
+
+                    <ul class="pagination custom-pagination mb-0">
+
+
+                        <!-- PREVIOUS -->
+
+                        {% if page_obj.has_previous %}
+
+                        <li class="page-item">
+
+                            <a
+                                class="page-link"
+                                href="?page={{ page_obj.previous_page_number }}"
+                            >
+
+                                <i class="bi bi-chevron-left"></i>
+
+                            </a>
+
+                        </li>
+
+                        {% else %}
+
+                        <li class="page-item disabled">
+
+                            <span class="page-link">
+
+                                <i class="bi bi-chevron-left"></i>
+
+                            </span>
+
+                        </li>
+
+                        {% endif %}
+
+
+
+                        <!-- PAGE NUMBERS -->
+
+                        {% for num in page_obj.paginator.page_range %}
+
+                            {% if page_obj.number == num %}
+
+                            <li class="page-item active">
+
+                                <span class="page-link">
+                                    {{ num }}
+                                </span>
+
+                            </li>
+
+                            {% else %}
+
+                            <li class="page-item">
+
+                                <a
+                                    class="page-link"
+                                    href="?page={{ num }}"
+                                >
+
+                                    {{ num }}
+
+                                </a>
+
+                            </li>
+
+                            {% endif %}
+
+                        {% endfor %}
+
+
+
+                        <!-- NEXT -->
+
+                        {% if page_obj.has_next %}
+
+                        <li class="page-item">
+
+                            <a
+                                class="page-link"
+                                href="?page={{ page_obj.next_page_number }}"
+                            >
+
+                                <i class="bi bi-chevron-right"></i>
+
+                            </a>
+
+                        </li>
+
+                        {% else %}
+
+                        <li class="page-item disabled">
+
+                            <span class="page-link">
+
+                                <i class="bi bi-chevron-right"></i>
+
+                            </span>
+
+                        </li>
+
+                        {% endif %}
+
+                    </ul>
+
+                </nav>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+
+{% block js %}
+
+<style>
+
+/* =====================================================
+   CONTACT ADMIN PAGE
+   ===================================================== */
+
+.contact-admin-page {
+
+    position: relative;
+
+    min-height: 100vh;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 5% 5%,
+            rgba(13, 110, 253, 0.07),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 95% 90%,
+            rgba(111, 66, 193, 0.06),
+            transparent 30%
+        ),
+        #f8faff;
+
+}
+
+
+/* =====================================================
+   BACKGROUND ORBS
+   ===================================================== */
+
+.contact-orb {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(1px);
+
+    pointer-events: none;
+
+    animation: floatingOrb 7s ease-in-out infinite;
+
+}
+
+.orb-1 {
+
+    width: 180px;
+
+    height: 180px;
+
+    top: 80px;
+
+    right: -70px;
+
+    background: rgba(13, 110, 253, 0.06);
+
+}
+
+.orb-2 {
+
+    width: 140px;
+
+    height: 140px;
+
+    bottom: 80px;
+
+    left: -60px;
+
+    background: rgba(111, 66, 193, 0.05);
+
+    animation-delay: 2s;
+
+}
+
+
+@keyframes floatingOrb {
+
+    0%,
+    100% {
+
+        transform: translateY(0);
+
+    }
+
+    50% {
+
+        transform: translateY(-18px);
+
+    }
+
+}
+
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+
+.admin-page-header {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 25px;
+
+    margin-bottom: 30px;
+
+}
+
+
+.section-label {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    color: #0d6efd;
+
+    background: rgba(13, 110, 253, 0.08);
+
+    border: 1px solid rgba(13, 110, 253, 0.12);
+
+    padding: 8px 13px;
+
+    border-radius: 50px;
+
+    margin-bottom: 12px;
+
+}
+
+
+.admin-page-title {
+
+    font-size: clamp(28px, 3vw, 38px);
+
+    font-weight: 800;
+
+    letter-spacing: -0.7px;
+
+    margin: 0 0 6px;
+
+    color: #172033;
+
+}
+
+
+.admin-page-subtitle {
+
+    color: #7a8496;
+
+    margin: 0;
+
+    font-size: 15px;
+
+}
+
+
+/* =====================================================
+   DASHBOARD BUTTON
+   ===================================================== */
+
+.dashboard-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 12px 17px;
+
+    border-radius: 12px;
+
+    text-decoration: none;
+
+    font-weight: 700;
+
+    font-size: 14px;
+
+    color: #0d6efd;
+
+    background: white;
+
+    border: 1px solid #e2e8f0;
+
+    box-shadow: 0 5px 18px rgba(30, 60, 100, 0.06);
+
+    transition: all 0.3s ease;
+
+}
+
+.dashboard-button:hover {
+
+    color: white;
+
+    background: #0d6efd;
+
+    border-color: #0d6efd;
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 10px 25px rgba(13, 110, 253, 0.22);
+
+}
+
+.arrow-icon {
+
+    font-size: 12px;
+
+    transition: transform 0.3s ease;
+
+}
+
+.dashboard-button:hover .arrow-icon {
+
+    transform: translate(3px, -3px);
+
+}
+
+
+/* =====================================================
+   MAIN CARD
+   ===================================================== */
+
+.messages-card {
+
+    position: relative;
+
+    z-index: 2;
+
+    background: rgba(255, 255, 255, 0.94);
+
+    border: 1px solid rgba(226, 232, 240, 0.9);
+
+    border-radius: 22px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 15px 45px rgba(31, 56, 88, 0.07),
+        0 2px 8px rgba(31, 56, 88, 0.03);
+
+    animation: cardAppear 0.6s ease both;
+
+}
+
+
+@keyframes cardAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(18px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+
+/* =====================================================
+   CARD HEADER
+   ===================================================== */
+
+.messages-card-header {
+
+    padding: 24px 28px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    border-bottom: 1px solid #edf0f5;
+
+}
+
+
+.header-left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+}
+
+
+.header-icon {
+
+    width: 48px;
+
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: linear-gradient(
+        135deg,
+        #e8f1ff,
+        #f1eaff
+    );
+
+    color: #0d6efd;
+
+    font-size: 21px;
+
+}
+
+
+.header-left h5 {
+
+    margin: 0 0 3px;
+
+    font-weight: 800;
+
+    color: #202a3b;
+
+}
+
+
+.header-left p {
+
+    margin: 0;
+
+    color: #8a94a6;
+
+    font-size: 13px;
+
+}
+
+
+/* =====================================================
+   MESSAGE COUNT
+   ===================================================== */
+
+.message-count {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 8px 13px;
+
+    border-radius: 50px;
+
+    background: #f4f7fb;
+
+    color: #334155;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+}
+
+
+.count-dot {
+
+    width: 7px;
+
+    height: 7px;
+
+    background: #0d6efd;
+
+    border-radius: 50%;
+
+    animation: pulseDot 1.8s infinite;
+
+}
+
+
+@keyframes pulseDot {
+
+    0% {
+
+        box-shadow: 0 0 0 0 rgba(13, 110, 253, 0.4);
+
+    }
+
+    70% {
+
+        box-shadow: 0 0 0 7px rgba(13, 110, 253, 0);
+
+    }
+
+    100% {
+
+        box-shadow: 0 0 0 0 rgba(13, 110, 253, 0);
+
+    }
+
+}
+
+
+.count-label {
+
+    color: #8a94a6;
+
+    font-weight: 600;
+
+}
+
+
+/* =====================================================
+   TABLE
+   ===================================================== */
+
+.messages-table {
+
+    min-width: 1050px;
+
+}
+
+
+.messages-table thead th {
+
+    padding: 16px 18px;
+
+    background: #f8fafc;
+
+    border-bottom: 1px solid #e8edf3;
+
+    color: #7b8495;
+
+    font-size: 11px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.7px;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+
+}
+
+
+.messages-table tbody td {
+
+    padding: 18px;
+
+    border-bottom: 1px solid #eef1f5;
+
+    color: #344054;
+
+}
+
+
+.messages-table tbody tr {
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+
+}
+
+
+.messages-table tbody tr:hover {
+
+    background: #f9fbff;
+
+    transform: translateX(3px);
+
+}
+
+
+.messages-table tbody tr:last-child td {
+
+    border-bottom: none;
+
+}
+
+
+/* =====================================================
+   UNREAD MESSAGE
+   ===================================================== */
+
+.messages-table tbody tr.unread-message {
+
+    background: linear-gradient(
+        90deg,
+        rgba(13, 110, 253, 0.045),
+        transparent
+    );
+
+}
+
+
+.messages-table tbody tr.unread-message:hover {
+
+    background: rgba(13, 110, 253, 0.07);
+
+}
+
+
+/* =====================================================
+   SENDER
+   ===================================================== */
+
+.sender-box {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 220px;
+
+}
+
+
+.sender-avatar {
+
+    width: 43px;
+
+    height: 43px;
+
+    flex: 0 0 43px;
+
+    border-radius: 13px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: linear-gradient(
+        135deg,
+        #0d6efd,
+        #6f42c1
+    );
+
+    color: white;
+
+    font-weight: 800;
+
+    font-size: 15px;
+
+    box-shadow:
+        0 5px 12px rgba(13, 110, 253, 0.18);
+
+}
+
+
+.sender-name {
+
+    font-weight: 750;
+
+    color: #202938;
+
+    margin-bottom: 4px;
+
+}
+
+
+.sender-email {
+
+    color: #8993a4;
+
+    font-size: 12px;
+
+    white-space: nowrap;
+
+}
+
+
+.sender-email i {
+
+    margin-right: 3px;
+
+}
+
+
+.new-dot {
+
+    display: inline-block;
+
+    width: 6px;
+
+    height: 6px;
+
+    margin-left: 5px;
+
+    vertical-align: middle;
+
+    border-radius: 50%;
+
+    background: #0d6efd;
+
+    animation: newMessagePulse 1.5s infinite;
+
+}
+
+
+@keyframes newMessagePulse {
+
+    50% {
+
+        opacity: 0.35;
+
+        transform: scale(0.7);
+
+    }
+
+}
+
+
+/* =====================================================
+   SUBJECT
+   ===================================================== */
+
+.subject-text {
+
+    font-weight: 700;
+
+    color: #303a4d;
+
+    max-width: 190px;
+
+}
+
+
+/* =====================================================
+   MESSAGE PREVIEW
+   ===================================================== */
+
+.message-preview {
+
+    max-width: 300px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    color: #7b8495;
+
+    font-size: 13px;
+
+}
+
+
+/* =====================================================
+   STATUS
+   ===================================================== */
+
+.status-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 7px 11px;
+
+    border-radius: 50px;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+
+}
+
+
+.status-read {
+
+    color: #16803a;
+
+    background: #eaf8ef;
+
+}
+
+
+.status-unread {
+
+    color: #9a6700;
+
+    background: #fff5d8;
+
+}
+
+
+.status-badge i {
+
+    font-size: 12px;
+
+}
+
+
+/* =====================================================
+   DATE
+   ===================================================== */
+
+.date-box {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+    white-space: nowrap;
+
+}
+
+
+.date-main {
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    color: #465166;
+
+}
+
+
+.date-time {
+
+    color: #98a1b1;
+
+    font-size: 11px;
+
+}
+
+
+.date-time i {
+
+    margin-right: 3px;
+
+}
+
+
+/* =====================================================
+   VIEW BUTTON
+   ===================================================== */
+
+.view-message-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 8px 12px;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    color: #0d6efd;
+
+    background: #edf4ff;
+
+    border: 1px solid #dceaff;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    transition: all 0.25s ease;
+
+}
+
+
+.view-message-btn i {
+
+    transition: transform 0.25s ease;
+
+}
+
+
+.view-message-btn:hover {
+
+    color: white;
+
+    background: #0d6efd;
+
+    border-color: #0d6efd;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 6px 16px rgba(13, 110, 253, 0.2);
+
+}
+
+
+.view-message-btn:hover i {
+
+    transform: translateX(4px);
+
+}
+
+
+/* =====================================================
+   EMPTY STATE
+   ===================================================== */
+
+.empty-messages {
+
+    padding: 75px 20px;
+
+    text-align: center;
+
+}
+
+
+.empty-icon {
+
+    width: 76px;
+
+    height: 76px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 22px;
+
+    background: #f1f5f9;
+
+    color: #94a3b8;
+
+    font-size: 30px;
+
+}
+
+
+.empty-messages h5 {
+
+    font-weight: 800;
+
+    color: #374151;
+
+}
+
+
+.empty-messages p {
+
+    color: #94a3b8;
+
+    margin: 0;
+
+}
+
+
+/* =====================================================
+   PAGINATION
+   ===================================================== */
+
+.messages-pagination {
+
+    padding: 22px 28px;
+
+    border-top: 1px solid #edf0f5;
+
+    display: flex;
+
+    justify-content: center;
+
+}
+
+
+.custom-pagination {
+
+    gap: 6px;
+
+}
+
+
+.custom-pagination .page-link {
+
+    width: 38px;
+
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 10px !important;
+
+    border: 1px solid #e2e8f0;
+
+    color: #64748b;
+
+    font-weight: 700;
+
+    background: white;
+
+    transition: all 0.2s ease;
+
+}
+
+
+.custom-pagination .page-link:hover {
+
+    color: #0d6efd;
+
+    background: #eef5ff;
+
+    border-color: #cfe1ff;
+
+    transform: translateY(-2px);
+
+}
+
+
+.custom-pagination .active .page-link {
+
+    color: white;
+
+    background: #0d6efd;
+
+    border-color: #0d6efd;
+
+    box-shadow: 0 5px 14px rgba(13, 110, 253, 0.22);
+
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 768px) {
+
+    .contact-admin-page .container-fluid {
+
+        padding-left: 15px;
+
+        padding-right: 15px;
+
+    }
+
+
+    .admin-page-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+
+    .dashboard-button {
+
+        width: 100%;
+
+        justify-content: center;
+
+    }
+
+
+    .messages-card {
+
+        border-radius: 16px;
+
+    }
+
+
+    .messages-card-header {
+
+        padding: 20px;
+
+        align-items: flex-start;
+
+        gap: 15px;
+
+        flex-direction: column;
+
+    }
+
+
+    .message-count {
+
+        align-self: flex-start;
+
+    }
+
+
+    .messages-table {
+
+        min-width: 950px;
+
+    }
+
+
+    .messages-pagination {
+
+        padding: 18px;
+
+        overflow-x: auto;
+
+    }
+
+}
+
+</style>
+
+{% endblock %}

@@ -1,0 +1,1424 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% if event %}
+Edit Event | Admin Panel
+{% else %}
+Add Event | Admin Panel
+{% endif %}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="event-form-page">
+
+    <!-- Decorative Background -->
+    <div class="event-orb event-orb-1"></div>
+    <div class="event-orb event-orb-2"></div>
+
+    <div class="container py-5 position-relative">
+
+        <!-- HEADER -->
+
+        <div class="event-page-header mb-4">
+
+            <div>
+
+                <div class="event-badge">
+                    <i class="bi bi-calendar-event me-1"></i>
+                    Event Management
+                </div>
+
+                <h1 class="event-heading">
+
+                    {% if event %}
+                        Edit Event
+                    {% else %}
+                        Create New Event
+                    {% endif %}
+
+                </h1>
+
+                <p class="event-subtitle">
+
+                    {% if event %}
+                        Update the details of this event and keep your
+                        members informed.
+                    {% else %}
+                        Create and publish an upcoming party event.
+                    {% endif %}
+
+                </p>
+
+            </div>
+
+
+            <a
+                href="{% url 'admin_event_list' %}"
+                class="back-event-btn"
+            >
+
+                <i class="bi bi-arrow-left"></i>
+                <span>Back to Events</span>
+
+            </a>
+
+        </div>
+
+
+        <!-- FORM CARD -->
+
+        <div class="event-form-card">
+
+            <!-- CARD TOP -->
+
+            <div class="event-card-top">
+
+                <div class="event-card-icon">
+
+                    {% if event %}
+                        <i class="bi bi-pencil-square"></i>
+                    {% else %}
+                        <i class="bi bi-calendar-plus"></i>
+                    {% endif %}
+
+                </div>
+
+                <div>
+
+                    <h4>
+
+                        {% if event %}
+                            Event Details
+                        {% else %}
+                            New Event Details
+                        {% endif %}
+
+                    </h4>
+
+                    <p>
+                        Provide the information required for this event.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="event-card-body">
+
+                <form
+                    method="post"
+                    enctype="multipart/form-data"
+                >
+
+                    {% csrf_token %}
+
+
+                    <!-- NON FIELD ERRORS -->
+
+                    {% if form.non_field_errors %}
+
+                    <div class="event-error-box">
+
+                        <div class="error-icon">
+                            <i class="bi bi-exclamation-triangle-fill"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Please correct the following errors.
+                            </strong>
+
+                            <div class="mt-1">
+
+                                {% for error in form.non_field_errors %}
+
+                                    <div>
+                                        {{ error }}
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+
+
+
+                    <!-- EVENT TITLE -->
+
+                    <div class="event-field mb-4">
+
+                        <label
+                            for="{{ form.title.id_for_label }}"
+                            class="event-label"
+                        >
+
+                            <i class="bi bi-type me-1"></i>
+                            Event Title
+
+                        </label>
+
+                        <div class="event-input-wrapper">
+
+                            <i class="bi bi-pencil"></i>
+
+                            {{ form.title }}
+
+                        </div>
+
+                        {% for error in form.title.errors %}
+
+                            <div class="event-field-error">
+                                <i class="bi bi-exclamation-circle"></i>
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="event-field mb-4">
+
+                        <label
+                            for="{{ form.description.id_for_label }}"
+                            class="event-label"
+                        >
+
+                            <i class="bi bi-card-text me-1"></i>
+                            Description
+
+                        </label>
+
+                        <div class="event-textarea-wrapper">
+
+                            {{ form.description }}
+
+                        </div>
+
+                        <div class="event-help">
+                            <i class="bi bi-info-circle me-1"></i>
+                            Describe the event, its purpose and important
+                            information for visitors.
+                        </div>
+
+                        {% for error in form.description.errors %}
+
+                            <div class="event-field-error">
+                                <i class="bi bi-exclamation-circle"></i>
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+
+                    <!-- DATE + TIME -->
+
+                    <div class="row g-4 mb-4">
+
+                        <div class="col-md-6">
+
+                            <div class="event-field">
+
+                                <label
+                                    for="{{ form.event_date.id_for_label }}"
+                                    class="event-label"
+                                >
+
+                                    <i class="bi bi-calendar3 me-1"></i>
+                                    Event Date
+
+                                </label>
+
+                                <div class="event-input-wrapper">
+
+                                    <i class="bi bi-calendar-event"></i>
+
+                                    {{ form.event_date }}
+
+                                </div>
+
+                                {% for error in form.event_date.errors %}
+
+                                    <div class="event-field-error">
+                                        <i class="bi bi-exclamation-circle"></i>
+                                        {{ error }}
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <div class="event-field">
+
+                                <label
+                                    for="{{ form.event_time.id_for_label }}"
+                                    class="event-label"
+                                >
+
+                                    <i class="bi bi-clock me-1"></i>
+                                    Event Time
+
+                                </label>
+
+                                <div class="event-input-wrapper">
+
+                                    <i class="bi bi-clock-history"></i>
+
+                                    {{ form.event_time }}
+
+                                </div>
+
+                                {% for error in form.event_time.errors %}
+
+                                    <div class="event-field-error">
+                                        <i class="bi bi-exclamation-circle"></i>
+                                        {{ error }}
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- LOCATION -->
+
+                    <div class="event-field mb-4">
+
+                        <label
+                            for="{{ form.location.id_for_label }}"
+                            class="event-label"
+                        >
+
+                            <i class="bi bi-geo-alt me-1"></i>
+                            Location
+
+                        </label>
+
+                        <div class="event-input-wrapper">
+
+                            <i class="bi bi-pin-map"></i>
+
+                            {{ form.location }}
+
+                        </div>
+
+                        {% for error in form.location.errors %}
+
+                            <div class="event-field-error">
+                                <i class="bi bi-exclamation-circle"></i>
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+
+                    <!-- IMAGE -->
+
+                    <div class="event-field mb-4">
+
+                        <label
+                            for="{{ form.image.id_for_label }}"
+                            class="event-label"
+                        >
+
+                            <i class="bi bi-image me-1"></i>
+                            Event Image
+
+                        </label>
+
+
+                        <div class="event-upload-box">
+
+                            <div class="upload-icon">
+
+                                <i class="bi bi-cloud-arrow-up"></i>
+
+                            </div>
+
+                            <div class="upload-content">
+
+                                <strong>
+                                    Upload Event Image
+                                </strong>
+
+                                <span>
+                                    Choose a suitable image for this event.
+                                </span>
+
+                                <div class="event-file-input">
+
+                                    {{ form.image }}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        {% if event and event.image %}
+
+                        <div class="current-event-box">
+
+                            <div class="current-event-heading">
+
+                                <span>
+                                    <i class="bi bi-image me-1"></i>
+                                    Current Image
+                                </span>
+
+                                <small>
+                                    Existing
+                                </small>
+
+                            </div>
+
+                            <img
+                                src="{{ event.image.url }}"
+                                alt="{{ event.title }}"
+                                class="current-event-image"
+                            >
+
+                        </div>
+
+                        {% endif %}
+
+
+                        {% for error in form.image.errors %}
+
+                            <div class="event-field-error">
+                                <i class="bi bi-exclamation-circle"></i>
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+
+                    <!-- PUBLISHED -->
+
+                    <div class="publish-box mb-4">
+
+                        <div class="publish-icon">
+
+                            <i class="bi bi-broadcast-pin"></i>
+
+                        </div>
+
+                        <div class="publish-content">
+
+                            <label
+                                class="publish-label"
+                                for="{{ form.published.id_for_label }}"
+                            >
+
+                                Publish this event
+
+                            </label>
+
+                            <p>
+                                Published events will be visible on the
+                                public website.
+                            </p>
+
+                        </div>
+
+                        <div class="publish-switch">
+
+                            {{ form.published }}
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ACTIONS -->
+
+                    <div class="event-actions">
+
+                        <a
+                            href="{% url 'admin_event_list' %}"
+                            class="event-cancel-btn"
+                        >
+
+                            <i class="bi bi-x-lg"></i>
+                            Cancel
+
+                        </a>
+
+
+                        <button
+                            type="submit"
+                            class="event-submit-btn"
+                        >
+
+                            {% if event %}
+
+                                <i class="bi bi-check-lg"></i>
+                                Update Event
+
+                            {% else %}
+
+                                <i class="bi bi-calendar-plus"></i>
+                                Create Event
+
+                            {% endif %}
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+
+{% block js %}
+
+<style>
+
+/* =========================================================
+   EVENT FORM PAGE
+   ========================================================= */
+
+.event-form-page {
+
+    min-height: 100vh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f8faff 0%,
+            #ffffff 48%,
+            #f4f7ff 100%
+        );
+
+}
+
+
+/* =========================================================
+   DECORATIVE ORBS
+   ========================================================= */
+
+.event-orb {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(2px);
+
+    pointer-events: none;
+
+    opacity: .45;
+
+}
+
+.event-orb-1 {
+
+    width: 260px;
+
+    height: 260px;
+
+    background: rgba(13, 110, 253, .08);
+
+    top: -90px;
+
+    right: -70px;
+
+}
+
+.event-orb-2 {
+
+    width: 220px;
+
+    height: 220px;
+
+    background: rgba(111, 66, 193, .06);
+
+    bottom: -80px;
+
+    left: -70px;
+
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.event-page-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 25px;
+
+}
+
+.event-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 8px 14px;
+
+    border-radius: 50px;
+
+    background: rgba(13, 110, 253, .09);
+
+    color: #0d6efd;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: .3px;
+
+    margin-bottom: 12px;
+
+}
+
+.event-heading {
+
+    font-size: clamp(28px, 4vw, 40px);
+
+    font-weight: 800;
+
+    letter-spacing: -.7px;
+
+    margin: 0 0 7px;
+
+    color: #182230;
+
+}
+
+.event-subtitle {
+
+    margin: 0;
+
+    color: #718096;
+
+    font-size: 15px;
+
+}
+
+.back-event-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 11px 17px;
+
+    border: 1px solid #dbe3ef;
+
+    border-radius: 11px;
+
+    color: #44546a;
+
+    background: rgba(255,255,255,.8);
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition: .25s ease;
+
+    white-space: nowrap;
+
+}
+
+.back-event-btn:hover {
+
+    color: #0d6efd;
+
+    border-color: #0d6efd;
+
+    background: #fff;
+
+    transform: translateX(-2px);
+
+}
+
+
+/* =========================================================
+   MAIN CARD
+   ========================================================= */
+
+.event-form-card {
+
+    background: rgba(255,255,255,.96);
+
+    border: 1px solid #e8edf5;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 18px 55px rgba(35, 50, 80, .09);
+
+    overflow: hidden;
+
+}
+
+
+/* =========================================================
+   CARD HEADER
+   ========================================================= */
+
+.event-card-top {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 25px 30px;
+
+    border-bottom: 1px solid #edf1f6;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f8faff
+        );
+
+}
+
+.event-card-icon {
+
+    width: 52px;
+
+    height: 52px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background: #eaf2ff;
+
+    color: #0d6efd;
+
+    font-size: 23px;
+
+}
+
+.event-card-top h4 {
+
+    margin: 0 0 3px;
+
+    font-size: 19px;
+
+    font-weight: 750;
+
+    color: #1e293b;
+
+}
+
+.event-card-top p {
+
+    margin: 0;
+
+    font-size: 13px;
+
+    color: #7b8798;
+
+}
+
+
+/* =========================================================
+   CARD BODY
+   ========================================================= */
+
+.event-card-body {
+
+    padding: 30px;
+
+}
+
+
+/* =========================================================
+   FORM LABEL
+   ========================================================= */
+
+.event-label {
+
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: #273449;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+}
+
+
+/* =========================================================
+   INPUT WRAPPERS
+   ========================================================= */
+
+.event-input-wrapper {
+
+    position: relative;
+
+}
+
+.event-input-wrapper > i {
+
+    position: absolute;
+
+    left: 15px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #8b98aa;
+
+    z-index: 2;
+
+    pointer-events: none;
+
+}
+
+.event-input-wrapper input,
+.event-input-wrapper select {
+
+    width: 100%;
+
+    min-height: 48px;
+
+    padding: 11px 15px 11px 43px;
+
+    border: 1px solid #dce3ed;
+
+    border-radius: 11px;
+
+    background: #fbfcfe;
+
+    color: #263445;
+
+    outline: none;
+
+    transition: .2s ease;
+
+}
+
+.event-input-wrapper input:focus,
+.event-input-wrapper select:focus {
+
+    border-color: #86b7fe;
+
+    background: #fff;
+
+    box-shadow:
+        0 0 0 4px rgba(13,110,253,.08);
+
+}
+
+
+/* =========================================================
+   TEXTAREA
+   ========================================================= */
+
+.event-textarea-wrapper textarea {
+
+    width: 100%;
+
+    min-height: 145px;
+
+    padding: 14px 16px;
+
+    resize: vertical;
+
+    border: 1px solid #dce3ed;
+
+    border-radius: 11px;
+
+    background: #fbfcfe;
+
+    color: #263445;
+
+    outline: none;
+
+    transition: .2s ease;
+
+}
+
+.event-textarea-wrapper textarea:focus {
+
+    border-color: #86b7fe;
+
+    background: #fff;
+
+    box-shadow:
+        0 0 0 4px rgba(13,110,253,.08);
+
+}
+
+
+/* =========================================================
+   HELP TEXT
+   ========================================================= */
+
+.event-help {
+
+    margin-top: 7px;
+
+    color: #8a96a6;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   ERRORS
+   ========================================================= */
+
+.event-error-box {
+
+    display: flex;
+
+    gap: 12px;
+
+    align-items: flex-start;
+
+    padding: 15px 17px;
+
+    margin-bottom: 25px;
+
+    border-radius: 12px;
+
+    background: #fff1f1;
+
+    border: 1px solid #ffd4d4;
+
+    color: #b42318;
+
+}
+
+.error-icon {
+
+    font-size: 18px;
+
+}
+
+.event-field-error {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    margin-top: 6px;
+
+    color: #dc3545;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   IMAGE UPLOAD
+   ========================================================= */
+
+.event-upload-box {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 20px;
+
+    border: 1.5px dashed #cbd6e5;
+
+    border-radius: 14px;
+
+    background: #f9fbfe;
+
+    transition: .25s ease;
+
+}
+
+.event-upload-box:hover {
+
+    border-color: #86b7fe;
+
+    background: #f5f9ff;
+
+}
+
+.upload-icon {
+
+    width: 52px;
+
+    height: 52px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: #eaf2ff;
+
+    color: #0d6efd;
+
+    font-size: 23px;
+
+}
+
+.upload-content {
+
+    flex: 1;
+
+}
+
+.upload-content strong {
+
+    display: block;
+
+    color: #263445;
+
+    margin-bottom: 3px;
+
+}
+
+.upload-content span {
+
+    display: block;
+
+    color: #8a96a6;
+
+    font-size: 12px;
+
+    margin-bottom: 10px;
+
+}
+
+.event-file-input input[type="file"] {
+
+    width: 100%;
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================================
+   CURRENT IMAGE
+   ========================================================= */
+
+.current-event-box {
+
+    margin-top: 15px;
+
+    padding: 15px;
+
+    border-radius: 14px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e6ebf2;
+
+}
+
+.current-event-heading {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 10px;
+
+    color: #526173;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+.current-event-heading small {
+
+    padding: 4px 8px;
+
+    border-radius: 50px;
+
+    background: #e8f1ff;
+
+    color: #0d6efd;
+
+    font-size: 10px;
+
+    text-transform: uppercase;
+
+}
+
+.current-event-image {
+
+    width: 230px;
+
+    height: 145px;
+
+    object-fit: cover;
+
+    border-radius: 12px;
+
+    border: 1px solid #dde4ee;
+
+    display: block;
+
+}
+
+
+/* =========================================================
+   PUBLISH BOX
+   ========================================================= */
+
+.publish-box {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 17px;
+
+    border: 1px solid #e3e9f1;
+
+    border-radius: 14px;
+
+    background: #f9fbfd;
+
+}
+
+.publish-icon {
+
+    width: 43px;
+
+    height: 43px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background: #e9f7ef;
+
+    color: #198754;
+
+    font-size: 19px;
+
+}
+
+.publish-content {
+
+    flex: 1;
+
+}
+
+.publish-label {
+
+    display: block;
+
+    font-weight: 700;
+
+    color: #273449;
+
+    cursor: pointer;
+
+}
+
+.publish-content p {
+
+    margin: 3px 0 0;
+
+    color: #8490a0;
+
+    font-size: 12px;
+
+}
+
+
+/* Django checkbox */
+
+.publish-switch input[type="checkbox"] {
+
+    width: 22px;
+
+    height: 22px;
+
+    cursor: pointer;
+
+    accent-color: #0d6efd;
+
+}
+
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.event-actions {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    padding-top: 22px;
+
+    border-top: 1px solid #edf1f6;
+
+}
+
+.event-cancel-btn,
+.event-submit-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    min-height: 45px;
+
+    padding: 10px 20px;
+
+    border-radius: 10px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition: .25s ease;
+
+}
+
+.event-cancel-btn {
+
+    color: #596579;
+
+    border: 1px solid #d9e0e9;
+
+    background: #fff;
+
+}
+
+.event-cancel-btn:hover {
+
+    color: #263445;
+
+    background: #f5f7fa;
+
+}
+
+.event-submit-btn {
+
+    border: 0;
+
+    color: #fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd,
+            #3d8bfd
+        );
+
+    box-shadow:
+        0 7px 18px rgba(13,110,253,.20);
+
+}
+
+.event-submit-btn:hover {
+
+    color: #fff;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 24px rgba(13,110,253,.28);
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .event-page-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+    .back-event-btn {
+
+        width: 100%;
+
+        justify-content: center;
+
+    }
+
+    .event-card-top {
+
+        padding: 20px;
+
+    }
+
+    .event-card-body {
+
+        padding: 20px;
+
+    }
+
+    .event-actions {
+
+        flex-direction: column-reverse;
+
+    }
+
+    .event-cancel-btn,
+    .event-submit-btn {
+
+        width: 100%;
+
+    }
+
+}
+
+
+@media (max-width: 576px) {
+
+    .event-form-page .container {
+
+        padding-left: 15px;
+
+        padding-right: 15px;
+
+    }
+
+    .event-heading {
+
+        font-size: 28px;
+
+    }
+
+    .event-upload-box {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+    .current-event-image {
+
+        width: 100%;
+
+        height: 190px;
+
+    }
+
+    .publish-box {
+
+        align-items: flex-start;
+
+    }
+
+    .publish-switch {
+
+        margin-left: auto;
+
+    }
+
+}
+
+</style>
+
+{% endblock %}

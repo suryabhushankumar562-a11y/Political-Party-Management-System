@@ -1,0 +1,611 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}
+{{ manifesto.title }} | Nav Bharat Party
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   MANIFESTO DETAIL PAGE
+   ========================================================= */
+
+.manifesto-detail-page {
+    padding-top: 25px;
+    padding-bottom: 75px;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+   ========================================================= */
+
+.manifesto-back {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 6px;
+
+    border-radius: 10px;
+
+    padding: 9px 16px;
+
+    font-weight: 600;
+
+    animation: detailBackIn 0.6s ease both;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.manifesto-back:hover {
+    transform: translateX(-4px);
+
+    box-shadow:
+        0 7px 18px rgba(13, 110, 253, 0.12);
+}
+
+
+/* =========================================================
+   MAIN CARD
+   ========================================================= */
+
+.manifesto-detail-card {
+    position: relative;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(13, 110, 253, 0.08);
+
+    border-radius: 24px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.07);
+
+    animation: detailCardIn 0.8s ease both;
+
+    transition:
+        box-shadow 0.35s ease,
+        transform 0.35s ease;
+}
+
+
+.manifesto-detail-card:hover {
+    box-shadow:
+        0 20px 55px rgba(0, 0, 0, 0.10);
+}
+
+
+/* Decorative top glow */
+
+.manifesto-detail-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 5px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #0d6efd,
+            #4d94ff,
+            #0d6efd
+        );
+}
+
+
+/* Decorative circle */
+
+.manifesto-detail-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 220px;
+    height: 220px;
+
+    top: -130px;
+    right: -100px;
+
+    border-radius: 50%;
+
+    background: rgba(13, 110, 253, 0.05);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   CARD BODY
+   ========================================================= */
+
+.manifesto-detail-body {
+    position: relative;
+    z-index: 2;
+
+    padding: 50px;
+}
+
+
+/* =========================================================
+   ICON
+   ========================================================= */
+
+.manifesto-detail-icon {
+    width: 78px;
+    height: 78px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd,
+            #3d8bfd
+        );
+
+    color: #ffffff;
+
+    font-size: 34px;
+
+    box-shadow:
+        0 12px 28px rgba(13, 110, 253, 0.23);
+
+    animation: iconReveal 0.8s 0.2s ease both;
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+
+.manifesto-detail-icon:hover {
+    transform:
+        translateY(-5px)
+        rotate(-4deg);
+
+    box-shadow:
+        0 18px 35px rgba(13, 110, 253, 0.30);
+}
+
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+.manifesto-detail-title {
+    max-width: 850px;
+
+    font-weight: 800;
+
+    font-size: clamp(
+        2rem,
+        4vw,
+        3.2rem
+    );
+
+    line-height: 1.15;
+
+    letter-spacing: -1px;
+
+    animation: titleReveal 0.75s 0.25s ease both;
+}
+
+
+/* =========================================================
+   DATE
+   ========================================================= */
+
+.manifesto-detail-date {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: #6c757d;
+
+    font-size: 0.9rem;
+
+    animation: fadeReveal 0.7s 0.35s ease both;
+}
+
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.manifesto-detail-content {
+
+    max-width: 850px;
+
+    margin-top: 35px;
+
+    color: #495057;
+
+    font-size: 1.08rem;
+
+    line-height: 1.9;
+
+    animation: contentReveal 0.8s 0.4s ease both;
+}
+
+
+.manifesto-detail-content p {
+    margin-bottom: 1.25rem;
+}
+
+
+/* =========================================================
+   BOTTOM ACTION
+   ========================================================= */
+
+.manifesto-detail-footer {
+
+    max-width: 850px;
+
+    margin-top: 45px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid #e9ecef;
+
+    animation: fadeReveal 0.8s 0.5s ease both;
+}
+
+
+.manifesto-detail-footer a {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    border-radius: 10px;
+
+    padding: 10px 18px;
+
+    font-weight: 600;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.manifesto-detail-footer a:hover {
+    transform: translateX(-4px);
+
+    box-shadow:
+        0 8px 20px rgba(13, 110, 253, 0.18);
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes detailBackIn {
+
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+}
+
+
+@keyframes detailCardIn {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(45px)
+            scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            scale(1);
+    }
+
+}
+
+
+@keyframes iconReveal {
+
+    from {
+        opacity: 0;
+        transform:
+            scale(0.7)
+            rotate(-10deg);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            scale(1)
+            rotate(0);
+    }
+
+}
+
+
+@keyframes titleReveal {
+
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+@keyframes contentReveal {
+
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+@keyframes fadeReveal {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .manifesto-detail-page {
+        padding-top: 10px;
+        padding-bottom: 50px;
+    }
+
+
+    .manifesto-detail-body {
+        padding: 32px 24px;
+    }
+
+
+    .manifesto-detail-icon {
+        width: 64px;
+        height: 64px;
+
+        border-radius: 16px;
+
+        font-size: 27px;
+    }
+
+
+    .manifesto-detail-title {
+        letter-spacing: -0.5px;
+    }
+
+
+    .manifesto-detail-content {
+        margin-top: 28px;
+
+        font-size: 1rem;
+
+        line-height: 1.8;
+    }
+
+}
+
+
+@media (max-width: 576px) {
+
+    .manifesto-detail-body {
+        padding: 28px 19px;
+    }
+
+
+    .manifesto-detail-title {
+        font-size: 1.9rem;
+    }
+
+
+    .manifesto-detail-icon {
+        width: 58px;
+        height: 58px;
+
+        font-size: 24px;
+    }
+
+
+    .manifesto-back {
+        font-size: 0.9rem;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .manifesto-back,
+    .manifesto-detail-card,
+    .manifesto-detail-icon,
+    .manifesto-detail-title,
+    .manifesto-detail-date,
+    .manifesto-detail-content,
+    .manifesto-detail-footer {
+        animation: none;
+        transition: none;
+    }
+
+}
+
+</style>
+
+
+<div class="container manifesto-detail-page">
+
+
+    <!-- =====================================================
+         BACK BUTTON
+         ===================================================== -->
+
+    <div class="mb-4">
+
+        <a
+            href="{% url 'manifesto' %}"
+            class="btn btn-outline-primary manifesto-back"
+        >
+
+            <i class="bi bi-arrow-left"></i>
+
+           {% trans "Back to Manifesto" %}
+
+        </a>
+
+    </div>
+
+
+    <!-- =====================================================
+         DETAIL CARD
+         ===================================================== -->
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-10">
+
+
+            <div class="manifesto-detail-card">
+
+
+                <div class="manifesto-detail-body">
+
+
+                    <!-- ICON -->
+
+                    <div class="manifesto-detail-icon mb-4">
+
+                        {% if manifesto.icon %}
+
+                            <i class="{{ manifesto.icon }}"></i>
+
+                        {% else %}
+
+                            <i class="bi bi-check2-circle"></i>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- TITLE -->
+
+                    <h1 class="manifesto-detail-title mb-3">
+
+                        {{ manifesto.title }}
+
+                    </h1>
+
+
+                    <!-- DATE -->
+
+                    <div class="manifesto-detail-date mb-4">
+
+                        <i class="bi bi-calendar3"></i>
+
+                        <span>
+
+                            {% trans "Published on" %}
+                            {{ manifesto.created_at|date:"d M Y" }}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- CONTENT -->
+
+                    <div class="manifesto-detail-content">
+
+                        {{ manifesto.description|linebreaks }}
+
+                    </div>
+
+
+                    <!-- FOOTER -->
+
+                    <div class="manifesto-detail-footer">
+
+                        <a
+                            href="{% url 'manifesto' %}"
+                            class="btn btn-primary">
+
+                            <i class="bi bi-arrow-left"></i>
+
+                            {% trans "Back to Manifesto" %}
+
+                        </a>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,663 @@
+# Django Hindi translations.
+# Copyright (C) 2026 Nav Bharat Party
+# This file is distributed under the same license as the Django project.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Nav Bharat Party\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-18 10:40+0530\n"
+"PO-Revision-Date: 2026-08-18 11:00+0530\n"
+"Last-Translator: \n"
+"Language-Team: Hindi\n"
+"Language: hi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+#: .\templates\cms\about.html:854
+msgid "About Nav Bharat Party"
+msgstr "नव भारत पार्टी के बारे में"
+
+
+#: .\templates\cms\about.html:859
+msgid "Building a Better"
+msgstr "एक बेहतर"
+
+
+#: .\templates\cms\about.html:860
+msgid "Bharat Together"
+msgstr "भारत का निर्माण साथ मिलकर"
+
+
+#: .\templates\cms\about.html:866
+msgid ""
+"Nav Bharat Party is committed to serving citizens, strengthening democracy, "
+"and working towards a progressive and inclusive India."
+msgstr ""
+"नव भारत पार्टी नागरिकों की सेवा करने, लोकतंत्र को मजबूत करने और "
+"एक प्रगतिशील एवं समावेशी भारत के निर्माण की दिशा में कार्य करने के लिए प्रतिबद्ध है।"
+
+
+#: .\templates\cms\about.html:887
+msgid "Our Foundation"
+msgstr "हमारी आधारशिला"
+
+
+#: .\templates\cms\about.html:891 .\templates\cms\about.html:915
+msgid "Who We Are"
+msgstr "हम कौन हैं"
+
+
+#: .\templates\cms\about.html:895
+msgid ""
+"A platform for citizens to participate, contribute and work towards "
+"constructive development."
+msgstr ""
+"नागरिकों की भागीदारी, योगदान और रचनात्मक विकास की दिशा में कार्य करने का एक मंच।"
+
+
+#: .\templates\cms\about.html:920
+msgid ""
+"Nav Bharat Party aims to provide a platform where citizens can participate "
+"in democratic activities and contribute to the development of the nation."
+msgstr ""
+"नव भारत पार्टी एक ऐसा मंच प्रदान करने का उद्देश्य रखती है जहाँ नागरिक लोकतांत्रिक "
+"गतिविधियों में भाग ले सकें और राष्ट्र के विकास में योगदान दे सकें।"
+
+
+#: .\templates\cms\about.html:925
+msgid ""
+"Our focus is on responsible leadership, public participation, transparency "
+"and constructive development."
+msgstr ""
+"हमारा ध्यान जिम्मेदार नेतृत्व, जनभागीदारी, पारदर्शिता और रचनात्मक विकास पर है।"
+
+
+#: .\templates\cms\about.html:945
+msgid "Our Purpose"
+msgstr "हमारा उद्देश्य"
+
+
+#: .\templates\cms\about.html:950
+msgid ""
+"We believe that meaningful change begins with active participation of "
+"citizens."
+msgstr ""
+"हम मानते हैं कि सार्थक बदलाव नागरिकों की सक्रिय भागीदारी से शुरू होता है।"
+
+
+#: .\templates\cms\about.html:955
+msgid ""
+"Through our organization, we seek to connect citizens, encourage "
+"participation and work towards a stronger and more responsible society."
+msgstr ""
+"अपने संगठन के माध्यम से हम नागरिकों को जोड़ने, भागीदारी को प्रोत्साहित करने और "
+"एक अधिक मजबूत एवं जिम्मेदार समाज के निर्माण की दिशा में कार्य करने का प्रयास करते हैं।"
+
+
+#: .\templates\cms\about.html:974
+msgid "What Guides Us"
+msgstr "हमारा मार्गदर्शन करने वाले सिद्धांत"
+
+
+#: .\templates\cms\about.html:978
+msgid "Our Vision & Values"
+msgstr "हमारी दृष्टि और मूल्य"
+
+
+#: .\templates\cms\about.html:982
+msgid "Principles that guide our work and our commitment to citizens."
+msgstr "हमारे कार्य और नागरिकों के प्रति हमारी प्रतिबद्धता का मार्गदर्शन करने वाले सिद्धांत।"
+
+
+#: .\templates\cms\about.html:1007
+msgid "To contribute towards a progressive, responsible and inclusive India."
+msgstr "एक प्रगतिशील, जिम्मेदार और समावेशी भारत के निर्माण में योगदान देना।"
+
+
+#: .\templates\cms\about.html:1027
+msgid "Our Mission"
+msgstr "हमारा मिशन"
+
+
+#: .\templates\cms\about.html:1032
+msgid ""
+"To encourage citizen participation and work towards constructive social and "
+"national development."
+msgstr ""
+"नागरिकों की भागीदारी को प्रोत्साहित करना और रचनात्मक सामाजिक एवं राष्ट्रीय "
+"विकास की दिशा में कार्य करना।"
+
+
+#: .\templates\cms\about.html:1052
+msgid "Our Values"
+msgstr "हमारे मूल्य"
+
+
+#: .\templates\cms\about.html:1057
+msgid "Transparency, responsibility, public participation and integrity."
+msgstr "पारदर्शिता, जिम्मेदारी, जनभागीदारी और ईमानदारी।"
+
+
+#: .\templates\cms\about.html:1076
+msgid "Become a Part of the Journey"
+msgstr "इस यात्रा का हिस्सा बनें"
+
+
+#: .\templates\cms\about.html:1081
+msgid ""
+"Citizens can participate and contribute by becoming a member of Nav Bharat "
+"Party."
+msgstr ""
+"नागरिक नव भारत पार्टी के सदस्य बनकर भाग ले सकते हैं और अपना योगदान दे सकते हैं।"
+
+
+#: .\templates\cms\about.html:1092 .\templates\cms\home.html:42
+#: .\templates\cms\home.html:523 .\templates\includes\navbar.html:88
+msgid "Join Us"
+msgstr "सदस्य बनें"
+
+
+#: .\templates\cms\home.html:23 .\templates\includes\navbar.html:8
+msgid "Nav Bharat Party"
+msgstr "नव भारत पार्टी"
+
+
+#: .\templates\cms\home.html:27
+msgid "A New Vision for"
+msgstr "एक नई दृष्टि"
+
+
+#: .\templates\cms\home.html:29
+msgid "New India"
+msgstr "नया भारत"
+
+
+#: .\templates\cms\home.html:34
+msgid ""
+"Working together for development, opportunity, equality and a stronger "
+"future for every citizen."
+msgstr ""
+"विकास, अवसर, समानता और प्रत्येक नागरिक के बेहतर भविष्य के लिए मिलकर कार्य करना।"
+
+
+#: .\templates\cms\home.html:47
+msgid "Learn More"
+msgstr "और जानें"
+
+
+#: .\templates\cms\home.html:62
+msgid "Together We Can"
+msgstr "हम साथ मिलकर कर सकते हैं"
+
+
+#: .\templates\cms\home.html:66
+msgid "Building a better tomorrow through collective participation."
+msgstr "सामूहिक सहभागिता के माध्यम से बेहतर कल का निर्माण।"
+
+
+#: .\templates\cms\home.html:90
+msgid "Latest Updates"
+msgstr "नवीनतम अपडेट"
+
+
+#: .\templates\cms\home.html:94
+msgid "Latest News"
+msgstr "नवीनतम समाचार"
+
+
+#: .\templates\cms\home.html:101 .\templates\cms\home.html:197
+msgid "View All"
+msgstr "सभी देखें"
+
+
+#: .\templates\cms\home.html:142
+msgid "Read More"
+msgstr "और पढ़ें"
+
+
+#: .\templates\cms\home.html:159
+msgid "No news available at the moment."
+msgstr "फिलहाल कोई समाचार उपलब्ध नहीं है।"
+
+
+#: .\templates\cms\home.html:185
+msgid "Stay Connected"
+msgstr "जुड़े रहें"
+
+
+#: .\templates\cms\home.html:189
+msgid "Upcoming Events"
+msgstr "आगामी कार्यक्रम"
+
+
+#: .\templates\cms\home.html:230
+msgid "Upcoming"
+msgstr "आगामी"
+
+
+#: .\templates\cms\home.html:286
+msgid "No upcoming events available."
+msgstr "कोई आगामी कार्यक्रम उपलब्ध नहीं है।"
+
+
+#: .\templates\cms\home.html:312
+msgid "Our Team"
+msgstr "हमारी टीम"
+
+
+#: .\templates\cms\home.html:316 .\templates\includes\navbar.html:46
+msgid "Leadership"
+msgstr "नेतृत्व"
+
+
+#: .\templates\cms\home.html:323
+msgid "Meet Our Leaders"
+msgstr "हमारे नेताओं से मिलें"
+
+
+#: .\templates\cms\home.html:384
+msgid "Leadership information will be available soon."
+msgstr "नेतृत्व की जानकारी जल्द उपलब्ध होगी।"
+
+
+#: .\templates\cms\home.html:410
+msgid "Our Moments"
+msgstr "हमारी झलकियां"
+
+
+#: .\templates\cms\home.html:414
+msgid "Photo Gallery"
+msgstr "फोटो गैलरी"
+
+
+#: .\templates\cms\home.html:422
+msgid "View Gallery"
+msgstr "गैलरी देखें"
+
+
+#: .\templates\cms\home.html:451
+msgid "No gallery images available."
+msgstr "गैलरी में कोई तस्वीर उपलब्ध नहीं है।"
+
+
+#: .\templates\cms\home.html:480
+msgid "Know Our Vision & Manifesto"
+msgstr "हमारी दृष्टि और घोषणापत्र जानें"
+
+
+#: .\templates\cms\home.html:486
+msgid "Explore our vision, priorities and commitments for a better future."
+msgstr "बेहतर भविष्य के लिए हमारी दृष्टि, प्राथमिकताओं और प्रतिबद्धताओं को जानें।"
+
+
+#: .\templates\cms\home.html:493
+msgid "View Manifesto"
+msgstr "घोषणापत्र देखें"
+
+
+#: .\templates\cms\home.html:514
+msgid "Be Part of the Change"
+msgstr "बदलाव का हिस्सा बनें"
+
+
+#: .\templates\cms\home.html:518
+msgid "Join Nav Bharat Party and become a part of our journey."
+msgstr "नव भारत पार्टी से जुड़ें और हमारी यात्रा का हिस्सा बनें।"
+
+
+#: .\templates\includes\navbar.html:30
+msgid "Home"
+msgstr "होम"
+
+
+#: .\templates\includes\navbar.html:38
+msgid "About"
+msgstr "हमारे बारे में"
+
+
+#: .\templates\includes\navbar.html:54
+msgid "News"
+msgstr "समाचार"
+
+
+#: .\templates\includes\navbar.html:62
+msgid "Events"
+msgstr "कार्यक्रम"
+
+
+#: .\templates\includes\navbar.html:70
+msgid "Gallery"
+msgstr "गैलरी"
+
+
+#: .\templates\includes\navbar.html:78
+msgid "Manifesto"
+msgstr "घोषणापत्र"
+
+
+#: .\templates\includes\navbar.html:98
+msgid "Donate"
+msgstr "दान करें"
+
+
+#: .\templates\includes\navbar.html:106
+msgid "Contact"
+msgstr "संपर्क करें"
+
+
+#: .\templates\includes\navbar.html:195
+msgid "Dashboard"
+msgstr "डैशबोर्ड"
+
+
+#: .\templates\includes\navbar.html:206 .\templates\includes\navbar.html:231
+msgid "Logout"
+msgstr "लॉगआउट"
+
+
+#: .\templates\includes\navbar.html:220
+msgid "Admin Panel"
+msgstr "एडमिन पैनल"
+
+
+#: .\templates\includes\navbar.html:248
+msgid "Member Login"
+msgstr "सदस्य लॉगिन"
+
+
+#: .\templates\cms\leadership.html
+msgid "Our Leadership"
+msgstr "हमारा नेतृत्व"
+
+#: .\templates\cms\leadership.html
+msgid "Party"
+msgstr "पार्टी"
+
+#: .\templates\cms\leadership.html
+msgid ""
+"Meet the leadership team of Nav Bharat Party and discover the people "
+"working towards responsible public participation and development."
+msgstr ""
+"नव भारत पार्टी की नेतृत्व टीम से मिलें और उन लोगों के बारे में जानें जो "
+"जिम्मेदार जनभागीदारी और विकास की दिशा में कार्य कर रहे हैं।"
+
+#: .\templates\cms\leadership.html
+msgid "Leadership Information Coming Soon"
+msgstr "नेतृत्व की जानकारी जल्द उपलब्ध होगी"
+
+#: .\templates\cms\leadership.html
+msgid "Leadership profiles will appear here once they are published."
+msgstr "नेतृत्व की प्रोफाइल प्रकाशित होने के बाद यहाँ दिखाई देंगी।"
+
+
+#: .\templates\cms\news.html
+msgid "Party News &"
+msgstr "पार्टी समाचार और"
+
+#: .\templates\cms\news.html
+msgid "Announcements"
+msgstr "घोषणाएँ"
+
+#: .\templates\cms\news.html
+msgid "Stay updated with the latest news, announcements and activities of Nav Bharat Party."
+msgstr "नव भारत पार्टी की नवीनतम समाचारों, घोषणाओं और गतिविधियों से अपडेट रहें।"
+
+#: .\templates\cms\news.html
+msgid "No News Available"
+msgstr "कोई समाचार उपलब्ध नहीं है"
+
+#: .\templates\cms\news.html
+msgid "There are currently no published news or announcements."
+msgstr "फिलहाल कोई प्रकाशित समाचार या घोषणा उपलब्ध नहीं है।"
+
+#: .\templates\cms\news.html
+msgid "Check this page regularly for the latest updates and announcements."
+msgstr "नवीनतम अपडेट और घोषणाओं के लिए इस पेज को नियमित रूप से देखें।"
+
+
+#: .\templates\cms\events.html
+msgid "Party Events &"
+msgstr "पार्टी कार्यक्रम और"
+
+#: .\templates\cms\events.html
+msgid "Programmes"
+msgstr "आयोजन"
+
+#: .\templates\cms\events.html
+msgid "Stay informed about upcoming meetings, programmes, campaigns and other activities of Nav Bharat Party."
+msgstr "नव भारत पार्टी की आगामी बैठकों, कार्यक्रमों, अभियानों और अन्य गतिविधियों की जानकारी से अपडेट रहें।"
+
+#: .\templates\cms\events.html
+msgid "View Event"
+msgstr "कार्यक्रम देखें"
+
+#: .\templates\cms\events.html
+msgid "No Upcoming Events"
+msgstr "कोई आगामी कार्यक्रम नहीं है"
+
+#: .\templates\cms\events.html
+msgid "There are currently no published events. Please check back later."
+msgstr "फिलहाल कोई प्रकाशित कार्यक्रम उपलब्ध नहीं है। कृपया बाद में फिर देखें।"
+
+#: .\templates\cms\events.html
+msgid "Follow our latest activities and upcoming programmes."
+msgstr "हमारी नवीनतम गतिविधियों और आगामी कार्यक्रमों से जुड़े रहें।"
+
+msgid "OUR MOMENTS"
+msgstr "हमारी झलकियां"
+
+msgid "Photo"
+msgstr "फोटो"
+
+
+msgid "Explore moments from our events, programmes, campaigns and activities of Nav Bharat Party."
+msgstr "नव भारत पार्टी के कार्यक्रमों, आयोजनों, अभियानों और गतिविधियों की झलकियां देखें।"
+
+#: .\templates\cms\manifesto.html
+msgid "Party Manifesto"
+msgstr "पार्टी घोषणापत्र"
+
+#: .\templates\cms\manifesto.html
+msgid "Our vision, priorities and commitments for the future."
+msgstr "भविष्य के लिए हमारी दृष्टि, प्राथमिकताएं और प्रतिबद्धताएं।"
+
+#: .\templates\cms\manifesto.html
+msgid "Manifesto Coming Soon"
+msgstr "घोषणापत्र जल्द उपलब्ध होगा"
+
+#: .\templates\cms\manifesto.html
+msgid "Our manifesto details will be published here."
+msgstr "हमारे घोषणापत्र का विवरण यहां प्रकाशित किया जाएगा।"
+
+
+#: .\templates\cms\donate.html
+msgid "SUPPORT OUR WORK"
+msgstr "हमारे कार्य का समर्थन करें"
+
+#: .\templates\cms\donate.html
+msgid "Support Nav Bharat Party"
+msgstr "नव भारत पार्टी का समर्थन करें"
+
+#: .\templates\cms\donate.html
+msgid "Your support can help us carry out our programmes, activities and organisational work."
+msgstr "आपका सहयोग हमारे कार्यक्रमों, गतिविधियों और संगठनात्मक कार्यों को संचालित करने में मदद कर सकता है।"
+
+#: .\templates\cms\donate.html
+msgid "Make a Contribution"
+msgstr "योगदान करें"
+
+#: .\templates\cms\donate.html
+msgid "Every contribution helps support our organisational activities and public initiatives."
+msgstr "हर योगदान हमारी संगठनात्मक गतिविधियों और जनहित की पहलों को समर्थन देने में मदद करता है।"
+
+#: .\templates\cms\donate.html
+msgid "Important"
+msgstr "महत्वपूर्ण"
+
+#: .\templates\cms\donate.html
+msgid "Please use only the official donation channels of the organisation."
+msgstr "कृपया केवल संगठन के आधिकारिक दान माध्यमों का ही उपयोग करें।"
+
+#: .\templates\cms\donate.html
+msgid "Bank Transfer"
+msgstr "बैंक ट्रांसफर"
+
+#: .\templates\cms\donate.html
+msgid "Official bank details can be displayed here."
+msgstr "आधिकारिक बैंक विवरण यहाँ प्रदर्शित किए जा सकते हैं।"
+
+#: .\templates\cms\donate.html
+msgid "Online Payment"
+msgstr "ऑनलाइन भुगतान"
+
+#: .\templates\cms\donate.html
+msgid "Official payment or QR details can be displayed here."
+msgstr "आधिकारिक भुगतान या QR विवरण यहाँ प्रदर्शित किए जा सकते हैं।"
+
+#: .\templates\cms\donate.html
+msgid "Secure & Official Contribution Channels"
+msgstr "सुरक्षित और आधिकारिक योगदान माध्यम"
+
+#: .\templates\cms\contact.html
+msgid "GET IN TOUCH"
+msgstr "संपर्क करें"
+
+#: .\templates\cms\contact.html
+msgid "Let's Connect With"
+msgstr "जुड़ें"
+
+#: .\templates\cms\contact.html
+msgid "Nav Bharat"
+msgstr "नव भारत"
+
+#: .\templates\cms\contact.html
+msgid "Have a question, suggestion or want to connect with us? We would be happy to hear from you."
+msgstr "क्या आपका कोई सवाल, सुझाव है या आप हमसे जुड़ना चाहते हैं? हमें आपसे सुनकर खुशी होगी।"
+
+#: .\templates\cms\contact.html
+msgid "CONTACT INFORMATION"
+msgstr "संपर्क जानकारी"
+
+#: .\templates\cms\contact.html
+msgid "Get in Touch"
+msgstr "संपर्क करें"
+
+#: .\templates\cms\contact.html
+msgid "We value your ideas, questions and feedback. Reach out to us through any of the channels below."
+msgstr "हम आपके विचारों, सवालों और सुझावों को महत्व देते हैं। नीचे दिए गए किसी भी माध्यम से हमसे संपर्क करें।"
+
+#: .\templates\cms\contact.html
+msgid "OUR OFFICE"
+msgstr "हमारा कार्यालय"
+
+#: .\templates\cms\contact.html
+msgid "Address"
+msgstr "पता"
+
+#: .\templates\cms\contact.html
+msgid "WRITE TO US"
+msgstr "हमें लिखें"
+
+#: .\templates\cms\contact.html
+msgid "Email"
+msgstr "ईमेल"
+
+#: .\templates\cms\contact.html
+msgid "CALL US"
+msgstr "हमें कॉल करें"
+
+#: .\templates\cms\contact.html
+msgid "Phone"
+msgstr "फोन"
+
+#: .\templates\cms\contact.html
+msgid "AVAILABILITY"
+msgstr "उपलब्धता"
+
+#: .\templates\cms\contact.html
+msgid "Office Hours"
+msgstr "कार्यालय समय"
+
+#: .\templates\cms\contact.html
+msgid "Monday – Saturday"
+msgstr "सोमवार – शनिवार"
+
+#: .\templates\cms\contact.html
+msgid "FOLLOW OUR JOURNEY"
+msgstr "हमारी यात्रा से जुड़े रहें"
+
+#: .\templates\cms\contact.html
+msgid "SEND US A MESSAGE"
+msgstr "हमें संदेश भेजें"
+
+#: .\templates\cms\contact.html
+msgid "How Can We Help?"
+msgstr "हम आपकी कैसे सहायता कर सकते हैं?"
+
+#: .\templates\cms\contact.html
+msgid "Fill out the form below and our team will get back to you."
+msgstr "नीचे दिया गया फॉर्म भरें और हमारी टीम आपसे संपर्क करेगी।"
+
+#: .\templates\cms\contact.html
+msgid "Your Name"
+msgstr "आपका नाम"
+
+#: .\templates\cms\contact.html
+msgid "Email Address"
+msgstr "ईमेल पता"
+
+#: .\templates\cms\contact.html
+msgid "Subject"
+msgstr "विषय"
+
+#: .\templates\cms\contact.html
+msgid "Your Message"
+msgstr "आपका संदेश"
+
+#: .\templates\cms\contact.html
+msgid "Send Message"
+msgstr "संदेश भेजें"
+
+#: .\templates\cms\contact.html
+msgid "Your information is safe and secure with us."
+msgstr "आपकी जानकारी हमारे साथ सुरक्षित है।"
+
+#: .\templates\cms\event_detail.html
+msgid "Back to Events"
+msgstr "कार्यक्रमों पर वापस जाएं"
+
+#: .\templates\cms\event_detail.html
+msgid "Upcoming Event"
+msgstr "आगामी कार्यक्रम"
+
+#: .\templates\cms\event_detail.html
+msgid "Date"
+msgstr "तारीख"
+
+#: .\templates\cms\event_detail.html
+msgid "Time"
+msgstr "समय"
+
+#: .\templates\cms\event_detail.html
+msgid "Location"
+msgstr "स्थान"
+
+#: .\templates\cms\event_detail.html
+msgid "About This Event"
+msgstr "इस कार्यक्रम के बारे में"
+
+#: .\templates\cms\event_detail.html
+msgid "Back to All Events"
+msgstr "सभी कार्यक्रमों पर वापस जाएं"
+
+
+#: .\templates\cms\manifesto_detail.html
+msgid "Back to Manifesto"
+msgstr "घोषणापत्र पर वापस जाएं"
+
+msgid "Published on"
+msgstr "प्रकाशित किया गया"

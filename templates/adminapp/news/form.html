@@ -1,0 +1,1736 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% if form.instance.pk %}
+Edit News | Admin Panel
+{% else %}
+Add News | Admin Panel
+{% endif %}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="news-form-page">
+
+    <!-- BACKGROUND DECORATION -->
+    <div class="news-orb news-orb-one"></div>
+    <div class="news-orb news-orb-two"></div>
+
+
+    <div class="container py-5">
+
+        <!-- HEADER -->
+
+        <div class="news-page-header">
+
+            <div>
+
+                <a
+                    href="{% url 'admin_news_list' %}"
+                    class="back-news-btn"
+                >
+                    <i class="bi bi-arrow-left"></i>
+                    <span>Back to News</span>
+                </a>
+
+            </div>
+
+
+            <div class="header-content">
+
+                <span class="news-eyebrow">
+                    <i class="bi bi-pencil-square"></i>
+                    Content Management
+                </span>
+
+                <h1>
+
+                    {% if form.instance.pk %}
+                        Edit News
+                    {% else %}
+                        Create News
+                    {% endif %}
+
+                </h1>
+
+                <p>
+
+                    {% if form.instance.pk %}
+                        Update the selected news article and keep your audience informed.
+                    {% else %}
+                        Create a new news article or announcement for your audience.
+                    {% endif %}
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FORM CARD -->
+
+        <div class="news-editor-card">
+
+            <!-- CARD TOP -->
+
+            <div class="editor-top">
+
+                <div class="editor-icon">
+
+                    <i class="bi bi-newspaper"></i>
+
+                </div>
+
+                <div>
+
+                    <h4 class="mb-1">
+
+                        {% if form.instance.pk %}
+                            Update Article
+                        {% else %}
+                            New Article
+                        {% endif %}
+
+                    </h4>
+
+                    <p class="mb-0">
+                        Fill in the details below to manage your news content.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="editor-body">
+
+                <form
+                    method="post"
+                    enctype="multipart/form-data"
+                >
+
+                    {% csrf_token %}
+
+
+                    <!-- FORM ERRORS -->
+
+                    {% if form.non_field_errors %}
+
+                        <div class="custom-error-box">
+
+                            <div class="error-icon">
+                                <i class="bi bi-exclamation-triangle-fill"></i>
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Please correct the following:
+                                </strong>
+
+                                {% for error in form.non_field_errors %}
+
+                                    <div class="small mt-1">
+                                        {{ error }}
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+
+
+                    <!-- TITLE -->
+
+                    <div class="form-section">
+
+                        <div class="section-heading">
+
+                            <div class="section-number">
+                                01
+                            </div>
+
+                            <div>
+
+                                <h5>
+                                    Basic Information
+                                </h5>
+
+                                <p>
+                                    Give your news article a clear identity.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="field-group">
+
+                            <label
+                                for="{{ form.title.id_for_label }}"
+                                class="modern-label"
+                            >
+                                News Title
+                                <span>*</span>
+                            </label>
+
+
+                            <div class="input-container">
+
+                                <i class="bi bi-type input-icon"></i>
+
+                                {{ form.title }}
+
+                            </div>
+
+
+                            {% for error in form.title.errors %}
+
+                                <div class="field-error">
+                                    <i class="bi bi-exclamation-circle"></i>
+                                    {{ error }}
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+
+
+                        <!-- CATEGORY -->
+
+                        <div class="field-group">
+
+                            <label
+                                for="{{ form.category.id_for_label }}"
+                                class="modern-label"
+                            >
+                                Category
+                                <span>*</span>
+                            </label>
+
+
+                            <div class="input-container">
+
+                                <i class="bi bi-tags input-icon"></i>
+
+                                {{ form.category }}
+
+                            </div>
+
+
+                            {% for error in form.category.errors %}
+
+                                <div class="field-error">
+                                    <i class="bi bi-exclamation-circle"></i>
+                                    {{ error }}
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- DESCRIPTION SECTION -->
+
+                    <div class="form-section">
+
+                        <div class="section-heading">
+
+                            <div class="section-number">
+                                02
+                            </div>
+
+                            <div>
+
+                                <h5>
+                                    Article Content
+                                </h5>
+
+                                <p>
+                                    Add a short summary and complete article.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- SHORT DESCRIPTION -->
+
+                        <div class="field-group">
+
+                            <label
+                                for="{{ form.short_description.id_for_label }}"
+                                class="modern-label"
+                            >
+                                Short Description
+                            </label>
+
+
+                            <div class="textarea-container">
+
+                                <i class="bi bi-text-left input-icon"></i>
+
+                                {{ form.short_description }}
+
+                            </div>
+
+
+                            <div class="field-hint">
+                                <i class="bi bi-info-circle"></i>
+                                A short summary that will appear on the news listing.
+                            </div>
+
+
+                            {% for error in form.short_description.errors %}
+
+                                <div class="field-error">
+                                    <i class="bi bi-exclamation-circle"></i>
+                                    {{ error }}
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+
+
+                        <!-- FULL CONTENT -->
+
+                        <div class="field-group">
+
+                            <label
+                                for="{{ form.content.id_for_label }}"
+                                class="modern-label"
+                            >
+                                Full Content
+                            </label>
+
+
+                            <div class="textarea-container content-area">
+
+                                <i class="bi bi-file-text input-icon"></i>
+
+                                {{ form.content }}
+
+                            </div>
+
+
+                            <div class="field-hint">
+                                <i class="bi bi-info-circle"></i>
+                                Write the complete news article here.
+                            </div>
+
+
+                            {% for error in form.content.errors %}
+
+                                <div class="field-error">
+                                    <i class="bi bi-exclamation-circle"></i>
+                                    {{ error }}
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- IMAGE SECTION -->
+
+                    <div class="form-section">
+
+                        <div class="section-heading">
+
+                            <div class="section-number">
+                                03
+                            </div>
+
+                            <div>
+
+                                <h5>
+                                    Featured Image
+                                </h5>
+
+                                <p>
+                                    Add an attractive image to represent your article.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="image-upload-box">
+
+                            <div class="upload-icon">
+
+                                <i class="bi bi-cloud-arrow-up"></i>
+
+                            </div>
+
+                            <h6>
+                                Upload News Image
+                            </h6>
+
+                            <p>
+                                Select an image from your device
+                            </p>
+
+
+                            <div class="custom-file-input">
+
+                                {{ form.image }}
+
+                            </div>
+
+                        </div>
+
+
+                        {% if form.instance.image %}
+
+                            <div class="current-image-box">
+
+                                <div class="current-image-header">
+
+                                    <div>
+
+                                        <span>
+                                            CURRENT IMAGE
+                                        </span>
+
+                                        <h6>
+                                            {{ form.instance.title }}
+                                        </h6>
+
+                                    </div>
+
+                                    <i class="bi bi-image"></i>
+
+                                </div>
+
+
+                                <img
+                                    src="{{ form.instance.image.url }}"
+                                    alt="{{ form.instance.title }}"
+                                    class="current-news-image"
+                                >
+
+                            </div>
+
+                        {% endif %}
+
+
+                        {% for error in form.image.errors %}
+
+                            <div class="field-error">
+                                <i class="bi bi-exclamation-circle"></i>
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+
+                    <!-- PUBLISH SECTION -->
+
+                    <div class="publish-section">
+
+                        <div class="publish-content">
+
+                            <div class="publish-icon">
+
+                                <i class="bi bi-broadcast"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h6>
+                                    Publishing Status
+                                </h6>
+
+                                <p>
+                                    Control whether this article is visible to visitors.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="publish-toggle">
+
+                            {{ form.published }}
+
+                            <label
+                                for="{{ form.published.id_for_label }}"
+                            >
+
+                                <span class="toggle-text">
+                                    Publish this news
+                                </span>
+
+                                <small>
+                                    Uncheck to save as draft
+                                </small>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ACTIONS -->
+
+                    <div class="form-actions">
+
+                        <a
+                            href="{% url 'admin_news_list' %}"
+                            class="cancel-button"
+                        >
+
+                            <i class="bi bi-x-lg"></i>
+
+                            Cancel
+
+                        </a>
+
+
+                        <button
+                            type="submit"
+                            class="save-button"
+                        >
+
+                            <span class="save-icon">
+
+                                <i class="bi bi-check-lg"></i>
+
+                            </span>
+
+                            <span>
+
+                                {% if form.instance.pk %}
+                                    Update News
+                                {% else %}
+                                    Publish News
+                                {% endif %}
+
+                            </span>
+
+                            <i class="bi bi-arrow-right arrow-icon"></i>
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+
+{% block js %}
+
+<style>
+
+/* =====================================================
+   NEWS FORM PAGE
+   ===================================================== */
+
+.news-form-page {
+
+    position: relative;
+
+    min-height: 100vh;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(13,110,253,.07),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(99,102,241,.06),
+            transparent 30%
+        );
+
+}
+
+
+/* BACKGROUND ORBS */
+
+.news-orb {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(2px);
+
+    pointer-events: none;
+
+    opacity: .55;
+
+}
+
+
+.news-orb-one {
+
+    width: 260px;
+
+    height: 260px;
+
+    background: rgba(13,110,253,.08);
+
+    top: 100px;
+
+    left: -130px;
+
+}
+
+
+.news-orb-two {
+
+    width: 320px;
+
+    height: 320px;
+
+    background: rgba(111,66,193,.07);
+
+    right: -160px;
+
+    bottom: 100px;
+
+}
+
+
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+
+.news-page-header {
+
+    position: relative;
+
+    margin-bottom: 30px;
+
+}
+
+
+.back-news-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 9px 15px;
+
+    border-radius: 10px;
+
+    border: 1px solid #dce3ec;
+
+    background: rgba(255,255,255,.8);
+
+    color: #495057;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition: .25s ease;
+
+}
+
+
+.back-news-btn:hover {
+
+    color: #0d6efd;
+
+    border-color: #0d6efd;
+
+    transform: translateX(-4px);
+
+}
+
+
+.header-content {
+
+    margin-top: 25px;
+
+}
+
+
+.news-eyebrow {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 7px 12px;
+
+    border-radius: 30px;
+
+    background: rgba(13,110,253,.08);
+
+    color: #0d6efd;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: .7px;
+
+    text-transform: uppercase;
+
+}
+
+
+.header-content h1 {
+
+    font-size: clamp(2rem, 4vw, 3rem);
+
+    font-weight: 800;
+
+    margin: 12px 0 8px;
+
+    letter-spacing: -.7px;
+
+}
+
+
+.header-content p {
+
+    color: #6c757d;
+
+    margin: 0;
+
+    max-width: 650px;
+
+}
+
+
+
+/* =====================================================
+   MAIN EDITOR CARD
+   ===================================================== */
+
+.news-editor-card {
+
+    position: relative;
+
+    background: rgba(255,255,255,.94);
+
+    border: 1px solid rgba(222,226,230,.8);
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.08),
+        0 4px 15px rgba(0,0,0,.03);
+
+    overflow: hidden;
+
+    backdrop-filter: blur(12px);
+
+}
+
+
+.editor-top {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    padding: 24px 30px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f8fbff,
+            #ffffff
+        );
+
+    border-bottom: 1px solid #edf0f4;
+
+}
+
+
+.editor-icon {
+
+    width: 52px;
+
+    height: 52px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 15px;
+
+    color: white;
+
+    font-size: 23px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd,
+            #4f8dfd
+        );
+
+    box-shadow:
+        0 8px 20px rgba(13,110,253,.22);
+
+}
+
+
+.editor-top h4 {
+
+    font-weight: 750;
+
+}
+
+
+.editor-top p {
+
+    color: #7a8490;
+
+    font-size: 14px;
+
+}
+
+
+
+/* =====================================================
+   EDITOR BODY
+   ===================================================== */
+
+.editor-body {
+
+    padding: 35px;
+
+}
+
+
+.form-section {
+
+    padding-bottom: 34px;
+
+    margin-bottom: 34px;
+
+    border-bottom: 1px solid #edf0f3;
+
+}
+
+
+.section-heading {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.section-number {
+
+    width: 38px;
+
+    height: 38px;
+
+    border-radius: 11px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #eef5ff;
+
+    color: #0d6efd;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+}
+
+
+.section-heading h5 {
+
+    margin: 0;
+
+    font-weight: 750;
+
+}
+
+
+.section-heading p {
+
+    margin: 3px 0 0;
+
+    color: #8a939d;
+
+    font-size: 13px;
+
+}
+
+
+
+/* =====================================================
+   FORM FIELDS
+   ===================================================== */
+
+.field-group {
+
+    margin-bottom: 24px;
+
+}
+
+
+.field-group:last-child {
+
+    margin-bottom: 0;
+
+}
+
+
+.modern-label {
+
+    display: block;
+
+    margin-bottom: 9px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    color: #343a40;
+
+}
+
+
+.modern-label span {
+
+    color: #dc3545;
+
+    margin-left: 3px;
+
+}
+
+
+.input-container,
+.textarea-container {
+
+    position: relative;
+
+}
+
+
+.input-icon {
+
+    position: absolute;
+
+    top: 50%;
+
+    left: 16px;
+
+    transform: translateY(-50%);
+
+    z-index: 2;
+
+    color: #9aa4af;
+
+    transition: .25s ease;
+
+}
+
+
+.textarea-container .input-icon {
+
+    top: 20px;
+
+    transform: none;
+
+}
+
+
+.input-container input,
+.input-container select,
+.input-container textarea,
+.textarea-container textarea {
+
+    width: 100%;
+
+    border: 1px solid #dfe4ea;
+
+    border-radius: 13px;
+
+    background: #fbfcfe;
+
+    padding: 13px 16px 13px 45px;
+
+    color: #212529;
+
+    outline: none;
+
+    transition:
+        border-color .25s ease,
+        box-shadow .25s ease,
+        background .25s ease,
+        transform .25s ease;
+
+}
+
+
+.input-container input:focus,
+.input-container select:focus,
+.textarea-container textarea:focus {
+
+    background: #fff;
+
+    border-color: #0d6efd;
+
+    box-shadow:
+        0 0 0 4px rgba(13,110,253,.09);
+
+}
+
+
+.input-container:focus-within .input-icon,
+.textarea-container:focus-within .input-icon {
+
+    color: #0d6efd;
+
+}
+
+
+.textarea-container textarea {
+
+    min-height: 120px;
+
+    resize: vertical;
+
+}
+
+
+.content-area textarea {
+
+    min-height: 230px;
+
+}
+
+
+.field-hint {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    margin-top: 8px;
+
+    color: #8a939d;
+
+    font-size: 12px;
+
+}
+
+
+.field-error {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    margin-top: 7px;
+
+    color: #dc3545;
+
+    font-size: 13px;
+
+}
+
+
+
+/* =====================================================
+   IMAGE UPLOAD
+   ===================================================== */
+
+.image-upload-box {
+
+    padding: 35px 20px;
+
+    text-align: center;
+
+    border: 2px dashed #dbe3ed;
+
+    border-radius: 18px;
+
+    background: #fafcff;
+
+    transition: .3s ease;
+
+}
+
+
+.image-upload-box:hover {
+
+    border-color: #0d6efd;
+
+    background: #f6faff;
+
+}
+
+
+.upload-icon {
+
+    width: 62px;
+
+    height: 62px;
+
+    margin: 0 auto 13px;
+
+    border-radius: 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #eaf3ff;
+
+    color: #0d6efd;
+
+    font-size: 28px;
+
+}
+
+
+.image-upload-box h6 {
+
+    font-weight: 750;
+
+    margin-bottom: 5px;
+
+}
+
+
+.image-upload-box p {
+
+    color: #8a939d;
+
+    font-size: 13px;
+
+    margin-bottom: 18px;
+
+}
+
+
+.custom-file-input input {
+
+    max-width: 100%;
+
+    border: 1px solid #dfe4ea;
+
+    border-radius: 10px;
+
+    padding: 8px;
+
+    background: white;
+
+}
+
+
+.current-image-box {
+
+    margin-top: 20px;
+
+    padding: 15px;
+
+    border: 1px solid #e5e9ee;
+
+    border-radius: 16px;
+
+    background: #fff;
+
+}
+
+
+.current-image-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 12px;
+
+}
+
+
+.current-image-header span {
+
+    color: #0d6efd;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+}
+
+
+.current-image-header h6 {
+
+    margin: 3px 0 0;
+
+    font-weight: 700;
+
+}
+
+
+.current-image-header > i {
+
+    color: #adb5bd;
+
+    font-size: 22px;
+
+}
+
+
+.current-news-image {
+
+    width: 230px;
+
+    max-width: 100%;
+
+    height: 140px;
+
+    object-fit: cover;
+
+    border-radius: 12px;
+
+    display: block;
+
+    border: 1px solid #e1e5e9;
+
+}
+
+
+
+/* =====================================================
+   PUBLISH
+   ===================================================== */
+
+.publish-section {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 25px;
+
+    padding: 20px;
+
+    margin-bottom: 30px;
+
+    border-radius: 17px;
+
+    background: linear-gradient(
+        135deg,
+        #f8fbff,
+        #f4f7fb
+    );
+
+    border: 1px solid #e4eaf1;
+
+}
+
+
+.publish-content {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+}
+
+
+.publish-icon {
+
+    width: 44px;
+
+    height: 44px;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #0d6efd;
+
+    background: #eaf3ff;
+
+}
+
+
+.publish-content h6 {
+
+    margin: 0 0 3px;
+
+    font-weight: 750;
+
+}
+
+
+.publish-content p {
+
+    margin: 0;
+
+    color: #8a939d;
+
+    font-size: 12px;
+
+}
+
+
+.publish-toggle {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+}
+
+
+.publish-toggle input {
+
+    width: 2.7em !important;
+
+    height: 1.4em;
+
+    cursor: pointer;
+
+}
+
+
+.publish-toggle label {
+
+    cursor: pointer;
+
+}
+
+
+.toggle-text {
+
+    display: block;
+
+    font-weight: 700;
+
+    font-size: 14px;
+
+}
+
+
+.publish-toggle small {
+
+    color: #8a939d;
+
+}
+
+
+
+/* =====================================================
+   BUTTONS
+   ===================================================== */
+
+.form-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid #edf0f3;
+
+}
+
+
+.cancel-button,
+.save-button {
+
+    min-height: 48px;
+
+    border-radius: 12px;
+
+    padding: 0 19px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition: .25s ease;
+
+}
+
+
+.cancel-button {
+
+    color: #59636e;
+
+    border: 1px solid #dce2e8;
+
+    background: white;
+
+}
+
+
+.cancel-button:hover {
+
+    color: #212529;
+
+    background: #f5f6f8;
+
+}
+
+
+.save-button {
+
+    border: none;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd,
+            #4b8dfd
+        );
+
+    box-shadow:
+        0 8px 20px rgba(13,110,253,.22);
+
+    cursor: pointer;
+
+}
+
+
+.save-button:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 25px rgba(13,110,253,.3);
+
+}
+
+
+.save-button:active {
+
+    transform: translateY(0);
+
+}
+
+
+.save-icon {
+
+    width: 25px;
+
+    height: 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 7px;
+
+    background: rgba(255,255,255,.18);
+
+}
+
+
+.arrow-icon {
+
+    transition: .25s ease;
+
+}
+
+
+.save-button:hover .arrow-icon {
+
+    transform: translateX(4px);
+
+}
+
+
+
+/* =====================================================
+   ERROR BOX
+   ===================================================== */
+
+.custom-error-box {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    padding: 15px 17px;
+
+    margin-bottom: 28px;
+
+    border-radius: 13px;
+
+    background: #fff5f5;
+
+    border: 1px solid #ffd6d6;
+
+    color: #b02a37;
+
+}
+
+
+.error-icon {
+
+    font-size: 19px;
+
+}
+
+
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+
+@media (max-width: 768px) {
+
+    .editor-body {
+
+        padding: 22px 18px;
+
+    }
+
+
+    .editor-top {
+
+        padding: 20px;
+
+    }
+
+
+    .publish-section {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+    }
+
+
+    .publish-toggle {
+
+        width: 100%;
+
+    }
+
+
+    .form-actions {
+
+        flex-direction: column-reverse;
+
+        align-items: stretch;
+
+    }
+
+
+    .cancel-button,
+    .save-button {
+
+        width: 100%;
+
+    }
+
+
+    .section-heading {
+
+        align-items: flex-start;
+
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .news-form-page .container {
+
+        padding-left: 14px;
+
+        padding-right: 14px;
+
+    }
+
+
+    .header-content h1 {
+
+        font-size: 1.8rem;
+
+    }
+
+
+    .editor-top {
+
+        align-items: flex-start;
+
+    }
+
+
+    .editor-icon {
+
+        width: 45px;
+
+        height: 45px;
+
+        font-size: 19px;
+
+    }
+
+}
+
+</style>
+
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    /*
+        Small visual enhancement only.
+        No Django form logic is changed.
+    */
+
+    const inputs = document.querySelectorAll(
+        ".input-container input, .input-container select, .textarea-container textarea"
+    );
+
+
+    inputs.forEach(function (input) {
+
+        input.addEventListener("focus", function () {
+
+            const wrapper = this.closest(
+                ".input-container, .textarea-container"
+            );
+
+            if (wrapper) {
+
+                wrapper.classList.add("field-focused");
+
+            }
+
+        });
+
+
+        input.addEventListener("blur", function () {
+
+            const wrapper = this.closest(
+                ".input-container, .textarea-container"
+            );
+
+            if (wrapper) {
+
+                wrapper.classList.remove("field-focused");
+
+            }
+
+        });
+
+    });
+
+});
+
+</script>
+
+{% endblock %}

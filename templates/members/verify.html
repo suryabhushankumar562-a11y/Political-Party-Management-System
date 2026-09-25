@@ -1,0 +1,1235 @@
+{% extends "base.html" %}
+
+{% block title %}
+Membership Verification
+{% endblock %}
+
+{% block content %}
+
+<div class="verification-page">
+
+    <!-- Background Decoration -->
+    <div class="verify-orb orb-1"></div>
+    <div class="verify-orb orb-2"></div>
+    <div class="verify-orb orb-3"></div>
+
+
+    <div class="container py-5">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-6 col-xl-5">
+
+
+                <!-- =========================
+                     VERIFICATION CARD
+                     ========================= -->
+
+                <div class="verification-card">
+
+
+                    {% if member.membership_status == "APPROVED" %}
+
+                        <!-- VERIFIED HEADER -->
+
+                        <div class="verified-top">
+
+                            <div class="verified-icon">
+
+                                <i class="bi bi-shield-check"></i>
+
+                            </div>
+
+                            <div class="verified-pulse"></div>
+
+                        </div>
+
+
+                        <div class="verification-heading">
+
+                            <span class="verification-label">
+                                MEMBERSHIP VERIFICATION
+                            </span>
+
+                            <h1>
+                                Verified Member
+                            </h1>
+
+                            <p>
+                                This is a valid Nav Bharat Party membership.
+                            </p>
+
+                        </div>
+
+
+                        <!-- QR CODE -->
+
+                        {% if member.qr_code %}
+
+                            <div class="qr-card">
+
+                                <div class="qr-glow"></div>
+
+                                <img
+                                    src="{{ member.qr_code.url }}"
+                                    alt="Membership QR Code"
+                                    class="verification-qr"
+                                >
+
+                                <div class="qr-scan-label">
+
+                                    <i class="bi bi-qr-code-scan me-1"></i>
+
+                                    VERIFIED QR CODE
+
+                                </div>
+
+                            </div>
+
+                        {% endif %}
+
+
+                        <!-- MEMBER INFORMATION -->
+
+                        <div class="member-information">
+
+
+                            <!-- MEMBERSHIP ID -->
+
+                            <div class="verification-info">
+
+                                <div class="info-icon blue">
+
+                                    <i class="bi bi-person-vcard"></i>
+
+                                </div>
+
+                                <div class="info-content">
+
+                                    <span>
+                                        Membership ID
+                                    </span>
+
+                                    <strong>
+                                        {{ member.membership_id }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- MEMBER NAME -->
+
+                            <div class="verification-info">
+
+                                <div class="info-icon purple">
+
+                                    <i class="bi bi-person"></i>
+
+                                </div>
+
+                                <div class="info-content">
+
+                                    <span>
+                                        Member Name
+                                    </span>
+
+                                    <strong>
+
+                                        {{ member.user.first_name }}
+                                        {{ member.user.last_name }}
+
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- STATUS -->
+
+                            <div class="verification-info">
+
+                                <div class="info-icon green">
+
+                                    <i class="bi bi-patch-check"></i>
+
+                                </div>
+
+                                <div class="info-content">
+
+                                    <span>
+                                        Membership Status
+                                    </span>
+
+                                    <strong class="approved-text">
+
+                                        <i class="bi bi-check-circle-fill me-1"></i>
+
+                                        Approved
+
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- JOINING DATE -->
+
+                            <div class="verification-info">
+
+                                <div class="info-icon orange">
+
+                                    <i class="bi bi-calendar-event"></i>
+
+                                </div>
+
+                                <div class="info-content">
+
+                                    <span>
+                                        Joining Date
+                                    </span>
+
+                                    <strong>
+
+                                        {{ member.joining_date|date:"d M Y" }}
+
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- VERIFIED FOOTER -->
+
+                        <div class="verified-footer">
+
+                            <div>
+
+                                <i class="bi bi-shield-fill-check"></i>
+
+                                <span>
+                                    Official Membership
+                                </span>
+
+                            </div>
+
+                            <span>
+                                Nav Bharat Party
+                            </span>
+
+                        </div>
+
+
+                    {% else %}
+
+
+                        <!-- =========================
+                             INVALID MEMBERSHIP
+                             ========================= -->
+
+                        <div class="invalid-top">
+
+                            <div class="invalid-icon">
+
+                                <i class="bi bi-shield-x"></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="verification-heading invalid-heading">
+
+                            <span class="verification-label invalid-label">
+                                MEMBERSHIP VERIFICATION
+                            </span>
+
+                            <h1>
+                                Membership Not Valid
+                            </h1>
+
+                            <p>
+                                This membership is currently not approved.
+                            </p>
+
+                        </div>
+
+
+                        <!-- INVALID STATUS BOX -->
+
+                        <div class="invalid-box">
+
+                            <div class="invalid-row">
+
+                                <span>
+                                    <i class="bi bi-person-vcard me-2"></i>
+                                    Membership ID
+                                </span>
+
+                                <strong>
+                                    {{ member.membership_id }}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="invalid-divider"></div>
+
+
+                            <div class="invalid-row">
+
+                                <span>
+                                    <i class="bi bi-info-circle me-2"></i>
+                                    Current Status
+                                </span>
+
+                                <strong class="invalid-status">
+
+                                    {{ member.get_membership_status_display }}
+
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="invalid-message">
+
+                            <i class="bi bi-exclamation-triangle-fill"></i>
+
+                            <div>
+
+                                <strong>
+                                    Verification Failed
+                                </strong>
+
+                                <p>
+                                    This membership cannot currently be
+                                    verified as an approved membership.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="verification-footer-invalid">
+
+                            <i class="bi bi-shield-exclamation"></i>
+
+                            Membership verification status
+
+                        </div>
+
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- SMALL FOOTER -->
+
+                <div class="text-center verification-page-footer">
+
+                    <i class="bi bi-shield-check me-1"></i>
+
+                    Official Membership Verification
+
+                    <span class="mx-2">•</span>
+
+                    Nav Bharat Party
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block js %}
+
+<style>
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.verification-page {
+
+    position: relative;
+
+    min-height: 85vh;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(13, 110, 253, 0.08),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(111, 66, 193, 0.08),
+            transparent 30%
+        );
+
+}
+
+
+/* =========================================================
+   BACKGROUND ORBS
+   ========================================================= */
+
+.verify-orb {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(2px);
+
+    pointer-events: none;
+
+    animation: floatOrb 7s ease-in-out infinite;
+
+}
+
+
+.orb-1 {
+
+    width: 220px;
+    height: 220px;
+
+    background: rgba(13, 110, 253, 0.08);
+
+    top: 5%;
+    left: -80px;
+
+}
+
+
+.orb-2 {
+
+    width: 180px;
+    height: 180px;
+
+    background: rgba(25, 135, 84, 0.08);
+
+    right: -60px;
+    top: 35%;
+
+    animation-delay: 1.5s;
+
+}
+
+
+.orb-3 {
+
+    width: 150px;
+    height: 150px;
+
+    background: rgba(111, 66, 193, 0.08);
+
+    bottom: 5%;
+    left: 15%;
+
+    animation-delay: 3s;
+
+}
+
+
+@keyframes floatOrb {
+
+    0%,
+    100% {
+
+        transform: translateY(0);
+
+    }
+
+    50% {
+
+        transform: translateY(-18px);
+
+    }
+
+}
+
+
+/* =========================================================
+   MAIN CARD
+   ========================================================= */
+
+.verification-card {
+
+    position: relative;
+
+    background: rgba(255, 255, 255, 0.96);
+
+    border: 1px solid rgba(0, 0, 0, 0.06);
+
+    border-radius: 28px;
+
+    padding: 42px 38px 30px;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.10),
+        0 5px 20px rgba(13, 110, 253, 0.05);
+
+    overflow: hidden;
+
+    animation: cardAppear 0.7s ease both;
+
+}
+
+
+@keyframes cardAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(25px)
+            scale(0.98);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================================
+   VERIFIED ICON
+   ========================================================= */
+
+.verified-top {
+
+    position: relative;
+
+    width: 90px;
+    height: 90px;
+
+    margin: 0 auto 20px;
+
+}
+
+
+.verified-icon {
+
+    width: 90px;
+    height: 90px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #198754,
+            #20c997
+        );
+
+    color: white;
+
+    font-size: 43px;
+
+    box-shadow:
+        0 12px 30px rgba(25, 135, 84, 0.25);
+
+    animation: verifiedPop 0.7s ease 0.2s both;
+
+}
+
+
+@keyframes verifiedPop {
+
+    0% {
+
+        opacity: 0;
+
+        transform: scale(0.5);
+
+    }
+
+    70% {
+
+        transform: scale(1.08);
+
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform: scale(1);
+
+    }
+
+}
+
+
+/* =========================================================
+   HEADING
+   ========================================================= */
+
+.verification-heading {
+
+    text-align: center;
+
+}
+
+
+.verification-label {
+
+    display: inline-block;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    color: #198754;
+
+    margin-bottom: 8px;
+
+}
+
+
+.verification-heading h1 {
+
+    font-size: 2rem;
+
+    font-weight: 800;
+
+    margin-bottom: 8px;
+
+    color: #18212f;
+
+}
+
+
+.verification-heading p {
+
+    color: #6c757d;
+
+    margin-bottom: 25px;
+
+}
+
+
+/* =========================================================
+   QR CARD
+   ========================================================= */
+
+.qr-card {
+
+    position: relative;
+
+    width: 215px;
+
+    margin: 10px auto 30px;
+
+    padding: 16px;
+
+    border-radius: 20px;
+
+    background: #ffffff;
+
+    border: 1px solid #e9ecef;
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.08);
+
+    text-align: center;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+
+}
+
+
+.qr-card:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.12);
+
+}
+
+
+.verification-qr {
+
+    width: 175px;
+    height: 175px;
+
+    object-fit: contain;
+
+    display: block;
+
+    margin: auto;
+
+}
+
+
+.qr-scan-label {
+
+    margin-top: 10px;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.3px;
+
+    color: #6c757d;
+
+}
+
+
+/* =========================================================
+   INFORMATION
+   ========================================================= */
+
+.member-information {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+}
+
+
+.verification-info {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 14px;
+
+    border-radius: 15px;
+
+    background: #f8f9fa;
+
+    border: 1px solid transparent;
+
+    transition:
+        background 0.25s ease,
+        transform 0.25s ease,
+        border-color 0.25s ease;
+
+}
+
+
+.verification-info:hover {
+
+    background: #ffffff;
+
+    border-color: #e5e7eb;
+
+    transform: translateX(4px);
+
+}
+
+
+.info-icon {
+
+    width: 44px;
+    height: 44px;
+
+    flex: 0 0 44px;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+
+}
+
+
+.info-icon.blue {
+
+    background: #e7f1ff;
+
+    color: #0d6efd;
+
+}
+
+
+.info-icon.purple {
+
+    background: #eee7ff;
+
+    color: #6f42c1;
+
+}
+
+
+.info-icon.green {
+
+    background: #e4f7ee;
+
+    color: #198754;
+
+}
+
+
+.info-icon.orange {
+
+    background: #fff0dc;
+
+    color: #fd7e14;
+
+}
+
+
+.info-content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 2px;
+
+    min-width: 0;
+
+}
+
+
+.info-content span {
+
+    font-size: 11px;
+
+    color: #6c757d;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.4px;
+
+}
+
+
+.info-content strong {
+
+    font-size: 15px;
+
+    color: #212529;
+
+    word-break: break-word;
+
+}
+
+
+.approved-text {
+
+    color: #198754 !important;
+
+}
+
+
+/* =========================================================
+   VERIFIED FOOTER
+   ========================================================= */
+
+.verified-footer {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 25px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #e9ecef;
+
+    color: #6c757d;
+
+    font-size: 12px;
+
+}
+
+
+.verified-footer div {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+}
+
+
+.verified-footer i {
+
+    color: #198754;
+
+    font-size: 16px;
+
+}
+
+
+/* =========================================================
+   INVALID MEMBER
+   ========================================================= */
+
+.invalid-top {
+
+    display: flex;
+
+    justify-content: center;
+
+    margin-bottom: 20px;
+
+}
+
+
+.invalid-icon {
+
+    width: 90px;
+    height: 90px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dc3545,
+            #e35d6a
+        );
+
+    color: white;
+
+    font-size: 42px;
+
+    box-shadow:
+        0 12px 30px rgba(220, 53, 69, 0.22);
+
+    animation: verifiedPop 0.6s ease both;
+
+}
+
+
+.invalid-heading {
+
+    margin-bottom: 25px;
+
+}
+
+
+.invalid-label {
+
+    color: #dc3545;
+
+}
+
+
+.invalid-box {
+
+    padding: 5px 18px;
+
+    border-radius: 18px;
+
+    background: #fff8f8;
+
+    border: 1px solid #f3d6d9;
+
+}
+
+
+.invalid-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 16px 0;
+
+}
+
+
+.invalid-row span {
+
+    color: #6c757d;
+
+    font-size: 13px;
+
+}
+
+
+.invalid-row strong {
+
+    text-align: right;
+
+    word-break: break-word;
+
+}
+
+
+.invalid-divider {
+
+    height: 1px;
+
+    background: #f0d9dc;
+
+}
+
+
+.invalid-status {
+
+    color: #dc3545;
+
+}
+
+
+.invalid-message {
+
+    display: flex;
+
+    gap: 13px;
+
+    margin-top: 20px;
+
+    padding: 17px;
+
+    border-radius: 15px;
+
+    background: #fff3cd;
+
+    border: 1px solid #ffe69c;
+
+    color: #664d03;
+
+}
+
+
+.invalid-message > i {
+
+    font-size: 21px;
+
+    margin-top: 2px;
+
+}
+
+
+.invalid-message strong {
+
+    display: block;
+
+    margin-bottom: 4px;
+
+}
+
+
+.invalid-message p {
+
+    font-size: 13px;
+
+    margin: 0;
+
+    line-height: 1.6;
+
+}
+
+
+.verification-footer-invalid {
+
+    margin-top: 25px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #e9ecef;
+
+    text-align: center;
+
+    color: #6c757d;
+
+    font-size: 12px;
+
+}
+
+
+.verification-footer-invalid i {
+
+    color: #dc3545;
+
+    margin-right: 5px;
+
+}
+
+
+/* =========================================================
+   PAGE FOOTER
+   ========================================================= */
+
+.verification-page-footer {
+
+    margin-top: 20px;
+
+    color: #8a9199;
+
+    font-size: 12px;
+
+}
+
+
+.verification-page-footer i {
+
+    color: #198754;
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 576px) {
+
+    .verification-page .container {
+
+        padding-left: 15px;
+
+        padding-right: 15px;
+
+    }
+
+
+    .verification-card {
+
+        padding: 32px 20px 24px;
+
+        border-radius: 22px;
+
+    }
+
+
+    .verification-heading h1 {
+
+        font-size: 1.65rem;
+
+    }
+
+
+    .verified-icon,
+    .invalid-icon {
+
+        width: 78px;
+        height: 78px;
+
+        font-size: 35px;
+
+    }
+
+
+    .verified-top {
+
+        width: 78px;
+        height: 78px;
+
+    }
+
+
+    .qr-card {
+
+        width: 195px;
+
+    }
+
+
+    .verification-qr {
+
+        width: 155px;
+        height: 155px;
+
+    }
+
+
+    .invalid-row {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 5px;
+
+    }
+
+
+    .invalid-row strong {
+
+        text-align: left;
+
+    }
+
+
+    .verified-footer {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+    }
+
+}
+
+</style>
+
+{% endblock %}

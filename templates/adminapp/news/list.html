@@ -1,0 +1,1939 @@
+{% extends "base.html" %}
+
+{% block title %}
+News Management | Admin Panel
+{% endblock %}
+
+
+{% block content %}
+
+<div class="news-management-page">
+
+    <!-- ============================= -->
+    <!-- BACKGROUND DECORATION -->
+    <!-- ============================= -->
+
+    <div class="news-bg-orb orb-one"></div>
+    <div class="news-bg-orb orb-two"></div>
+
+
+    <div class="container-fluid py-5 px-3 px-lg-4">
+
+        <!-- ============================= -->
+        <!-- HEADER -->
+        <!-- ============================= -->
+
+        <div class="news-page-header mb-4">
+
+            <div class="header-content">
+
+                <div class="title-icon">
+
+                    <i class="bi bi-newspaper"></i>
+
+                </div>
+
+                <div>
+
+                    <span class="section-label">
+                        CONTENT MANAGEMENT
+                    </span>
+
+                    <h2 class="page-title">
+                        News Management
+                    </h2>
+
+                    <p class="page-subtitle">
+                        Create, update and manage party news and announcements.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-actions">
+
+                <a
+                    href="{% url 'admin_dashboard' %}"
+                    class="dashboard-btn"
+                >
+
+                    <i class="bi bi-speedometer2"></i>
+
+                    <span>
+                        Dashboard
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="{% url 'admin_news_add' %}"
+                    class="add-news-btn"
+                >
+
+                    <i class="bi bi-plus-lg"></i>
+
+                    <span>
+                        Add News
+                    </span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ============================= -->
+        <!-- NEWS CARD -->
+        <!-- ============================= -->
+
+        <div class="news-management-card">
+
+
+            <!-- CARD HEADER -->
+
+            <div class="news-card-header">
+
+                <div class="card-heading">
+
+                    <div class="card-heading-icon">
+
+                        <i class="bi bi-collection"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h5>
+                            All News
+                        </h5>
+
+                        <p>
+                            Latest news appears first.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="news-count">
+
+                    <span class="count-number">
+                        {{ page_obj.paginator.count }}
+                    </span>
+
+                    <span class="count-label">
+                        News
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ============================= -->
+            <!-- TABLE -->
+            <!-- ============================= -->
+
+            <div class="table-responsive">
+
+                <table class="table news-table mb-0">
+
+                    <thead>
+
+                        <tr>
+
+                            <th class="news-column">
+                                News
+                            </th>
+
+                            <th>
+                                Category
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Published
+                            </th>
+
+                            <th class="actions-column text-end">
+                                Actions
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                        {% for news in news_list %}
+
+                        <tr class="news-row">
+
+
+                            <!-- ============================= -->
+                            <!-- NEWS -->
+                            <!-- ============================= -->
+
+                            <td>
+
+                                <div class="news-info">
+
+
+                                    {% if news.image %}
+
+                                    <div class="news-image-wrapper">
+
+                                        <img
+                                            src="{{ news.image.url }}"
+                                            alt="{{ news.title }}"
+                                            class="news-thumb"
+                                        >
+
+                                        <div class="image-overlay">
+
+                                            <i class="bi bi-eye"></i>
+
+                                        </div>
+
+                                    </div>
+
+                                    {% else %}
+
+                                    <div class="news-image-wrapper no-image">
+
+                                        <i class="bi bi-newspaper"></i>
+
+                                    </div>
+
+                                    {% endif %}
+
+
+                                    <div class="news-text">
+
+                                        <div class="news-title">
+
+                                            {{ news.title }}
+
+                                        </div>
+
+
+                                        <div class="news-description">
+
+                                            {{ news.short_description|truncatechars:80 }}
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+
+                            <!-- ============================= -->
+                            <!-- CATEGORY -->
+                            <!-- ============================= -->
+
+                            <td>
+
+                                <span class="category-badge">
+
+                                    <i class="bi bi-tag-fill"></i>
+
+                                    {{ news.get_category_display }}
+
+                                </span>
+
+                            </td>
+
+
+
+                            <!-- ============================= -->
+                            <!-- STATUS -->
+                            <!-- ============================= -->
+
+                            <td>
+
+                                {% if news.published %}
+
+                                <span class="status-badge published">
+
+                                    <span class="status-dot"></span>
+
+                                    <i class="bi bi-check-circle-fill"></i>
+
+                                    Published
+
+                                </span>
+
+                                {% else %}
+
+                                <span class="status-badge draft">
+
+                                    <span class="status-dot"></span>
+
+                                    <i class="bi bi-eye-slash-fill"></i>
+
+                                    Draft
+
+                                </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+
+                            <!-- ============================= -->
+                            <!-- DATE -->
+                            <!-- ============================= -->
+
+                            <td>
+
+                                <div class="date-wrapper">
+
+                                    <div class="date-main">
+
+                                        <i class="bi bi-calendar3"></i>
+
+                                        {{ news.created_at|date:"d M Y" }}
+
+                                    </div>
+
+                                    <div class="date-time">
+
+                                        {{ news.created_at|time:"h:i A" }}
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+
+                            <!-- ============================= -->
+                            <!-- ACTIONS -->
+                            <!-- ============================= -->
+
+                            <td>
+
+                                <div class="news-actions">
+
+
+                                    <a
+                                        href="{% url 'admin_news_edit' news.pk %}"
+                                        class="action-btn edit-btn"
+                                        title="Edit News"
+                                    >
+
+                                        <i class="bi bi-pencil-square"></i>
+
+                                        <span>
+                                            Edit
+                                        </span>
+
+                                    </a>
+
+
+                                    <form
+                                        method="post"
+                                        action="{% url 'admin_news_delete' news.pk %}"
+                                        onsubmit="return confirm('Are you sure you want to delete this news?');"
+                                    >
+
+                                        {% csrf_token %}
+
+                                        <button
+                                            type="submit"
+                                            class="action-btn delete-btn"
+                                            title="Delete News"
+                                        >
+
+                                            <i class="bi bi-trash3"></i>
+
+                                            <span>
+                                                Delete
+                                            </span>
+
+                                        </button>
+
+                                    </form>
+
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+                        {% empty %}
+
+
+                        <!-- ============================= -->
+                        <!-- EMPTY STATE -->
+                        <!-- ============================= -->
+
+                        <tr>
+
+                            <td colspan="5">
+
+                                <div class="empty-news">
+
+                                    <div class="empty-icon">
+
+                                        <i class="bi bi-newspaper"></i>
+
+                                    </div>
+
+                                    <h4>
+                                        No News Available
+                                    </h4>
+
+                                    <p>
+                                        Start by creating your first news article.
+                                    </p>
+
+
+                                    <a
+                                        href="{% url 'admin_news_add' %}"
+                                        class="empty-add-btn"
+                                    >
+
+                                        <i class="bi bi-plus-lg"></i>
+
+                                        Add Your First News
+
+                                    </a>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+                        {% endfor %}
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+
+            <!-- ============================= -->
+            <!-- PAGINATION -->
+            <!-- ============================= -->
+
+            {% if is_paginated %}
+
+            <div class="pagination-area">
+
+                <nav>
+
+                    <ul class="pagination custom-pagination mb-0">
+
+
+                        {% if page_obj.has_previous %}
+
+                        <li class="page-item">
+
+                            <a
+                                class="page-link"
+                                href="?page={{ page_obj.previous_page_number }}"
+                                aria-label="Previous"
+                            >
+
+                                <i class="bi bi-chevron-left"></i>
+
+                            </a>
+
+                        </li>
+
+                        {% else %}
+
+                        <li class="page-item disabled">
+
+                            <span class="page-link">
+
+                                <i class="bi bi-chevron-left"></i>
+
+                            </span>
+
+                        </li>
+
+                        {% endif %}
+
+
+
+                        {% for num in page_obj.paginator.page_range %}
+
+                            {% if page_obj.number == num %}
+
+                            <li class="page-item active">
+
+                                <span class="page-link">
+                                    {{ num }}
+                                </span>
+
+                            </li>
+
+                            {% else %}
+
+                            <li class="page-item">
+
+                                <a
+                                    class="page-link"
+                                    href="?page={{ num }}"
+                                >
+
+                                    {{ num }}
+
+                                </a>
+
+                            </li>
+
+                            {% endif %}
+
+                        {% endfor %}
+
+
+
+                        {% if page_obj.has_next %}
+
+                        <li class="page-item">
+
+                            <a
+                                class="page-link"
+                                href="?page={{ page_obj.next_page_number }}"
+                                aria-label="Next"
+                            >
+
+                                <i class="bi bi-chevron-right"></i>
+
+                            </a>
+
+                        </li>
+
+                        {% else %}
+
+                        <li class="page-item disabled">
+
+                            <span class="page-link">
+
+                                <i class="bi bi-chevron-right"></i>
+
+                            </span>
+
+                        </li>
+
+                        {% endif %}
+
+
+                    </ul>
+
+                </nav>
+
+            </div>
+
+            {% endif %}
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+
+
+{% block js %}
+
+<style>
+
+/* =====================================================
+   MAIN PAGE
+   ===================================================== */
+
+.news-management-page {
+
+    position: relative;
+
+    min-height: 100vh;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f8faff 0%,
+            #ffffff 45%,
+            #f5f8ff 100%
+        );
+
+}
+
+
+/* =====================================================
+   BACKGROUND ORBS
+   ===================================================== */
+
+.news-bg-orb {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(2px);
+
+    pointer-events: none;
+
+    opacity: .45;
+
+}
+
+
+.orb-one {
+
+    width: 300px;
+    height: 300px;
+
+    background: rgba(13, 110, 253, .08);
+
+    top: -100px;
+    right: -70px;
+
+}
+
+
+.orb-two {
+
+    width: 220px;
+    height: 220px;
+
+    background: rgba(111, 66, 193, .07);
+
+    bottom: 100px;
+    left: -100px;
+
+}
+
+
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+
+.news-page-header {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 25px;
+
+    padding: 10px 5px;
+
+}
+
+
+.header-content {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+}
+
+
+.title-icon {
+
+    width: 62px;
+    height: 62px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 18px;
+
+    color: #0d6efd;
+
+    font-size: 27px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(13,110,253,.13),
+            rgba(13,110,253,.04)
+        );
+
+    border: 1px solid rgba(13,110,253,.10);
+
+    box-shadow:
+        0 10px 30px rgba(13,110,253,.08);
+
+    animation: floatIcon 4s ease-in-out infinite;
+
+}
+
+
+@keyframes floatIcon {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+
+}
+
+
+.section-label {
+
+    display: inline-block;
+
+    color: #0d6efd;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    margin-bottom: 4px;
+
+}
+
+
+.page-title {
+
+    margin: 0;
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    letter-spacing: -.5px;
+
+    color: #172033;
+
+}
+
+
+.page-subtitle {
+
+    margin: 5px 0 0;
+
+    color: #7b8494;
+
+    font-size: 14px;
+
+}
+
+
+
+/* =====================================================
+   HEADER BUTTONS
+   ===================================================== */
+
+.header-actions {
+
+    display: flex;
+
+    gap: 10px;
+
+}
+
+
+.dashboard-btn,
+.add-news-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    min-height: 44px;
+
+    padding: 0 17px;
+
+    border-radius: 12px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        background .25s ease;
+
+}
+
+
+.dashboard-btn {
+
+    color: #0d6efd;
+
+    background: #ffffff;
+
+    border: 1px solid rgba(13,110,253,.18);
+
+}
+
+
+.add-news-btn {
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd,
+            #4f8dfd
+        );
+
+    border: none;
+
+    box-shadow:
+        0 8px 20px rgba(13,110,253,.22);
+
+}
+
+
+.dashboard-btn:hover,
+.add-news-btn:hover {
+
+    transform: translateY(-2px);
+
+}
+
+
+.dashboard-btn:hover {
+
+    background: #f3f7ff;
+
+    box-shadow:
+        0 8px 20px rgba(13,110,253,.08);
+
+}
+
+
+.add-news-btn:hover {
+
+    color: #ffffff;
+
+    box-shadow:
+        0 12px 25px rgba(13,110,253,.30);
+
+}
+
+
+
+/* =====================================================
+   MAIN CARD
+   ===================================================== */
+
+.news-management-card {
+
+    position: relative;
+
+    z-index: 2;
+
+    overflow: hidden;
+
+    background: rgba(255,255,255,.90);
+
+    border: 1px solid rgba(225,230,240,.85);
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 18px 55px rgba(30,45,70,.08);
+
+    backdrop-filter: blur(12px);
+
+    animation: cardAppear .55s ease both;
+
+}
+
+
+@keyframes cardAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(15px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+
+
+/* =====================================================
+   CARD HEADER
+   ===================================================== */
+
+.news-card-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 22px 25px;
+
+    border-bottom: 1px solid #edf0f5;
+
+}
+
+
+.card-heading {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+}
+
+
+.card-heading-icon {
+
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 12px;
+
+    color: #0d6efd;
+
+    background: #eef5ff;
+
+    font-size: 18px;
+
+}
+
+
+.card-heading h5 {
+
+    margin: 0 0 3px;
+
+    color: #202939;
+
+    font-weight: 750;
+
+}
+
+
+.card-heading p {
+
+    margin: 0;
+
+    color: #8a93a2;
+
+    font-size: 12px;
+
+}
+
+
+.news-count {
+
+    display: flex;
+
+    align-items: baseline;
+
+    gap: 5px;
+
+    padding: 9px 14px;
+
+    border-radius: 12px;
+
+    color: #0d6efd;
+
+    background: #eef5ff;
+
+}
+
+
+.count-number {
+
+    font-size: 18px;
+
+    font-weight: 800;
+
+}
+
+
+.count-label {
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+}
+
+
+
+/* =====================================================
+   TABLE
+   ===================================================== */
+
+.news-table {
+
+    min-width: 950px;
+
+}
+
+
+.news-table thead th {
+
+    padding: 15px 18px;
+
+    background: #f8faff;
+
+    color: #7a8494;
+
+    border-bottom: 1px solid #e9edf3;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: .7px;
+
+    white-space: nowrap;
+
+}
+
+
+.news-table thead th:first-child {
+
+    padding-left: 25px;
+
+}
+
+
+.news-table thead th:last-child {
+
+    padding-right: 25px;
+
+}
+
+
+.news-row {
+
+    transition:
+        background .25s ease,
+        transform .25s ease;
+
+}
+
+
+.news-row:hover {
+
+    background: #fbfdff;
+
+}
+
+
+.news-row td {
+
+    padding: 17px 18px;
+
+    border-color: #edf0f4;
+
+    vertical-align: middle;
+
+}
+
+
+.news-row td:first-child {
+
+    padding-left: 25px;
+
+}
+
+
+.news-row td:last-child {
+
+    padding-right: 25px;
+
+}
+
+
+
+/* =====================================================
+   NEWS INFO
+   ===================================================== */
+
+.news-info {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    min-width: 330px;
+
+}
+
+
+.news-image-wrapper {
+
+    position: relative;
+
+    width: 68px;
+    height: 54px;
+
+    flex-shrink: 0;
+
+    overflow: hidden;
+
+    border-radius: 12px;
+
+    background: #eef2f7;
+
+    box-shadow:
+        0 5px 15px rgba(25,40,65,.08);
+
+}
+
+
+.news-thumb {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform .4s ease;
+
+}
+
+
+.news-row:hover .news-thumb {
+
+    transform: scale(1.08);
+
+}
+
+
+.image-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #ffffff;
+
+    background: rgba(13,110,253,.60);
+
+    opacity: 0;
+
+    transition: opacity .25s ease;
+
+}
+
+
+.news-image-wrapper:hover .image-overlay {
+
+    opacity: 1;
+
+}
+
+
+.no-image {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #9aa4b2;
+
+    font-size: 21px;
+
+}
+
+
+.news-text {
+
+    min-width: 0;
+
+}
+
+
+.news-title {
+
+    max-width: 400px;
+
+    overflow: hidden;
+
+    color: #202939;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+
+}
+
+
+.news-description {
+
+    max-width: 400px;
+
+    margin-top: 4px;
+
+    overflow: hidden;
+
+    color: #8992a1;
+
+    font-size: 12px;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+
+}
+
+
+
+/* =====================================================
+   CATEGORY
+   ===================================================== */
+
+.category-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 7px 10px;
+
+    border-radius: 9px;
+
+    color: #536dfe;
+
+    background: #f0f3ff;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+}
+
+
+.category-badge i {
+
+    font-size: 10px;
+
+}
+
+
+
+/* =====================================================
+   STATUS
+   ===================================================== */
+
+.status-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 7px 10px;
+
+    border-radius: 9px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+}
+
+
+.status-badge i {
+
+    font-size: 10px;
+
+}
+
+
+.status-dot {
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+}
+
+
+.status-badge.published {
+
+    color: #16845b;
+
+    background: #eaf9f2;
+
+}
+
+
+.status-badge.published .status-dot {
+
+    background: #22b573;
+
+    box-shadow:
+        0 0 0 4px rgba(34,181,115,.10);
+
+}
+
+
+.status-badge.draft {
+
+    color: #687282;
+
+    background: #f0f2f5;
+
+}
+
+
+.status-badge.draft .status-dot {
+
+    background: #8b95a5;
+
+}
+
+
+
+/* =====================================================
+   DATE
+   ===================================================== */
+
+.date-wrapper {
+
+    white-space: nowrap;
+
+}
+
+
+.date-main {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    color: #3c4656;
+
+    font-size: 12px;
+
+    font-weight: 650;
+
+}
+
+
+.date-main i {
+
+    color: #0d6efd;
+
+}
+
+
+.date-time {
+
+    margin-top: 4px;
+
+    padding-left: 18px;
+
+    color: #9aa2af;
+
+    font-size: 11px;
+
+}
+
+
+
+/* =====================================================
+   ACTIONS
+   ===================================================== */
+
+.news-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 7px;
+
+}
+
+
+.news-actions form {
+
+    margin: 0;
+
+}
+
+
+.action-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    min-width: 38px;
+
+    height: 36px;
+
+    padding: 0 10px;
+
+    border-radius: 9px;
+
+    font-size: 12px;
+
+    font-weight: 650;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+
+}
+
+
+.action-btn:hover {
+
+    transform: translateY(-2px);
+
+}
+
+
+.edit-btn {
+
+    color: #0d6efd;
+
+    background: #eef5ff;
+
+    border: 1px solid #d9e8ff;
+
+    text-decoration: none;
+
+}
+
+
+.edit-btn:hover {
+
+    color: #0d6efd;
+
+    background: #dfeeff;
+
+    box-shadow:
+        0 6px 15px rgba(13,110,253,.13);
+
+}
+
+
+.delete-btn {
+
+    color: #dc3545;
+
+    background: #fff1f2;
+
+    border: 1px solid #ffd9dd;
+
+}
+
+
+.delete-btn:hover {
+
+    color: #dc3545;
+
+    background: #ffe3e6;
+
+    box-shadow:
+        0 6px 15px rgba(220,53,69,.13);
+
+}
+
+
+
+/* =====================================================
+   EMPTY STATE
+   ===================================================== */
+
+.empty-news {
+
+    padding: 70px 20px;
+
+    text-align: center;
+
+}
+
+
+.empty-icon {
+
+    width: 80px;
+    height: 80px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 24px;
+
+    color: #0d6efd;
+
+    background: #eef5ff;
+
+    font-size: 32px;
+
+    animation: emptyFloat 3s ease-in-out infinite;
+
+}
+
+
+@keyframes emptyFloat {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+
+}
+
+
+.empty-news h4 {
+
+    margin-bottom: 7px;
+
+    color: #273142;
+
+    font-weight: 750;
+
+}
+
+
+.empty-news p {
+
+    margin-bottom: 20px;
+
+    color: #8b94a3;
+
+    font-size: 14px;
+
+}
+
+
+.empty-add-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 10px 17px;
+
+    border-radius: 10px;
+
+    color: #ffffff;
+
+    background: #0d6efd;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 650;
+
+    box-shadow:
+        0 8px 20px rgba(13,110,253,.18);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+
+}
+
+
+.empty-add-btn:hover {
+
+    color: #ffffff;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 25px rgba(13,110,253,.27);
+
+}
+
+
+
+/* =====================================================
+   PAGINATION
+   ===================================================== */
+
+.pagination-area {
+
+    padding: 20px 25px;
+
+    border-top: 1px solid #edf0f4;
+
+    background: #fcfdff;
+
+}
+
+
+.custom-pagination {
+
+    gap: 6px;
+
+}
+
+
+.custom-pagination .page-item {
+
+    margin: 0;
+
+}
+
+
+.custom-pagination .page-link {
+
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid #e4e9f0;
+
+    border-radius: 9px !important;
+
+    color: #657083;
+
+    background: #ffffff;
+
+    font-size: 12px;
+
+    font-weight: 650;
+
+    transition:
+        all .2s ease;
+
+}
+
+
+.custom-pagination .page-link:hover {
+
+    color: #0d6efd;
+
+    background: #eef5ff;
+
+    border-color: #cfe0ff;
+
+    transform: translateY(-2px);
+
+}
+
+
+.custom-pagination .page-item.active .page-link {
+
+    color: #ffffff;
+
+    background: linear-gradient(
+        135deg,
+        #0d6efd,
+        #4f8dfd
+    );
+
+    border-color: transparent;
+
+    box-shadow:
+        0 6px 15px rgba(13,110,253,.20);
+
+}
+
+
+.custom-pagination .page-item.disabled .page-link {
+
+    color: #c5cad2;
+
+    background: #f7f8fa;
+
+    border-color: #edf0f3;
+
+}
+
+
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+
+@media (max-width: 992px) {
+
+    .news-page-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+
+    .header-actions {
+
+        width: 100%;
+
+    }
+
+
+    .dashboard-btn,
+    .add-news-btn {
+
+        flex: 1;
+
+    }
+
+}
+
+
+@media (max-width: 576px) {
+
+    .news-management-page .container-fluid {
+
+        padding-top: 25px !important;
+
+    }
+
+
+    .header-content {
+
+        align-items: flex-start;
+
+    }
+
+
+    .title-icon {
+
+        width: 50px;
+        height: 50px;
+
+        border-radius: 14px;
+
+        font-size: 22px;
+
+    }
+
+
+    .page-title {
+
+        font-size: 24px;
+
+    }
+
+
+    .page-subtitle {
+
+        font-size: 12px;
+
+    }
+
+
+    .header-actions {
+
+        flex-direction: column;
+
+    }
+
+
+    .dashboard-btn,
+    .add-news-btn {
+
+        width: 100%;
+
+    }
+
+
+    .news-card-header {
+
+        padding: 18px;
+
+    }
+
+
+    .card-heading p {
+
+        display: none;
+
+    }
+
+
+    .news-count {
+
+        padding: 7px 10px;
+
+    }
+
+
+    .pagination-area {
+
+        padding: 17px;
+
+        overflow-x: auto;
+
+    }
+
+
+    .custom-pagination {
+
+        justify-content: flex-start !important;
+
+        min-width: max-content;
+
+    }
+
+}
+
+
+/* =====================================================
+   REDUCE MOTION
+   ===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration: .01ms !important;
+
+        animation-iteration-count: 1 !important;
+
+        transition-duration: .01ms !important;
+
+    }
+
+}
+
+</style>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const rows = document.querySelectorAll(".news-row");
+
+    rows.forEach(function (row, index) {
+
+        row.style.animationDelay =
+            (index * 0.05) + "s";
+
+    });
+
+});
+
+</script>
+
+{% endblock %}

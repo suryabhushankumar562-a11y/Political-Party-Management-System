@@ -1,0 +1,1117 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}
+News | Nav Bharat Party
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   NEWS PAGE
+   ========================================================= */
+
+.news-page {
+    --news-blue: #123b7a;
+    --news-dark: #092956;
+    --news-gold: #f4b400;
+    --news-muted: #667085;
+    --news-border: rgba(18, 59, 122, .10);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.news-hero {
+    position: relative;
+
+    padding: 70px 20px 60px;
+
+    text-align: center;
+
+    overflow: hidden;
+
+    border-radius: 0 0 40px 40px;
+
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(244,180,0,.13),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(18,59,122,.10),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f4f7fc
+        );
+
+    animation: newsHero .8s ease both;
+}
+
+
+.news-hero::before {
+    content: "";
+
+    position: absolute;
+
+    width: 270px;
+    height: 270px;
+
+    top: -150px;
+    left: -120px;
+
+    border: 1px solid rgba(244,180,0,.18);
+
+    border-radius: 50%;
+
+    animation: floatingCircle 7s ease-in-out infinite;
+}
+
+
+.news-hero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 340px;
+    height: 340px;
+
+    right: -170px;
+    bottom: -190px;
+
+    border: 1px solid rgba(18,59,122,.10);
+
+    border-radius: 50%;
+
+    animation: floatingCircleReverse 8s ease-in-out infinite;
+}
+
+
+.news-badge {
+    position: relative;
+
+    display: inline-flex;
+
+    align-items: center;
+    gap: 8px;
+
+    padding: 9px 18px;
+
+    color: var(--news-blue);
+
+    background: rgba(18,59,122,.07);
+
+    border: 1px solid rgba(18,59,122,.10);
+
+    border-radius: 50px;
+
+    font-size: .8rem;
+
+    font-weight: 800;
+
+    letter-spacing: .7px;
+
+    animation: fadeUp .7s ease both;
+}
+
+
+.news-badge::before {
+    content: "";
+
+    width: 7px;
+    height: 7px;
+
+    background: var(--news-gold);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 5px rgba(244,180,0,.12);
+}
+
+
+.news-hero h1 {
+    position: relative;
+
+    margin-top: 22px;
+    margin-bottom: 15px;
+
+    color: var(--news-dark);
+
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+
+    font-weight: 800;
+
+    letter-spacing: -1.2px;
+
+    animation: fadeUp .8s ease .1s both;
+}
+
+
+.news-hero h1 span {
+    color: var(--news-blue);
+}
+
+
+.news-description {
+    max-width: 750px;
+
+    margin: auto;
+
+    color: var(--news-muted);
+
+    font-size: 1.05rem;
+
+    line-height: 1.8;
+
+    animation: fadeUp .8s ease .2s both;
+}
+
+
+.news-divider {
+    width: 70px;
+    height: 4px;
+
+    margin: 25px auto 0;
+
+    background: var(--news-gold);
+
+    border-radius: 50px;
+
+    animation:
+        dividerGrow .8s ease .3s both,
+        goldPulse 2.5s ease-in-out 1.2s infinite;
+}
+
+
+/* =========================================================
+   NEWS SECTION
+   ========================================================= */
+
+.news-section {
+    padding: 65px 0 80px;
+}
+
+
+/* =========================================================
+   NEWS CARD
+   ========================================================= */
+
+.news-card {
+    position: relative;
+
+    height: 100%;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 1px solid var(--news-border);
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 10px 35px rgba(18,59,122,.07);
+
+    transition:
+        transform .5s cubic-bezier(.2,.8,.2,1),
+        box-shadow .5s ease,
+        border-color .35s ease;
+
+    animation:
+        cardReveal .75s cubic-bezier(.2,.8,.2,1) both;
+}
+
+
+/* Stagger */
+
+.news-column:nth-child(1) .news-card {
+    animation-delay: .05s;
+}
+
+.news-column:nth-child(2) .news-card {
+    animation-delay: .15s;
+}
+
+.news-column:nth-child(3) .news-card {
+    animation-delay: .25s;
+}
+
+.news-column:nth-child(4) .news-card {
+    animation-delay: .35s;
+}
+
+.news-column:nth-child(5) .news-card {
+    animation-delay: .45s;
+}
+
+.news-column:nth-child(6) .news-card {
+    animation-delay: .55s;
+}
+
+
+/* Gold top border */
+
+.news-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 4px;
+
+    z-index: 5;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--news-blue),
+            var(--news-gold)
+        );
+
+    transform: scaleX(0);
+
+    transform-origin: left;
+
+    transition: transform .5s ease;
+}
+
+
+/* Glow */
+
+.news-card::after {
+    content: "";
+
+    position: absolute;
+
+    left: 15%;
+    right: 15%;
+    bottom: -35px;
+
+    height: 65px;
+
+    background: rgba(244,180,0,.16);
+
+    filter: blur(28px);
+
+    opacity: 0;
+
+    transition:
+        opacity .5s ease,
+        transform .5s ease;
+
+    pointer-events: none;
+}
+
+
+.news-card:hover {
+    transform: translateY(-12px);
+
+    border-color: rgba(244,180,0,.28);
+
+    box-shadow:
+        0 28px 60px rgba(18,59,122,.15),
+        0 0 30px rgba(244,180,0,.06);
+}
+
+
+.news-card:hover::before {
+    transform: scaleX(1);
+}
+
+
+.news-card:hover::after {
+    opacity: 1;
+
+    transform: translateY(-8px);
+}
+
+
+/* =========================================================
+   IMAGE
+   ========================================================= */
+
+.news-image-wrapper {
+    position: relative;
+
+    height: 230px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #edf2f8,
+            #dce5f1
+        );
+}
+
+
+.news-image {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition:
+        transform .75s cubic-bezier(.2,.8,.2,1),
+        filter .5s ease;
+}
+
+
+.news-card:hover .news-image {
+    transform: scale(1.08);
+
+    filter:
+        saturate(1.06)
+        contrast(1.02);
+}
+
+
+/* Image overlay */
+
+.news-image-wrapper::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(9,41,86,.55),
+            transparent 55%
+        );
+
+    opacity: .45;
+
+    transition: opacity .45s ease;
+
+    pointer-events: none;
+}
+
+
+.news-card:hover .news-image-wrapper::after {
+    opacity: .7;
+}
+
+
+/* =========================================================
+   IMAGE PLACEHOLDER
+   ========================================================= */
+
+.news-image-placeholder {
+    height: 230px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: rgba(18,59,122,.30);
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(244,180,0,.12),
+            transparent 55%
+        ),
+        linear-gradient(
+            135deg,
+            #edf2f8,
+            #dce5f1
+        );
+
+    font-size: 4.5rem;
+
+    transition:
+        transform .5s ease,
+        color .5s ease;
+}
+
+
+.news-card:hover .news-image-placeholder {
+    color: rgba(18,59,122,.45);
+
+    transform: scale(1.04);
+}
+
+
+/* =========================================================
+   CATEGORY
+   ========================================================= */
+
+.news-category {
+    display: inline-flex;
+
+    align-items: center;
+    gap: 6px;
+
+    padding: 6px 12px;
+
+    color: var(--news-blue);
+
+    background: rgba(18,59,122,.07);
+
+    border: 1px solid rgba(18,59,122,.10);
+
+    border-radius: 50px;
+
+    font-size: .72rem;
+
+    font-weight: 800;
+
+    letter-spacing: .4px;
+}
+
+
+.news-category::before {
+    content: "";
+
+    width: 6px;
+    height: 6px;
+
+    background: var(--news-gold);
+
+    border-radius: 50%;
+}
+
+
+/* =========================================================
+   CARD CONTENT
+   ========================================================= */
+
+.news-content {
+    position: relative;
+
+    z-index: 2;
+
+    padding: 25px;
+}
+
+
+.news-title {
+    margin-top: 16px;
+    margin-bottom: 10px;
+
+    color: var(--news-dark);
+
+    font-size: 1.3rem;
+
+    font-weight: 800;
+
+    line-height: 1.35;
+
+    transition: color .35s ease;
+}
+
+
+.news-card:hover .news-title {
+    color: var(--news-blue);
+}
+
+
+.news-date {
+    color: #8a94a6;
+
+    font-size: .82rem;
+
+    font-weight: 500;
+}
+
+
+.news-description-text {
+    margin-top: 15px;
+
+    color: var(--news-muted);
+
+    font-size: .93rem;
+
+    line-height: 1.75;
+}
+
+
+/* =========================================================
+   READ MORE
+   ========================================================= */
+
+.news-read-more {
+    display: inline-flex;
+
+    align-items: center;
+    gap: 8px;
+
+    padding: 9px 16px;
+
+    color: var(--news-blue);
+
+    background: transparent;
+
+    border: 1px solid rgba(18,59,122,.18);
+
+    border-radius: 50px;
+
+    font-size: .82rem;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition:
+        color .35s ease,
+        background .35s ease,
+        border-color .35s ease,
+        transform .35s ease;
+}
+
+
+.news-read-more i {
+    transition: transform .35s ease;
+}
+
+
+.news-read-more:hover {
+    color: #ffffff;
+
+    background: var(--news-blue);
+
+    border-color: var(--news-blue);
+
+    transform: translateX(3px);
+}
+
+
+.news-read-more:hover i {
+    transform: translateX(5px);
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.news-empty {
+    padding: 70px 25px;
+
+    text-align: center;
+
+    background: #ffffff;
+
+    border: 1px solid var(--news-border);
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 10px 35px rgba(18,59,122,.06);
+
+    animation: cardReveal .7s ease both;
+}
+
+
+.news-empty-icon {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 90px;
+    height: 90px;
+
+    margin: 0 auto 22px;
+
+    color: var(--news-blue);
+
+    background: rgba(18,59,122,.07);
+
+    border-radius: 50%;
+
+    font-size: 2.5rem;
+}
+
+
+.news-empty h4 {
+    color: var(--news-dark);
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   BOTTOM SECTION
+   ========================================================= */
+
+.news-connected {
+    position: relative;
+
+    margin-top: 70px;
+
+    padding: 45px 25px;
+
+    overflow: hidden;
+
+    text-align: center;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #092956,
+            #123b7a
+        );
+
+    color: #ffffff;
+
+    box-shadow:
+        0 20px 50px rgba(18,59,122,.18);
+
+    animation: fadeUp .8s ease both;
+}
+
+
+.news-connected::before {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    top: -100px;
+    right: -70px;
+
+    border: 1px solid rgba(255,255,255,.12);
+
+    border-radius: 50%;
+}
+
+
+.news-connected h3 {
+    position: relative;
+
+    font-weight: 800;
+}
+
+
+.news-connected p {
+    position: relative;
+
+    margin-bottom: 0;
+
+    color: rgba(255,255,255,.75);
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes newsHero {
+
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+@keyframes cardReveal {
+
+    from {
+        opacity: 0;
+        transform: translateY(45px) scale(.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+
+@keyframes dividerGrow {
+
+    from {
+        width: 0;
+        opacity: 0;
+    }
+
+    to {
+        width: 70px;
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes goldPulse {
+
+    0%, 100% {
+        box-shadow: 0 0 0 rgba(244,180,0,0);
+    }
+
+    50% {
+        box-shadow: 0 0 18px rgba(244,180,0,.35);
+    }
+
+}
+
+
+@keyframes floatingCircle {
+
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(18px, 15px);
+    }
+
+}
+
+
+@keyframes floatingCircleReverse {
+
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(-18px, -15px);
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .news-hero {
+        padding: 55px 18px 50px;
+
+        border-radius: 0 0 28px 28px;
+    }
+
+
+    .news-section {
+        padding-top: 50px;
+    }
+
+
+    .news-image-wrapper,
+    .news-image-placeholder {
+        height: 220px;
+    }
+
+
+    .news-card:hover {
+        transform: translateY(-7px);
+    }
+
+
+    .news-connected {
+        margin-top: 50px;
+
+        border-radius: 20px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .news-page *,
+    .news-page *::before,
+    .news-page *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+
+}
+
+</style>
+
+
+
+<div class="news-page">
+
+
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
+
+    <section class="news-hero">
+
+        <div class="container">
+
+            <span class="news-badge">
+
+                {% trans "Latest Updates" %}
+
+            </span>
+
+
+            <h1>
+
+                {% trans "Party News &" %}
+                <span>{% trans "Announcements" %}</span>
+
+            </h1>
+
+
+            <p class="news-description">
+
+                {% trans "Stay updated with the latest news, announcements and activities of Nav Bharat Party." %}
+
+            </p>
+
+
+            <div class="news-divider"></div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         NEWS
+         ===================================================== -->
+
+    <section class="news-section">
+
+        <div class="container">
+
+
+            <div class="row g-4">
+
+
+                {% for news in news_list %}
+
+                <div class="col-md-6 col-lg-4 news-column">
+
+
+                    <article class="news-card">
+
+
+                        <!-- IMAGE -->
+
+                        {% if news.image %}
+
+                            <div class="news-image-wrapper">
+
+                                <img
+                                    src="{{ news.image.url }}"
+                                    class="news-image"
+                                    alt="{{ news.title }}"
+                                    loading="lazy"
+                                >
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="news-image-placeholder">
+
+                                <i class="bi bi-newspaper"></i>
+
+                            </div>
+
+                        {% endif %}
+
+
+
+                        <!-- CONTENT -->
+
+                        <div class="news-content">
+
+
+                            <!-- CATEGORY -->
+
+                            <span class="news-category">
+
+                                {{ news.get_category_display }}
+
+                            </span>
+
+
+
+                            <!-- TITLE -->
+
+                            <h4 class="news-title">
+
+                                {{ news.title }}
+
+                            </h4>
+
+
+
+                            <!-- DATE -->
+
+                            <div class="news-date">
+
+                                <i class="bi bi-calendar3 me-1"></i>
+
+                                {{ news.created_at|date:"d M Y" }}
+
+                            </div>
+
+
+
+                            <!-- DESCRIPTION -->
+
+                            <p class="news-description-text">
+
+                                {{ news.short_description }}
+
+                            </p>
+
+
+
+                            <!-- READ MORE -->
+
+                            <div class="pt-2">
+
+                                <a
+                                    href="{% url 'news_detail' news.pk %}"
+                                    class="news-read-more"
+                                >
+
+                                    {% trans "Read More" %}
+
+                                    <i class="bi bi-arrow-right"></i>
+
+                                </a>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </article>
+
+
+                </div>
+
+
+                {% empty %}
+
+
+                <!-- EMPTY -->
+
+                <div class="col-12">
+
+                    <div class="news-empty">
+
+                        <div class="news-empty-icon">
+
+                            <i class="bi bi-newspaper"></i>
+
+                        </div>
+
+
+                        <h4 class="mb-2">
+
+                            {% trans "No News Available" %}
+
+                        </h4>
+
+
+                        <p class="text-muted mb-0">
+
+                            {% trans "There are currently no published news or announcements." %}
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                {% endfor %}
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 STAY CONNECTED
+                 ================================================= -->
+
+            <div class="news-connected">
+
+                <h3>
+
+                    {% trans "Stay Connected" %}
+
+                </h3>
+
+
+                <p>
+
+                    {% trans "Check this page regularly for the latest updates and announcements." %}
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,724 @@
+{% extends "base.html" %}
+
+{% block title %}
+Member Login | Nav Bharat Party
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   MEMBER LOGIN — PREMIUM UI
+   ========================================================= */
+
+.login-page {
+    min-height: calc(100vh - 120px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 70px 15px;
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 10% 20%, rgba(13,110,253,.10), transparent 30%),
+        radial-gradient(circle at 90% 80%, rgba(25,135,84,.08), transparent 30%),
+        #f8fafc;
+}
+
+
+/* Background floating shapes */
+
+.login-page::before,
+.login-page::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(2px);
+    pointer-events: none;
+    animation: floatingShape 7s ease-in-out infinite;
+}
+
+.login-page::before {
+    width: 280px;
+    height: 280px;
+    background: rgba(13,110,253,.08);
+    top: -100px;
+    left: -80px;
+}
+
+.login-page::after {
+    width: 320px;
+    height: 320px;
+    background: rgba(255,193,7,.08);
+    bottom: -130px;
+    right: -100px;
+    animation-delay: -3s;
+}
+
+
+@keyframes floatingShape {
+
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(20px, -20px) scale(1.08);
+    }
+}
+
+
+/* Login wrapper */
+
+.login-wrapper {
+    width: 100%;
+    max-width: 470px;
+    position: relative;
+    z-index: 2;
+
+    animation: loginAppear .8s cubic-bezier(.22,1,.36,1);
+}
+
+
+@keyframes loginAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(45px) scale(.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* Main card */
+
+.login-card {
+    background: rgba(255,255,255,.90);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255,255,255,.8);
+    border-radius: 26px;
+
+    box-shadow:
+        0 25px 70px rgba(15,23,42,.12),
+        0 8px 25px rgba(15,23,42,.05);
+
+    overflow: hidden;
+
+    transition:
+        transform .4s ease,
+        box-shadow .4s ease;
+}
+
+
+.login-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 32px 80px rgba(15,23,42,.16),
+        0 10px 30px rgba(15,23,42,.07);
+}
+
+
+/* Header */
+
+.login-header {
+    position: relative;
+    padding: 38px 30px 34px;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd,
+            #0755c9
+        );
+}
+
+
+/* Header shine */
+
+.login-header::before {
+    content: "";
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.08);
+
+    top: -100px;
+    right: -50px;
+}
+
+
+.login-header::after {
+    content: "";
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.06);
+
+    bottom: -70px;
+    left: -40px;
+}
+
+
+/* Login icon */
+
+.login-icon {
+    width: 78px;
+    height: 78px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 22px;
+
+    background: rgba(255,255,255,.16);
+    border: 1px solid rgba(255,255,255,.25);
+
+    font-size: 34px;
+
+    position: relative;
+    z-index: 2;
+
+    animation: iconFloat 3s ease-in-out infinite;
+}
+
+
+@keyframes iconFloat {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+
+.login-header h3 {
+    position: relative;
+    z-index: 2;
+
+    font-weight: 800;
+    letter-spacing: -.4px;
+}
+
+
+.login-header p {
+    position: relative;
+    z-index: 2;
+
+    opacity: .85;
+}
+
+
+/* Body */
+
+.login-body {
+    padding: 34px;
+}
+
+
+/* Alert */
+
+.login-alert {
+    border: 0;
+    border-radius: 13px;
+
+    animation: alertAppear .5s ease;
+}
+
+
+@keyframes alertAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Labels */
+
+.login-form .form-label {
+    font-weight: 650;
+    color: #263238;
+    margin-bottom: 8px;
+}
+
+
+/* Django generated inputs */
+
+.login-form input {
+    width: 100%;
+
+    min-height: 52px;
+
+    border: 1px solid #dee2e6;
+    border-radius: 13px;
+
+    padding: 12px 15px;
+
+    background: #f8fafc;
+
+    color: #212529;
+
+    outline: none;
+
+    transition:
+        border-color .25s ease,
+        box-shadow .25s ease,
+        background .25s ease,
+        transform .25s ease;
+}
+
+
+.login-form input:hover {
+    background: #fff;
+}
+
+
+.login-form input:focus {
+    background: #fff;
+
+    border-color: #0d6efd;
+
+    box-shadow:
+        0 0 0 4px rgba(13,110,253,.10);
+
+    transform: translateY(-1px);
+}
+
+
+/* Password */
+
+.password-field {
+    position: relative;
+}
+
+
+.password-field input {
+    padding-right: 48px;
+}
+
+
+/* Error */
+
+.field-error {
+    margin-top: 6px;
+    font-size: .82rem;
+    color: #dc3545;
+
+    animation: errorAppear .3s ease;
+}
+
+
+@keyframes errorAppear {
+
+    from {
+        opacity: 0;
+        transform: translateX(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+/* Login button */
+
+.login-button {
+    width: 100%;
+    min-height: 54px;
+
+    border: 0;
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd,
+            #0755c9
+        );
+
+    color: white;
+
+    font-size: 1rem;
+    font-weight: 700;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    position: relative;
+    overflow: hidden;
+
+    box-shadow:
+        0 10px 25px rgba(13,110,253,.20);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+
+.login-button::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 70%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.25),
+            transparent
+        );
+
+    transform: skewX(-20deg);
+
+    transition: left .65s ease;
+}
+
+
+.login-button:hover::before {
+    left: 140%;
+}
+
+
+.login-button:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 15px 32px rgba(13,110,253,.30);
+}
+
+
+.login-button:active {
+    transform: translateY(0);
+}
+
+
+.login-button i {
+    transition: transform .3s ease;
+}
+
+
+.login-button:hover i {
+    transform: translateX(5px);
+}
+
+
+/* Register section */
+
+.register-section {
+    margin-top: 26px;
+    padding-top: 23px;
+
+    border-top: 1px solid #edf0f3;
+
+    text-align: center;
+
+    color: #6c757d;
+}
+
+
+.register-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    margin-top: 7px;
+
+    font-weight: 700;
+
+    color: #0d6efd;
+
+    text-decoration: none;
+
+    transition:
+        color .25s ease,
+        gap .25s ease;
+}
+
+
+.register-link:hover {
+    color: #084298;
+    gap: 9px;
+}
+
+
+/* Small security text */
+
+.login-security {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    margin-top: 22px;
+
+    font-size: .78rem;
+    color: #8a939b;
+}
+
+
+.login-security i {
+    color: #198754;
+}
+
+
+/* Mobile */
+
+@media (max-width: 576px) {
+
+    .login-page {
+        padding: 40px 15px;
+    }
+
+    .login-header {
+        padding: 32px 22px;
+    }
+
+    .login-body {
+        padding: 25px 20px;
+    }
+
+    .login-card {
+        border-radius: 21px;
+    }
+
+    .login-icon {
+        width: 68px;
+        height: 68px;
+        font-size: 29px;
+    }
+
+}
+
+
+/* Reduced motion accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+
+}
+
+</style>
+
+
+<div class="login-page">
+
+    <div class="login-wrapper">
+
+        <div class="login-card">
+
+
+            <!-- ==========================
+                 HEADER
+            =========================== -->
+
+            <div class="login-header">
+
+                <div class="login-icon">
+
+                    <i class="bi bi-person-lock"></i>
+
+                </div>
+
+                <h3 class="mb-2">
+                    Member Login
+                </h3>
+
+                <p class="mb-0">
+                    Access your Nav Bharat Party membership account
+                </p>
+
+            </div>
+
+
+            <!-- ==========================
+                 BODY
+            =========================== -->
+
+            <div class="login-body">
+
+
+                {% if form.non_field_errors %}
+
+                    <div class="alert alert-danger login-alert mb-4">
+
+                        <i class="bi bi-exclamation-circle-fill me-2"></i>
+
+                        {{ form.non_field_errors }}
+
+                    </div>
+
+                {% endif %}
+
+
+                <form
+                    method="POST"
+                    class="login-form"
+                >
+
+                    {% csrf_token %}
+
+
+                    <!-- USERNAME -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Username
+                        </label>
+
+                        {{ form.username }}
+
+                        {% for error in form.username.errors %}
+
+                            <div class="field-error">
+
+                                <i class="bi bi-exclamation-circle me-1"></i>
+
+                                {{ error }}
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Password
+                        </label>
+
+                        <div class="password-field">
+
+                            {{ form.password }}
+
+                        </div>
+
+                        {% for error in form.password.errors %}
+
+                            <div class="field-error">
+
+                                <i class="bi bi-exclamation-circle me-1"></i>
+
+                                {{ error }}
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- LOGIN -->
+
+                    <button
+                        type="submit"
+                        class="login-button"
+                    >
+
+                        <span>
+                            Login to Account
+                        </span>
+
+                        <i class="bi bi-arrow-right"></i>
+
+                    </button>
+
+                </form>
+
+
+                <!-- REGISTER -->
+
+                <div class="register-section">
+
+                    <div>
+                        Don't have a membership account?
+                    </div>
+
+                    <a
+                        href="{% url 'member_register' %}"
+                        class="register-link"
+                    >
+
+                        Register as Member
+
+                        <i class="bi bi-arrow-up-right"></i>
+
+                    </a>
+
+                </div>
+
+
+                <!-- SECURITY -->
+
+                <div class="login-security">
+
+                    <i class="bi bi-shield-check"></i>
+
+                    Secure Member Login
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,1266 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}
+Events | Nav Bharat Party
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   EVENTS PAGE
+   ========================================================= */
+
+.events-page {
+    --event-blue: #123b7a;
+    --event-dark: #092956;
+    --event-gold: #f4b400;
+    --event-muted: #667085;
+    --event-border: rgba(18, 59, 122, .10);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.events-hero {
+    position: relative;
+
+    padding: 70px 20px 60px;
+
+    text-align: center;
+
+    overflow: hidden;
+
+    border-radius: 0 0 40px 40px;
+
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(244,180,0,.13),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(18,59,122,.10),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f4f7fc
+        );
+
+    animation: heroReveal .8s ease both;
+}
+
+
+.events-hero::before {
+    content: "";
+
+    position: absolute;
+
+    width: 270px;
+    height: 270px;
+
+    top: -145px;
+    left: -120px;
+
+    border: 1px solid rgba(244,180,0,.17);
+
+    border-radius: 50%;
+
+    animation: floatingCircle 7s ease-in-out infinite;
+}
+
+
+.events-hero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 340px;
+    height: 340px;
+
+    right: -170px;
+    bottom: -190px;
+
+    border: 1px solid rgba(18,59,122,.10);
+
+    border-radius: 50%;
+
+    animation: floatingCircleReverse 8s ease-in-out infinite;
+}
+
+
+.events-badge {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 9px 18px;
+
+    color: var(--event-blue);
+
+    background: rgba(18,59,122,.07);
+
+    border: 1px solid rgba(18,59,122,.10);
+
+    border-radius: 50px;
+
+    font-size: .8rem;
+    font-weight: 800;
+    letter-spacing: .7px;
+
+    animation: fadeUp .7s ease both;
+}
+
+
+.events-badge::before {
+    content: "";
+
+    width: 7px;
+    height: 7px;
+
+    background: var(--event-gold);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 5px rgba(244,180,0,.12);
+}
+
+
+.events-hero h1 {
+    position: relative;
+
+    margin-top: 22px;
+    margin-bottom: 15px;
+
+    color: var(--event-dark);
+
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+
+    font-weight: 800;
+
+    letter-spacing: -1.2px;
+
+    animation: fadeUp .8s ease .1s both;
+}
+
+
+.events-hero h1 span {
+    color: var(--event-blue);
+}
+
+
+.events-description {
+    max-width: 750px;
+
+    margin: auto;
+
+    color: var(--event-muted);
+
+    font-size: 1.05rem;
+
+    line-height: 1.8;
+
+    animation: fadeUp .8s ease .2s both;
+}
+
+
+.events-divider {
+    width: 70px;
+    height: 4px;
+
+    margin: 25px auto 0;
+
+    background: var(--event-gold);
+
+    border-radius: 50px;
+
+    animation:
+        dividerGrow .8s ease .3s both,
+        goldPulse 2.5s ease-in-out 1.2s infinite;
+}
+
+
+/* =========================================================
+   EVENTS SECTION
+   ========================================================= */
+
+.events-section {
+    padding: 65px 0 80px;
+}
+
+
+/* =========================================================
+   EVENT CARD
+   ========================================================= */
+
+.event-column {
+    animation: eventReveal .75s cubic-bezier(.2,.8,.2,1) both;
+}
+
+
+.event-column:nth-child(1) {
+    animation-delay: .05s;
+}
+
+.event-column:nth-child(2) {
+    animation-delay: .15s;
+}
+
+.event-column:nth-child(3) {
+    animation-delay: .25s;
+}
+
+.event-column:nth-child(4) {
+    animation-delay: .35s;
+}
+
+.event-column:nth-child(5) {
+    animation-delay: .45s;
+}
+
+.event-column:nth-child(6) {
+    animation-delay: .55s;
+}
+
+
+.event-card {
+    position: relative;
+
+    height: 100%;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 1px solid var(--event-border);
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 10px 35px rgba(18,59,122,.07);
+
+    transition:
+        transform .5s cubic-bezier(.2,.8,.2,1),
+        box-shadow .5s ease,
+        border-color .35s ease;
+}
+
+
+/* Gold top line */
+
+.event-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 4px;
+
+    z-index: 5;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--event-blue),
+            var(--event-gold)
+        );
+
+    transform: scaleX(0);
+
+    transform-origin: left;
+
+    transition: transform .5s ease;
+}
+
+
+/* Bottom glow */
+
+.event-card::after {
+    content: "";
+
+    position: absolute;
+
+    left: 15%;
+    right: 15%;
+    bottom: -40px;
+
+    height: 65px;
+
+    background: rgba(244,180,0,.16);
+
+    filter: blur(28px);
+
+    opacity: 0;
+
+    transition:
+        opacity .5s ease,
+        transform .5s ease;
+
+    pointer-events: none;
+}
+
+
+.event-card:hover {
+    transform: translateY(-12px);
+
+    border-color: rgba(244,180,0,.28);
+
+    box-shadow:
+        0 28px 60px rgba(18,59,122,.15),
+        0 0 30px rgba(244,180,0,.06);
+}
+
+
+.event-card:hover::before {
+    transform: scaleX(1);
+}
+
+
+.event-card:hover::after {
+    opacity: 1;
+
+    transform: translateY(-8px);
+}
+
+
+/* =========================================================
+   EVENT IMAGE
+   ========================================================= */
+
+.event-image-wrapper {
+    position: relative;
+
+    height: 230px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #edf2f8,
+            #dce5f1
+        );
+}
+
+
+.event-image {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition:
+        transform .75s cubic-bezier(.2,.8,.2,1),
+        filter .5s ease;
+}
+
+
+.event-card:hover .event-image {
+    transform: scale(1.08);
+
+    filter:
+        saturate(1.06)
+        contrast(1.02);
+}
+
+
+.event-image-wrapper::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(9,41,86,.55),
+            transparent 55%
+        );
+
+    opacity: .45;
+
+    transition: opacity .45s ease;
+
+    pointer-events: none;
+}
+
+
+.event-card:hover .event-image-wrapper::after {
+    opacity: .7;
+}
+
+
+/* =========================================================
+   PLACEHOLDER
+   ========================================================= */
+
+.event-placeholder {
+    height: 230px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: rgba(18,59,122,.30);
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(244,180,0,.12),
+            transparent 55%
+        ),
+        linear-gradient(
+            135deg,
+            #edf2f8,
+            #dce5f1
+        );
+
+    font-size: 4.5rem;
+
+    transition:
+        transform .5s ease,
+        color .5s ease;
+}
+
+
+.event-card:hover .event-placeholder {
+    color: rgba(18,59,122,.45);
+
+    transform: scale(1.04);
+}
+
+
+/* =========================================================
+   CARD CONTENT
+   ========================================================= */
+
+.event-content {
+    position: relative;
+
+    z-index: 2;
+
+    padding: 25px;
+}
+
+
+/* =========================================================
+   DATE + TITLE
+   ========================================================= */
+
+.event-heading {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+
+.event-date-box {
+    flex: 0 0 auto;
+
+    width: 68px;
+    min-height: 76px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    color: var(--event-blue);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(18,59,122,.08),
+            rgba(244,180,0,.10)
+        );
+
+    border: 1px solid rgba(18,59,122,.10);
+
+    border-radius: 16px;
+
+    transition:
+        transform .4s ease,
+        background .4s ease,
+        box-shadow .4s ease;
+}
+
+
+.event-card:hover .event-date-box {
+    transform: translateY(-4px) rotate(-2deg);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(18,59,122,.12),
+            rgba(244,180,0,.18)
+        );
+
+    box-shadow:
+        0 8px 20px rgba(18,59,122,.10);
+}
+
+
+.event-date-day {
+    font-size: 1.65rem;
+
+    line-height: 1;
+
+    font-weight: 900;
+}
+
+
+.event-date-month {
+    margin-top: 6px;
+
+    color: #a87500;
+
+    font-size: .7rem;
+
+    font-weight: 800;
+
+    letter-spacing: .8px;
+}
+
+
+.event-title {
+    margin: 0 0 5px;
+
+    color: var(--event-dark);
+
+    font-size: 1.22rem;
+
+    line-height: 1.35;
+
+    font-weight: 800;
+
+    transition: color .35s ease;
+}
+
+
+.event-card:hover .event-title {
+    color: var(--event-blue);
+}
+
+
+.event-full-date {
+    color: #8a94a6;
+
+    font-size: .78rem;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+   ========================================================= */
+
+.event-description {
+    color: var(--event-muted);
+
+    font-size: .93rem;
+
+    line-height: 1.75;
+
+    margin-bottom: 17px;
+}
+
+
+/* =========================================================
+   META
+   ========================================================= */
+
+.event-meta {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 9px;
+
+    margin-bottom: 18px;
+}
+
+
+.event-meta-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    color: #687386;
+
+    font-size: .82rem;
+}
+
+
+.event-meta-item i {
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: var(--event-blue);
+
+    background: rgba(18,59,122,.07);
+
+    border-radius: 8px;
+
+    transition:
+        transform .35s ease,
+        background .35s ease;
+}
+
+
+.event-card:hover .event-meta-item i {
+    transform: scale(1.08);
+
+    background: rgba(244,180,0,.13);
+}
+
+
+/* =========================================================
+   BUTTON
+   ========================================================= */
+
+.event-button {
+    width: 100%;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 11px 18px;
+
+    color: var(--event-blue);
+
+    background: transparent;
+
+    border: 1px solid rgba(18,59,122,.18);
+
+    border-radius: 50px;
+
+    font-size: .83rem;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition:
+        color .35s ease,
+        background .35s ease,
+        border-color .35s ease,
+        transform .35s ease;
+}
+
+
+.event-button i {
+    transition: transform .35s ease;
+}
+
+
+.event-button:hover {
+    color: #ffffff;
+
+    background: var(--event-blue);
+
+    border-color: var(--event-blue);
+
+    transform: translateY(-2px);
+}
+
+
+.event-button:hover i {
+    transform: translateX(5px);
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.events-empty {
+    padding: 70px 25px;
+
+    text-align: center;
+
+    background: #ffffff;
+
+    border: 1px solid var(--event-border);
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 10px 35px rgba(18,59,122,.06);
+
+    animation: eventReveal .7s ease both;
+}
+
+
+.events-empty-icon {
+    width: 90px;
+    height: 90px;
+
+    margin: 0 auto 22px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: var(--event-blue);
+
+    background: rgba(18,59,122,.07);
+
+    border-radius: 50%;
+
+    font-size: 2.5rem;
+}
+
+
+.events-empty h4 {
+    color: var(--event-dark);
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   BOTTOM
+   ========================================================= */
+
+.events-connected {
+    position: relative;
+
+    margin-top: 70px;
+
+    padding: 45px 25px;
+
+    overflow: hidden;
+
+    text-align: center;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #092956,
+            #123b7a
+        );
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 20px 50px rgba(18,59,122,.18);
+
+    animation: fadeUp .8s ease both;
+}
+
+
+.events-connected::before {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    top: -100px;
+    right: -70px;
+
+    border: 1px solid rgba(255,255,255,.12);
+
+    border-radius: 50%;
+}
+
+
+.events-connected h3,
+.events-connected p {
+    position: relative;
+}
+
+
+.events-connected h3 {
+    font-weight: 800;
+}
+
+
+.events-connected p {
+    margin-bottom: 0;
+
+    color: rgba(255,255,255,.75);
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes heroReveal {
+
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+@keyframes eventReveal {
+
+    from {
+        opacity: 0;
+        transform: translateY(45px) scale(.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+
+@keyframes dividerGrow {
+
+    from {
+        width: 0;
+        opacity: 0;
+    }
+
+    to {
+        width: 70px;
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes goldPulse {
+
+    0%, 100% {
+        box-shadow: 0 0 0 rgba(244,180,0,0);
+    }
+
+    50% {
+        box-shadow: 0 0 18px rgba(244,180,0,.35);
+    }
+
+}
+
+
+@keyframes floatingCircle {
+
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(18px, 15px);
+    }
+
+}
+
+
+@keyframes floatingCircleReverse {
+
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(-18px, -15px);
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .events-hero {
+        padding: 55px 18px 50px;
+
+        border-radius: 0 0 28px 28px;
+    }
+
+
+    .events-section {
+        padding-top: 50px;
+    }
+
+
+    .event-image-wrapper,
+    .event-placeholder {
+        height: 220px;
+    }
+
+
+    .event-card:hover {
+        transform: translateY(-7px);
+    }
+
+
+    .events-connected {
+        margin-top: 50px;
+
+        border-radius: 20px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .events-page *,
+    .events-page *::before,
+    .events-page *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+
+}
+
+</style>
+
+
+
+<div class="events-page">
+
+
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
+
+    <section class="events-hero">
+
+        <div class="container">
+
+            <span class="events-badge">
+
+                {% trans "Upcoming Events" %}
+
+            </span>
+
+
+            <h1>
+
+                {% trans "Party Events &" %}
+                <span>{% trans "Programmes" %}</span>
+
+            </h1>
+
+
+            <p class="events-description">
+
+                {% trans "Stay informed about upcoming meetings, programmes, campaigns and other activities of Nav Bharat Party." %}
+
+            </p>
+
+
+            <div class="events-divider"></div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         EVENTS
+         ===================================================== -->
+
+    <section class="events-section">
+
+        <div class="container">
+
+            <div class="row g-4">
+
+
+                {% for event in events %}
+
+                <div class="col-md-6 col-lg-4 event-column">
+
+
+                    <article class="event-card">
+
+
+                        <!-- IMAGE -->
+
+                        {% if event.image %}
+
+                            <div class="event-image-wrapper">
+
+                                <img
+                                    src="{{ event.image.url }}"
+                                    alt="{{ event.title }}"
+                                    class="event-image"
+                                    loading="lazy"
+                                >
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="event-placeholder">
+
+                                <i class="bi bi-calendar-event"></i>
+
+                            </div>
+
+                        {% endif %}
+
+
+
+                        <!-- CONTENT -->
+
+                        <div class="event-content">
+
+
+                            <!-- DATE + TITLE -->
+
+                            <div class="event-heading">
+
+
+                                <div class="event-date-box">
+
+                                    <div class="event-date-day">
+
+                                        {{ event.event_date|date:"d" }}
+
+                                    </div>
+
+                                    <div class="event-date-month">
+
+                                        {{ event.event_date|date:"M" }}
+
+                                    </div>
+
+                                </div>
+
+
+                                <div>
+
+                                    <h4 class="event-title">
+
+                                        {{ event.title }}
+
+                                    </h4>
+
+
+                                    <div class="event-full-date">
+
+                                        {{ event.event_date|date:"l, d M Y" }}
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <!-- DESCRIPTION -->
+
+                            <p class="event-description">
+
+                                {{ event.description|truncatechars:120 }}
+
+                            </p>
+
+
+
+                            <!-- META -->
+
+                            <div class="event-meta">
+
+
+                                {% if event.event_time %}
+
+                                <div class="event-meta-item">
+
+                                    <i class="bi bi-clock"></i>
+
+                                    <span>
+                                        {{ event.event_time|time:"h:i A" }}
+                                    </span>
+
+                                </div>
+
+                                {% endif %}
+
+
+                                {% if event.location %}
+
+                                <div class="event-meta-item">
+
+                                    <i class="bi bi-geo-alt"></i>
+
+                                    <span>
+                                        {{ event.location }}
+                                    </span>
+
+                                </div>
+
+                                {% endif %}
+
+
+                            </div>
+
+
+
+                            <!-- BUTTON -->
+
+                            <a
+                                href="{% url 'event_detail' event.pk %}"
+                                class="event-button"
+                            >
+
+                                {% trans "View Event" %}
+
+                                <i class="bi bi-arrow-right"></i>
+
+                            </a>
+
+
+                        </div>
+
+
+                    </article>
+
+
+                </div>
+
+
+                {% empty %}
+
+
+                <!-- EMPTY STATE -->
+
+                <div class="col-12">
+
+                    <div class="events-empty">
+
+                        <div class="events-empty-icon">
+
+                            <i class="bi bi-calendar-x"></i>
+
+                        </div>
+
+
+                        <h4 class="mb-2">
+
+                            {% trans "No Upcoming Events" %}
+
+                        </h4>
+
+
+                        <p class="text-muted mb-0">
+
+                            {% trans "There are currently no published events. Please check back later." %}
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                {% endfor %}
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 BOTTOM
+                 ================================================= -->
+
+            <div class="events-connected">
+
+                <h3>
+
+                    {% trans "Stay Connected" %}
+
+                </h3>
+
+
+                <p>
+
+                    {% trans "Follow our latest activities and upcoming programmes." %}
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+</div>
+
+{% endblock %}

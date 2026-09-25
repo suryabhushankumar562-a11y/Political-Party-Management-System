@@ -1,0 +1,2312 @@
+/* =========================================================
+   DIGITAL MEMBERSHIP CARD
+   ========================================================= */
+
+.membership-page {
+    width: 100%;
+    padding: 50px 20px;
+    min-height: 80vh;
+}
+
+
+/* =========================================================
+   MEMBERSHIP CARD
+   ========================================================= */
+
+.membership-card {
+    width: 760px;
+    max-width: 100%;
+    margin: 0 auto;
+
+    background: #ffffff;
+
+    border: 1px solid #dfe3e8;
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.10);
+}
+
+
+/* =========================================================
+   CARD HEADER
+   ========================================================= */
+
+.membership-card-header {
+    padding: 22px 28px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+
+    background: linear-gradient(
+        135deg,
+        #0d6efd,
+        #084298
+    );
+
+    color: #ffffff;
+}
+
+
+.party-name {
+    font-size: 13px;
+    font-weight: 600;
+
+    letter-spacing: 1.5px;
+
+    opacity: 0.9;
+}
+
+
+.card-title {
+    margin-top: 4px;
+
+    font-size: 22px;
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+}
+
+
+.verified-badge {
+    padding: 7px 12px;
+
+    background: #198754;
+
+    border: 1px solid rgba(255,255,255,0.3);
+
+    border-radius: 20px;
+
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   CARD BODY
+   ========================================================= */
+
+.membership-card-body {
+    padding: 26px 28px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 30px;
+}
+
+
+/* =========================================================
+   MEMBER DETAILS
+   ========================================================= */
+
+.member-details {
+    flex: 1;
+    min-width: 0;
+}
+
+
+.member-name {
+    margin-bottom: 22px;
+
+    font-size: 25px;
+    font-weight: 700;
+
+    color: #172033;
+
+    word-break: break-word;
+}
+
+
+.detail-row {
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 14px;
+}
+
+
+.detail-row:last-child {
+    margin-bottom: 0;
+}
+
+
+.detail-row span {
+    margin-bottom: 3px;
+
+    color: #7a8494;
+
+    font-size: 12px;
+}
+
+
+.detail-row strong {
+    color: #172033;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    word-break: break-word;
+}
+
+
+.status-approved {
+    color: #198754 !important;
+}
+
+
+/* =========================================================
+   QR CODE
+   ========================================================= */
+
+.qr-section {
+    flex: 0 0 115px;
+
+    width: 115px;
+
+    text-align: center;
+}
+
+
+.membership-qr {
+    display: block;
+
+    width: 95px !important;
+    height: 95px !important;
+
+    max-width: 95px !important;
+    max-height: 95px !important;
+
+    min-width: 95px !important;
+    min-height: 95px !important;
+
+    margin: 0 auto;
+
+    padding: 4px;
+
+    background: #ffffff;
+
+    border: 1px solid #dee2e6;
+
+    border-radius: 8px;
+
+    object-fit: contain;
+
+    box-sizing: border-box;
+
+    box-shadow:
+        0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+
+.qr-label {
+    display: block;
+
+    margin-top: 7px;
+
+    color: #6c757d;
+
+    font-size: 9px;
+    font-weight: 600;
+
+    letter-spacing: 0.7px;
+}
+
+
+.qr-missing {
+    width: 95px;
+    height: 95px;
+
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background: #f8f9fa;
+
+    border: 1px dashed #adb5bd;
+
+    border-radius: 8px;
+
+    color: #6c757d;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   CARD FOOTER
+   ========================================================= */
+
+.membership-card-footer {
+    padding: 11px 28px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-top: 1px solid #e9ecef;
+
+    background: #f8f9fa;
+
+    color: #6c757d;
+
+    font-size: 11px;
+}
+
+
+.membership-card-footer span:last-child {
+    color: #495057;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+   ========================================================= */
+
+.membership-actions {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .membership-page {
+        padding: 30px 12px;
+    }
+
+
+    .membership-card {
+        width: 100%;
+
+        border-radius: 14px;
+    }
+
+
+    .membership-card-header {
+        padding: 18px;
+
+        align-items: flex-start;
+    }
+
+
+    .party-name {
+        font-size: 11px;
+    }
+
+
+    .card-title {
+        font-size: 18px;
+    }
+
+
+    .verified-badge {
+        padding: 5px 9px;
+
+        font-size: 9px;
+    }
+
+
+    .membership-card-body {
+        padding: 20px 18px;
+
+        gap: 20px;
+    }
+
+
+    .member-name {
+        font-size: 21px;
+
+        margin-bottom: 18px;
+    }
+
+
+    .detail-row {
+        margin-bottom: 11px;
+    }
+
+
+    .detail-row strong {
+        font-size: 14px;
+    }
+
+
+    .qr-section {
+        flex: 0 0 105px;
+
+        width: 105px;
+    }
+
+
+    .membership-qr {
+        width: 85px !important;
+        height: 85px !important;
+
+        max-width: 85px !important;
+        max-height: 85px !important;
+
+        min-width: 85px !important;
+        min-height: 85px !important;
+    }
+
+
+    .qr-missing {
+        width: 85px;
+        height: 85px;
+    }
+
+
+    .membership-card-footer {
+        padding: 10px 18px;
+
+        font-size: 10px;
+    }
+
+
+    .membership-actions {
+        flex-direction: column;
+    }
+
+
+    .membership-actions .btn {
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL SCREEN
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    .membership-card-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+
+    .membership-card-body {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+
+    .qr-section {
+        width: 100%;
+
+        flex: none;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+    }
+
+
+    .membership-card-footer {
+        flex-direction: column;
+
+        gap: 5px;
+
+        align-items: flex-start;
+    }
+}
+
+
+/* =========================================================
+   ADMIN DASHBOARD
+   ========================================================= */
+
+.dashboard-stat-card {
+    transition: all 0.25s ease;
+
+    border-radius: 14px;
+}
+
+
+.dashboard-stat-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.08) !important;
+}
+
+
+.stat-icon {
+    width: 52px;
+    height: 52px;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+}
+
+
+.dashboard-stat-card h2 {
+    font-size: 30px;
+}
+
+
+.dashboard-stat-card small {
+    display: block;
+
+    margin-top: 8px;
+}
+
+
+/* =========================================================
+   GENERAL CARDS
+   ========================================================= */
+
+.card {
+    border-radius: 14px;
+}
+
+
+.card-header {
+    border-radius: 14px 14px 0 0 !important;
+}
+
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.table > :not(caption) > * > * {
+    padding: 15px 12px;
+}
+
+
+.table thead th {
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #6c757d;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.3px;
+}
+
+
+.table tbody tr {
+    transition:
+        background-color 0.2s ease;
+}
+
+
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+
+/* =========================================================
+   BADGES
+   ========================================================= */
+
+.badge {
+    padding: 7px 11px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.empty-state {
+    padding: 15px;
+}
+
+
+.empty-icon {
+    font-size: 42px;
+
+    color: #198754;
+}
+
+
+/* =========================================================
+   ADMIN DASHBOARD MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .container-fluid {
+        padding-top: 30px !important;
+    }
+
+
+    .dashboard-stat-card {
+        margin-bottom: 5px;
+    }
+
+
+    .table {
+        min-width: 850px;
+    }
+}
+
+
+/* =========================================================
+   PRINT MEMBERSHIP CARD
+   ========================================================= */
+
+@media print {
+
+    /* Hide website */
+    nav,
+    header,
+    footer,
+    .navbar,
+    .no-print,
+    .membership-actions {
+        display: none !important;
+    }
+
+
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+
+        background: #ffffff !important;
+    }
+
+
+    .membership-page {
+        padding: 0 !important;
+
+        min-height: auto !important;
+    }
+
+
+    /* Only card */
+    .membership-card {
+        width: 700px !important;
+        max-width: 700px !important;
+
+        margin: 20px auto !important;
+
+        box-shadow: none !important;
+
+        border: 1px solid #999 !important;
+
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+
+
+    .membership-card-header {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+
+    .membership-card-footer {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+
+    /* QR in print */
+    .qr-section {
+        width: 105px !important;
+
+        flex: 0 0 105px !important;
+    }
+
+
+    .membership-qr {
+        width: 85px !important;
+        height: 85px !important;
+
+        max-width: 85px !important;
+        max-height: 85px !important;
+
+        min-width: 85px !important;
+        min-height: 85px !important;
+    }
+
+
+    @page {
+        size: A4;
+
+        margin: 10mm;
+    }
+}
+
+/* =========================================
+   MEMBERSHIP CARD PRINT STYLE
+   ========================================= */
+
+@media print {
+
+    /* A4 page settings */
+    @page {
+        size: A4 portrait;
+        margin: 15mm;
+    }
+
+    /* Remove normal website elements */
+    nav,
+    header,
+    footer,
+    .navbar,
+    .site-footer,
+    .no-print {
+        display: none !important;
+    }
+
+    /* Remove page spacing */
+    html,
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+        background: white !important;
+        width: 100% !important;
+    }
+
+    /* Membership page */
+    .membership-page {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 10mm 0 !important;
+    }
+
+    /* Hide page heading while printing */
+    .membership-page > .text-center {
+        display: none !important;
+    }
+
+    /* =====================================
+       ACTUAL MEMBERSHIP CARD
+       ===================================== */
+
+    .membership-card {
+        display: block !important;
+
+        width: 85.6mm !important;
+        height: 54mm !important;
+
+        margin: 20mm auto !important;
+
+        padding: 0 !important;
+
+        box-sizing: border-box !important;
+
+        border: 1px solid #cccccc !important;
+        border-radius: 4mm !important;
+
+        background: white !important;
+
+        box-shadow: none !important;
+
+        overflow: hidden !important;
+
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+
+    /* Card header */
+
+    .membership-card-header {
+        height: 12mm !important;
+
+        padding: 3mm 4mm !important;
+
+        background: linear-gradient(
+            135deg,
+            #0d6efd,
+            #0b5ed7
+        ) !important;
+
+        color: white !important;
+
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+
+    .party-name {
+        font-size: 7px !important;
+        font-weight: 500 !important;
+        letter-spacing: 0.5px !important;
+    }
+
+    .card-title {
+        font-size: 12px !important;
+        font-weight: 700 !important;
+        margin-top: 1mm !important;
+    }
+
+    .verified-badge {
+        font-size: 7px !important;
+        padding: 1.5mm 2mm !important;
+        border-radius: 5mm !important;
+        background: #198754 !important;
+        color: white !important;
+        white-space: nowrap !important;
+    }
+
+    /* =====================================
+       CARD BODY
+       ===================================== */
+
+    .membership-card-body {
+        height: 34mm !important;
+
+        padding: 4mm !important;
+
+        display: flex !important;
+        justify-content: space-between !important;
+
+        box-sizing: border-box !important;
+    }
+
+    .member-details {
+        width: 65% !important;
+    }
+
+    .member-name {
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        margin-bottom: 3mm !important;
+    }
+
+    .detail-row {
+        margin-bottom: 1.5mm !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .detail-row span {
+        font-size: 6px !important;
+        color: #777 !important;
+    }
+
+    .detail-row strong {
+        font-size: 8px !important;
+        color: #111 !important;
+    }
+
+    .status-approved {
+        color: #198754 !important;
+    }
+
+    /* =====================================
+       QR CODE
+       ===================================== */
+
+    .qr-section {
+        width: 30% !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+
+        justify-content: center !important;
+        align-items: center !important;
+    }
+
+    .membership-qr {
+        width: 18mm !important;
+        height: 18mm !important;
+
+        max-width: 18mm !important;
+        max-height: 18mm !important;
+
+        object-fit: contain !important;
+
+        display: block !important;
+    }
+
+    .qr-label {
+        font-size: 5px !important;
+
+        margin-top: 1mm !important;
+
+        white-space: nowrap !important;
+    }
+
+    /* =====================================
+       CARD FOOTER
+       ===================================== */
+
+    .membership-card-footer {
+        height: 8mm !important;
+
+        padding: 2mm 4mm !important;
+
+        border-top: 1px solid #ddd !important;
+
+        display: flex !important;
+
+        justify-content: space-between !important;
+        align-items: center !important;
+
+        font-size: 6px !important;
+
+        color: #777 !important;
+
+        box-sizing: border-box !important;
+    }
+
+}
+
+
+
+/* =====================================================
+   EVENTS PAGE
+   ===================================================== */
+
+.event-card {
+    height: 100%;
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 1px solid #e9ecef;
+    border-radius: 16px;
+
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+
+    transition: all 0.3s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+
+/* EVENT IMAGE */
+
+.event-image {
+    width: 100%;
+    height: 160px;
+
+    object-fit: cover;
+    display: block;
+
+    transition: transform 0.4s ease;
+}
+
+.event-card:hover .event-image {
+    transform: scale(1.04);
+}
+
+
+/* IMAGE PLACEHOLDER */
+
+.event-image-placeholder {
+    width: 100%;
+    height: 160px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f5f7fa;
+}
+
+
+/* EVENT CONTENT */
+
+.event-content {
+    padding: 22px;
+}
+
+.event-title {
+    font-size: 21px;
+    font-weight: 700;
+
+    margin-bottom: 16px;
+
+    color: #172033;
+}
+
+
+/* EVENT META */
+
+.event-meta {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 8px;
+
+    color: #6c757d;
+
+    font-size: 14px;
+}
+
+.event-meta i {
+    color: #0d6efd;
+}
+
+
+/* DESCRIPTION */
+
+.event-content p {
+    line-height: 1.6;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 576px) {
+
+    .event-image {
+        height: 150px;
+    }
+
+    .event-image-placeholder {
+        height: 150px;
+    }
+
+    .event-content {
+        padding: 18px;
+    }
+
+    .event-title {
+        font-size: 19px;
+    }
+
+}
+
+
+/* =====================================================
+   GALLERY PAGE
+   ===================================================== */
+
+.gallery-card {
+    overflow: hidden;
+    border-radius: 16px;
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
+    transition: all 0.3s ease;
+}
+
+.gallery-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.gallery-image {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.gallery-card:hover .gallery-image {
+    transform: scale(1.05);
+}
+
+.gallery-caption {
+    padding: 14px 16px;
+}
+
+@media (max-width: 576px) {
+
+    .gallery-image {
+        height: 140px;
+    }
+
+    .gallery-caption {
+        padding: 10px;
+    }
+
+}
+
+
+/* =====================================================
+   GALLERY IMAGE BUTTON
+   ===================================================== */
+
+.gallery-image-button {
+    display: block;
+
+    width: 100%;
+
+    padding: 0;
+
+    border: 0;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   GALLERY MODAL
+   ===================================================== */
+
+.gallery-modal-content {
+    border: 0;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.gallery-modal-image {
+    display: block;
+
+    width: 100%;
+    max-height: 75vh;
+
+    object-fit: contain;
+
+    border-radius: 12px;
+}
+
+/* =====================================================
+   LEADERSHIP PAGE
+   ===================================================== */
+
+.leader-card {
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 1px solid #e9ecef;
+    border-radius: 18px;
+
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+
+    transition: all 0.3s ease;
+}
+
+.leader-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
+}
+
+
+.leader-image {
+    width: 100%;
+    height: 260px;
+
+    object-fit: cover;
+    display: block;
+}
+
+
+.leader-image-placeholder {
+    width: 100%;
+    height: 260px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f5f7fa;
+}
+
+.leader-image-placeholder i {
+    font-size: 90px;
+    color: #adb5bd;
+}
+
+
+.leader-content {
+    padding: 24px;
+}
+
+
+.leader-name {
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+
+.leader-designation {
+    color: #0d6efd;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+
+@media (max-width: 576px) {
+
+    .leader-image,
+    .leader-image-placeholder {
+        height: 220px;
+    }
+
+    .leader-content {
+        padding: 20px;
+    }
+
+}
+
+/* =====================================================
+   MANIFESTO PAGE
+   ===================================================== */
+
+.manifesto-card {
+    display: flex;
+    gap: 20px;
+
+    padding: 28px;
+
+    background: #ffffff;
+
+    border: 1px solid #e9ecef;
+    border-radius: 18px;
+
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+
+    transition: all 0.3s ease;
+}
+
+.manifesto-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.11);
+}
+
+.manifesto-icon {
+    flex-shrink: 0;
+
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: #e7f1ff;
+
+    color: #0d6efd;
+
+    font-size: 25px;
+}
+
+.manifesto-content h4 {
+    margin-bottom: 10px;
+}
+
+.manifesto-content p {
+    line-height: 1.7;
+}
+
+
+@media (max-width: 576px) {
+
+    .manifesto-card {
+        padding: 20px;
+        gap: 15px;
+    }
+
+    .manifesto-icon {
+        width: 48px;
+        height: 48px;
+
+        font-size: 21px;
+    }
+
+}
+
+
+/* =====================================================
+   HOME PAGE
+   ===================================================== */
+
+.home-content-card {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+}
+
+.home-content-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.11);
+}
+
+
+/* NEWS */
+
+.home-news-image {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    display: block;
+}
+
+
+/* EVENTS */
+
+.home-event-image {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    display: block;
+}
+
+.home-event-placeholder {
+    height: 170px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f5f7fa;
+}
+
+.home-event-placeholder i {
+    font-size: 65px;
+    color: #adb5bd;
+}
+
+
+/* LEADERS */
+
+.home-leader-card {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+}
+
+.home-leader-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.11);
+}
+
+.home-leader-image {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    display: block;
+}
+
+.home-leader-placeholder {
+    height: 230px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f5f7fa;
+}
+
+.home-leader-placeholder i {
+    font-size: 80px;
+    color: #adb5bd;
+}
+
+
+/* GALLERY */
+
+.home-gallery-link {
+    display: block;
+    overflow: hidden;
+    border-radius: 14px;
+}
+
+.home-gallery-image {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.home-gallery-link:hover .home-gallery-image {
+    transform: scale(1.05);
+}
+
+
+/* MANIFESTO */
+
+.home-manifesto-section {
+    padding: 55px 25px;
+    border-radius: 22px;
+    background: #f5f8ff;
+}
+
+
+/* JOIN */
+
+.home-join-section {
+    padding: 60px 25px;
+    border-radius: 22px;
+    background: #0d6efd;
+    color: #ffffff;
+}
+
+.home-join-section p {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+
+/* MOBILE */
+
+@media (max-width: 576px) {
+
+    .home-news-image {
+        height: 160px;
+    }
+
+    .home-event-image,
+    .home-event-placeholder {
+        height: 150px;
+    }
+
+    .home-leader-image,
+    .home-leader-placeholder {
+        height: 200px;
+    }
+
+    .home-gallery-image {
+        height: 140px;
+    }
+
+}
+
+/* =====================================================
+   CONTACT PAGE
+   ===================================================== */
+
+.contact-info-card,
+.contact-form-card {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.contact-item:last-child {
+    margin-bottom: 0;
+}
+
+.contact-icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #e7f1ff;
+    color: #0d6efd;
+
+    font-size: 20px;
+}
+
+.contact-form-card .form-control {
+    padding: 12px 14px;
+    border-radius: 10px;
+}
+
+.contact-form-card .form-control:focus {
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.12);
+}
+
+@media (max-width: 576px) {
+
+    .contact-info-card,
+    .contact-form-card {
+        padding: 22px;
+    }
+
+}
+
+
+/* =====================================================
+   DONATE PAGE
+   ===================================================== */
+
+.donate-card {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+}
+
+.donate-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #e7f1ff;
+    color: #0d6efd;
+
+    font-size: 30px;
+}
+
+.donate-option {
+    padding: 25px;
+
+    border: 1px solid #e9ecef;
+    border-radius: 15px;
+
+    background: #f8f9fa;
+}
+
+.donate-option i {
+    font-size: 32px;
+    color: #0d6efd;
+}
+
+@media (max-width: 576px) {
+
+    .donate-card {
+        padding: 25px;
+    }
+
+}
+
+
+/* =====================================================
+   MEMBER DASHBOARD
+   ===================================================== */
+
+.dashboard-member-card {
+    border-radius: 14px;
+    transition: all 0.25s ease;
+}
+
+.dashboard-member-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.08) !important;
+}
+
+.member-dashboard-icon {
+    width: 48px;
+    height: 48px;
+
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+
+    font-size: 21px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   NAV BHARAT PARTY — PREMIUM GLOBAL THEME
+   ========================================================= */
+
+:root {
+    --nbp-primary: #123b7a;
+    --nbp-primary-dark: #082654;
+    --nbp-accent: #f4b400;
+    --nbp-accent-dark: #d99400;
+    --nbp-red: #d62828;
+    --nbp-bg: #f5f7fb;
+    --nbp-text: #172033;
+    --nbp-muted: #667085;
+    --nbp-white: #ffffff;
+    --nbp-border: rgba(18, 59, 122, 0.10);
+    --nbp-shadow: 0 18px 45px rgba(12, 34, 68, 0.12);
+    --nbp-radius: 18px;
+}
+
+/* ---------- Base ---------- */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    color: var(--nbp-text);
+    background:
+        radial-gradient(circle at 10% 0%, rgba(244,180,0,.08), transparent 25%),
+        radial-gradient(circle at 90% 10%, rgba(18,59,122,.08), transparent 30%),
+        var(--nbp-bg);
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* ---------- Selection ---------- */
+
+::selection {
+    background: var(--nbp-primary);
+    color: #fff;
+}
+
+/* ---------- Links ---------- */
+
+a {
+    transition: all .25s ease;
+}
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1050;
+    background: rgba(8, 38, 84, .94) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 8px 30px rgba(0,0,0,.12);
+    border-bottom: 1px solid rgba(255,255,255,.10);
+    animation: navDrop .65s ease both;
+}
+
+.navbar-brand {
+    letter-spacing: .3px;
+    font-size: 1.25rem;
+}
+
+.navbar .nav-link {
+    position: relative;
+    color: rgba(255,255,255,.88) !important;
+    font-weight: 500;
+    margin: 0 3px;
+}
+
+.navbar .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    bottom: 3px;
+    height: 2px;
+    border-radius: 10px;
+    background: var(--nbp-accent);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform .25s ease;
+}
+
+.navbar .nav-link:hover::after,
+.navbar .nav-link.active::after {
+    transform: scaleX(1);
+}
+
+.navbar .nav-link:hover {
+    color: #fff !important;
+    transform: translateY(-1px);
+}
+
+.navbar .btn-light {
+    border: 0;
+    color: var(--nbp-primary);
+    font-weight: 700;
+    border-radius: 999px;
+    box-shadow: 0 8px 22px rgba(0,0,0,.15);
+}
+
+.navbar .btn-light:hover {
+    background: var(--nbp-accent);
+    color: #111;
+    transform: translateY(-2px);
+}
+
+/* =========================================================
+   HERO / SECTION HEADINGS
+   ========================================================= */
+
+.hero,
+.hero-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before,
+.hero-section::before {
+    content: "";
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    right: -150px;
+    top: -180px;
+    background: rgba(244,180,0,.16);
+    border-radius: 50%;
+    filter: blur(2px);
+    animation: floatOrb 8s ease-in-out infinite;
+}
+
+.section-title {
+    position: relative;
+    display: inline-block;
+    font-weight: 800;
+    letter-spacing: -.5px;
+}
+
+.section-title::after {
+    content: "";
+    display: block;
+    width: 58px;
+    height: 4px;
+    margin-top: 10px;
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--nbp-primary), var(--nbp-accent));
+}
+
+/* =========================================================
+   PREMIUM CARDS
+   ========================================================= */
+
+.card {
+    position: relative;
+    border: 1px solid var(--nbp-border) !important;
+    border-radius: var(--nbp-radius) !important;
+    box-shadow: 0 8px 28px rgba(18,59,122,.07);
+    overflow: hidden;
+    isolation: isolate;
+    transform: translateY(0);
+    transition:
+        transform .45s cubic-bezier(.2,.8,.2,1),
+        box-shadow .45s ease,
+        border-color .35s ease;
+    animation: fadeUp .65s ease both;
+}
+
+/* Subtle moving highlight */
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        linear-gradient(
+            115deg,
+            transparent 0%,
+            transparent 38%,
+            rgba(255,255,255,.28) 48%,
+            transparent 58%,
+            transparent 100%
+        );
+    background-size: 220% 100%;
+    background-position: 120% 0;
+    transition: background-position .8s ease;
+}
+
+/* Soft party-accent glow */
+.card::after {
+    content: "";
+    position: absolute;
+    left: 12%;
+    right: 12%;
+    bottom: -30px;
+    height: 55px;
+    z-index: -1;
+    background: rgba(244,180,0,.18);
+    filter: blur(28px);
+    opacity: 0;
+    transition: opacity .45s ease, transform .45s ease;
+    pointer-events: none;
+}
+
+.card:hover {
+    transform: translateY(-9px) scale(1.012);
+    box-shadow:
+        0 22px 50px rgba(12,34,68,.16),
+        0 0 0 1px rgba(244,180,0,.12);
+    border-color: rgba(244,180,0,.40) !important;
+}
+
+.card:hover::before {
+    background-position: -20% 0;
+}
+
+.card:hover::after {
+    opacity: 1;
+    transform: translateY(-5px);
+}
+
+.card-header {
+    border-bottom: 0;
+}
+
+/* Home-page specific cards */
+.home-content-card,
+.event-preview-card,
+.home-leader-card,
+.home-gallery-link {
+    position: relative;
+    transition:
+        transform .45s cubic-bezier(.2,.8,.2,1),
+        box-shadow .45s ease,
+        border-color .35s ease;
+}
+
+.home-content-card:hover,
+.event-preview-card:hover,
+.home-leader-card:hover,
+.home-gallery-link:hover {
+    transform: translateY(-9px);
+    box-shadow:
+        0 22px 50px rgba(12,34,68,.15),
+        0 0 24px rgba(244,180,0,.08);
+}
+
+/* Staggered appearance */
+.home-content-card:nth-child(2),
+.event-preview-card:nth-child(2),
+.home-leader-card:nth-child(2),
+.home-gallery-link:nth-child(2) {
+    animation-delay: .08s;
+}
+
+.home-content-card:nth-child(3),
+.event-preview-card:nth-child(3),
+.home-leader-card:nth-child(3),
+.home-gallery-link:nth-child(3) {
+    animation-delay: .16s;
+}
+
+.home-content-card:nth-child(4),
+.event-preview-card:nth-child(4),
+.home-leader-card:nth-child(4),
+.home-gallery-link:nth-child(4) {
+    animation-delay: .24s;
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.btn {
+    border-radius: 10px;
+    font-weight: 650;
+    transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--nbp-primary), var(--nbp-primary-dark));
+    border-color: var(--nbp-primary);
+    box-shadow: 0 8px 20px rgba(18,59,122,.18);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #164b98, #0a2c63);
+    box-shadow: 0 12px 28px rgba(18,59,122,.25);
+}
+
+.btn-outline-primary:hover {
+    box-shadow: 0 10px 24px rgba(18,59,122,.18);
+}
+
+/* =========================================================
+   FORMS
+   ========================================================= */
+
+.form-control,
+.form-select {
+    border: 1px solid #d9e0ea;
+    border-radius: 10px;
+    min-height: 46px;
+    transition: border-color .25s ease, box-shadow .25s ease, transform .2s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--nbp-primary);
+    box-shadow: 0 0 0 4px rgba(18,59,122,.10);
+    transform: translateY(-1px);
+}
+
+textarea.form-control {
+    min-height: 120px;
+}
+
+/* =========================================================
+   MEMBERSHIP CARD
+   ========================================================= */
+
+.membership-card {
+    position: relative;
+    max-width: 760px;
+    margin: 30px auto;
+    border-radius: 24px;
+    overflow: hidden;
+    color: #fff;
+    background:
+        radial-gradient(circle at 85% 15%, rgba(244,180,0,.28), transparent 22%),
+        linear-gradient(135deg, #082654 0%, #123b7a 55%, #0b2f67 100%);
+    box-shadow: 0 25px 60px rgba(8,38,84,.25);
+    border: 1px solid rgba(255,255,255,.14);
+    animation: cardReveal .8s cubic-bezier(.2,.8,.2,1) both;
+    transition: transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s ease;
+}
+
+.membership-card:hover {
+    transform: translateY(-6px);
+    box-shadow:
+        0 30px 70px rgba(8,38,84,.30),
+        0 0 0 1px rgba(244,180,0,.16);
+}
+
+.membership-card::before {
+    content: "";
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    right: -90px;
+    bottom: -120px;
+    border: 40px solid rgba(244,180,0,.12);
+    border-radius: 50%;
+}
+
+.membership-card-header,
+.membership-card-body,
+.membership-card-footer {
+    position: relative;
+    z-index: 1;
+}
+
+.membership-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 30px;
+    border-bottom: 1px solid rgba(255,255,255,.12);
+}
+
+.party-name {
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.card-title {
+    color: rgba(255,255,255,.72);
+    font-size: .78rem;
+    letter-spacing: 2px;
+}
+
+.verified-badge {
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.2);
+    padding: 7px 12px;
+    border-radius: 999px;
+    color: #ffe08a;
+    font-size: .75rem;
+    font-weight: 800;
+}
+
+.membership-card-body {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 35px 30px;
+}
+
+.member-name {
+    font-size: 1.7rem;
+    font-weight: 800;
+    margin-bottom: 22px;
+}
+
+.detail-row {
+    display: flex;
+    gap: 25px;
+    margin: 12px 0;
+    color: rgba(255,255,255,.70);
+}
+
+.detail-row strong {
+    color: #fff;
+}
+
+.status-approved {
+    color: #8ff0b0 !important;
+}
+
+.qr-section {
+    text-align: center;
+}
+
+.membership-qr {
+    width: 145px;
+    height: 145px;
+    padding: 8px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(0,0,0,.18);
+}
+
+.qr-label {
+    display: block;
+    margin-top: 8px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,.75);
+}
+
+.membership-card-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 30px;
+    background: rgba(0,0,0,.14);
+    font-size: .82rem;
+    color: rgba(255,255,255,.7);
+}
+
+/* =========================================================
+   NEWS / EVENT / GALLERY IMAGE EFFECTS
+   ========================================================= */
+
+.card img {
+    transition:
+        transform .75s cubic-bezier(.2,.8,.2,1),
+        filter .45s ease;
+    will-change: transform;
+}
+
+.card:hover img {
+    transform: scale(1.055);
+    filter: saturate(1.05);
+}
+
+.home-content-card:hover img,
+.event-preview-card:hover img,
+.home-leader-card:hover img,
+.home-gallery-link:hover img {
+    transform: scale(1.075);
+}
+
+.gallery-image,
+.news-image,
+.event-image {
+    overflow: hidden;
+}
+
+.gallery-image img,
+.news-image img,
+.event-image img {
+    transition:
+        transform .75s cubic-bezier(.2,.8,.2,1),
+        filter .45s ease;
+}
+
+.gallery-image:hover img,
+.news-image:hover img,
+.event-image:hover img {
+    transform: scale(1.075);
+}
+
+/* =========================================================
+   ALERTS
+   ========================================================= */
+
+.alert {
+    border: 0;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.06);
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+    position: relative;
+    margin-top: 70px;
+    background: linear-gradient(135deg, #061b3c, #0b2f67) !important;
+    overflow: hidden;
+}
+
+footer::before {
+    content: "";
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    left: -160px;
+    top: -180px;
+    border-radius: 50%;
+    background: rgba(244,180,0,.08);
+}
+
+footer a {
+    opacity: .82;
+}
+
+footer a:hover {
+    opacity: 1;
+    color: #ffe08a !important;
+    padding-left: 4px;
+}
+
+/* =========================================================
+   SCROLL REVEAL SUPPORT
+   ========================================================= */
+
+.fade-in {
+    animation: fadeUp .7s ease both;
+}
+
+.float-animation {
+    animation: floatOrb 5s ease-in-out infinite;
+}
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes navDrop {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes cardReveal {
+    from {
+        opacity: 0;
+        transform: translateY(35px) scale(.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes floatOrb {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(-20px, 18px);
+    }
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 991px) {
+    .navbar .nav-link::after {
+        display: none;
+    }
+
+    .navbar .nav-item {
+        margin: 3px 0;
+    }
+}
+
+@media (max-width: 767px) {
+
+    .card:hover,
+    .home-content-card:hover,
+    .event-preview-card:hover,
+    .home-leader-card:hover,
+    .home-gallery-link:hover {
+        transform: translateY(-5px);
+    }
+
+    main.container {
+        margin-top: 20px !important;
+    }
+
+    .membership-card-header,
+    .membership-card-body,
+    .membership-card-footer {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .membership-card-body {
+        flex-direction: column;
+    }
+
+    .qr-section {
+        align-self: center;
+    }
+
+    .member-name {
+        font-size: 1.4rem;
+    }
+
+    .detail-row {
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    .membership-card-footer {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* =========================================================
+   PRINT — MEMBERSHIP CARD
+   ========================================================= */
+
+@media print {
+
+    body {
+        background: #fff !important;
+    }
+
+    .no-print,
+    nav,
+    footer {
+        display: none !important;
+    }
+
+    main.container {
+        width: 100%;
+        max-width: none;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .membership-card {
+        box-shadow: none !important;
+        margin: 20mm auto;
+        break-inside: avoid;
+    }
+}

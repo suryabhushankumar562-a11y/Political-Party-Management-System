@@ -1,0 +1,531 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+
+{% block title %}
+Home | Nav Bharat Party
+{% endblock %}
+
+
+{% block content %}
+
+<!-- =====================================================
+     HERO SECTION
+     ===================================================== -->
+
+<section class="py-5">
+
+    <div class="row align-items-center g-5">
+
+        <div class="col-lg-7">
+
+            <span class="badge bg-primary-subtle text-primary px-3 py-2 mb-3">
+                {% trans "Nav Bharat Party" %}
+            </span>
+
+            <h1 class="display-4 fw-bold mb-3">
+                {% trans "A New Vision for" %}
+                <span class="text-primary">
+                    {% trans "New India" %}
+                </span>
+            </h1>
+
+            <p class="lead text-muted mb-4">
+                {% trans "Working together for development, opportunity, equality and a stronger future for every citizen." %}
+            </p>
+
+
+            <div class="d-flex flex-wrap gap-3">
+
+                <a href="/members/register/" class="btn btn-primary btn-lg">
+                    <i class="bi bi-person-plus me-2"></i>
+                    {% trans "Join Us" %}
+                </a>
+
+
+                <a href="{% url 'about' %}" class="btn btn-outline-primary btn-lg">
+                    {% trans "Learn More" %}
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-5">
+
+            <div class="p-5 bg-light rounded-4 text-center">
+
+                <i class="bi bi-people-fill text-primary" style="font-size: 100px;"></i>
+
+                <h4 class="fw-bold mt-3">
+                    {% trans "Together We Can" %}
+                </h4>
+
+                <p class="text-muted mb-0">
+                    {% trans "Building a better tomorrow through collective participation." %}
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     LATEST NEWS
+     ===================================================== -->
+
+<section class="py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <span class="text-primary fw-semibold">
+                {% trans "Latest Updates" %}
+            </span>
+
+            <h2 class="fw-bold mb-0">
+                {% trans "Latest News" %}
+            </h2>
+
+        </div>
+
+
+        <a href="{% url 'news' %}" class="btn btn-outline-primary">
+            {% trans "View All" %}
+            <i class="bi bi-arrow-right ms-1"></i>
+        </a>
+
+    </div>
+
+
+    <div class="row g-4">
+
+        {% for news in latest_news %}
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="home-content-card h-100">
+
+                {% if news.image %}
+
+                <img src="{{ news.image.url }}" alt="{{ news.title }}" class="home-news-image">
+
+                {% endif %}
+
+
+                <div class="p-4">
+
+                    <small class="text-muted">
+                        <i class="bi bi-calendar-event me-1"></i>
+                        {{ news.created_at|date:"d M Y" }}
+                    </small>
+
+
+                    <h4 class="fw-bold mt-2">
+                        {{ news.title }}
+                    </h4>
+
+
+                    <p class="text-muted">
+                        {{ news.content|truncatewords:20 }}
+                    </p>
+
+
+                    <a href="{% url 'news' %}" class="text-primary fw-semibold text-decoration-none">
+                        {% trans "Read More" %}
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12">
+
+            <div class="text-center py-4">
+
+                <p class="text-muted mb-0">
+                    {% trans "No news available at the moment." %}
+                </p>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     UPCOMING EVENTS
+     ===================================================== -->
+
+<section class="py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <span class="text-primary fw-semibold">
+                {% trans "Stay Connected" %}
+            </span>
+
+            <h2 class="fw-bold mb-0">
+                {% trans "Upcoming Events" %}
+
+            </h2>
+
+        </div>
+
+
+        <a href="{% url 'events' %}" class="btn btn-outline-primary">
+            {% trans "View All" %}
+            <i class="bi bi-arrow-right ms-1"></i>
+        </a>
+
+    </div>
+
+
+    <div class="row g-4">
+
+        {% for event in upcoming_events %}
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="home-content-card event-preview-card h-100">
+
+                {% if event.image %}
+
+                <img src="{{ event.image.url }}" alt="{{ event.title }}" class="home-event-image">
+
+                {% else %}
+
+                <div class="home-event-placeholder">
+
+                    <i class="bi bi-calendar-event"></i>
+
+                </div>
+
+                {% endif %}
+
+
+                <div class="p-4">
+
+                    <span class="badge bg-primary mb-3">
+                        {% trans "Upcoming" %}
+                    </span>
+
+
+                    <h4 class="fw-bold">
+                        {{ event.title }}
+                    </h4>
+
+
+                    <div class="text-muted small mb-2">
+
+                        <i class="bi bi-calendar-event me-1"></i>
+
+                        {{ event.event_date|date:"d M Y" }}
+
+                    </div>
+
+
+                    {% if event.event_time %}
+
+                    <div class="text-muted small mb-2">
+
+                        <i class="bi bi-clock me-1"></i>
+
+                        {{ event.event_time|time:"h:i A" }}
+
+                    </div>
+
+                    {% endif %}
+
+
+                    {% if event.location %}
+
+                    <div class="text-muted small">
+
+                        <i class="bi bi-geo-alt me-1"></i>
+
+                        {{ event.location }}
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12">
+
+            <div class="text-center py-4">
+
+                <p class="text-muted mb-0">
+                    {% trans "No upcoming events available." %}
+                </p>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     LEADERSHIP
+     ===================================================== -->
+
+<section class="py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <span class="text-primary fw-semibold">
+                {% trans "Our Team" %}
+            </span>
+
+            <h2 class="fw-bold mb-0">
+                {% trans "Leadership" %}
+            </h2>
+
+        </div>
+
+
+        <a href="{% url 'leadership' %}" class="btn btn-outline-primary">
+            {% trans "Meet Our Leaders" %}
+            <i class="bi bi-arrow-right ms-1"></i>
+        </a>
+
+    </div>
+
+
+    <div class="row g-4 justify-content-center">
+
+        {% for leader in leaders %}
+
+        <div class="col-sm-6 col-lg-4">
+
+            <div class="home-leader-card h-100 text-center">
+
+                {% if leader.profile_image %}
+
+                <img src="{{ leader.profile_image.url }}" alt="{{ leader.name }}" class="home-leader-image">
+
+                {% else %}
+
+                <div class="home-leader-placeholder">
+
+                    <i class="bi bi-person-fill"></i>
+
+                </div>
+
+                {% endif %}
+
+
+                <div class="p-4">
+
+                    <h4 class="fw-bold mb-1">
+                        {{ leader.name }}
+                    </h4>
+
+                    <p class="text-primary fw-semibold mb-2">
+                        {{ leader.designation }}
+                    </p>
+
+                    {% if leader.bio %}
+
+                    <p class="text-muted mb-0">
+                        {{ leader.bio|truncatewords:18 }}
+                    </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12">
+
+            <div class="text-center py-4">
+
+                <p class="text-muted mb-0">
+                    {% trans "Leadership information will be available soon." %}
+                </p>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     GALLERY PREVIEW
+     ===================================================== -->
+
+<section class="py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <span class="text-primary fw-semibold">
+                {% trans "Our Moments" %}
+            </span>
+
+            <h2 class="fw-bold mb-0">
+                {% trans "Photo Gallery" %}
+
+            </h2>
+
+        </div>
+
+
+        <a href="{% url 'gallery' %}" class="btn btn-outline-primary">
+            {% trans "View Gallery" %}
+
+            <i class="bi bi-arrow-right ms-1"></i>
+        </a>
+
+    </div>
+
+
+    <div class="row g-3">
+
+        {% for item in gallery_images %}
+
+        <div class="col-6 col-md-4 col-lg-3">
+
+            <a href="{% url 'gallery' %}" class="home-gallery-link">
+
+                <img src="{{ item.image.url }}" alt="{{ item.title }}" class="home-gallery-image">
+
+            </a>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12">
+
+            <div class="text-center py-4">
+
+                <p class="text-muted mb-0">
+                    {% trans "No gallery images available." %}
+                </p>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     MANIFESTO CTA
+     ===================================================== -->
+
+<section class="py-5">
+
+    <div class="home-manifesto-section text-center">
+
+        <span class="badge bg-light text-primary px-3 py-2 mb-3">
+            {% trans "Our Vision" %}
+
+        </span>
+
+        <h2 class="fw-bold">
+            {% trans "Know Our Vision & Manifesto" %}
+
+        </h2>
+
+        <p class="text-muted mx-auto mb-4" style="max-width: 700px;">
+
+            {% trans "Explore our vision, priorities and commitments for a better future." %}
+
+
+        </p>
+
+
+        <a href="{% url 'manifesto' %}" class="btn btn-primary btn-lg">
+            {% trans "View Manifesto" %}
+            <i class="bi bi-arrow-right ms-1"></i>
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     JOIN CTA
+     ===================================================== -->
+
+<section class="py-5">
+
+    <div class="home-join-section text-center">
+
+        <i class="bi bi-people-fill" style="font-size: 55px;"></i>
+
+        <h2 class="fw-bold mt-3">
+            {% trans "Be Part of the Change" %}
+        </h2>
+
+        <p class="mb-4">
+             {% trans "Join Nav Bharat Party and become a part of our journey." %}
+
+        </p>
+
+        <a href="members/register" class="btn btn-light btn-lg">
+            {% trans "Join Us" %}
+            <i class="bi bi-arrow-right ms-1"></i>
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

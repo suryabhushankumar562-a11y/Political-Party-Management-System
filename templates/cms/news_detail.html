@@ -1,0 +1,836 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ news.title }} | Nav Bharat Party
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   NEWS DETAIL PAGE
+   ========================================================= */
+
+.news-detail-page {
+    padding-top: 25px;
+    padding-bottom: 80px;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+   ========================================================= */
+
+.news-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 9px 17px;
+
+    border-radius: 10px;
+
+    font-weight: 600;
+
+    animation: newsBackIn 0.6s ease both;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.news-back-btn:hover {
+    transform: translateX(-5px);
+
+    box-shadow:
+        0 8px 20px rgba(13, 110, 253, 0.15);
+}
+
+
+/* =========================================================
+   ARTICLE CARD
+   ========================================================= */
+
+.news-detail-card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(13, 110, 253, 0.08);
+
+    border-radius: 24px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.07);
+
+    animation: newsCardIn 0.8s ease both;
+
+    transition:
+        box-shadow 0.35s ease,
+        transform 0.35s ease;
+}
+
+
+.news-detail-card:hover {
+
+    box-shadow:
+        0 22px 60px rgba(0, 0, 0, 0.10);
+
+}
+
+
+/* Top accent line */
+
+.news-detail-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 5px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #0d6efd,
+            #4d94ff,
+            #0d6efd
+        );
+
+    z-index: 3;
+
+}
+
+
+/* =========================================================
+   FEATURE IMAGE
+   ========================================================= */
+
+.news-detail-image-wrapper {
+
+    position: relative;
+
+    overflow: hidden;
+
+    height: 480px;
+
+    background: #f1f3f5;
+}
+
+
+.news-detail-image {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    animation: newsImageIn 1s 0.15s ease both;
+
+    transition:
+        transform 0.8s ease;
+}
+
+
+.news-detail-card:hover .news-detail-image {
+
+    transform: scale(1.025);
+
+}
+
+
+/* Image overlay */
+
+.news-image-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.18),
+            transparent 45%
+        );
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   PLACEHOLDER
+   ========================================================= */
+
+.news-detail-placeholder {
+
+    height: 360px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f8f9fa,
+            #eef3f8
+        );
+
+    animation: newsImageIn 0.9s ease both;
+}
+
+
+/* =========================================================
+   ARTICLE CONTENT
+   ========================================================= */
+
+.news-detail-body {
+
+    padding: 48px 55px 52px;
+
+}
+
+
+/* =========================================================
+   CATEGORY
+   ========================================================= */
+
+.news-category {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 7px 14px;
+
+    border-radius: 50px;
+
+    background:
+        rgba(13, 110, 253, 0.09);
+
+    color: #0d6efd;
+
+    font-size: 0.82rem;
+
+    font-weight: 700;
+
+    letter-spacing: 0.3px;
+
+    animation: contentReveal 0.7s 0.25s ease both;
+
+}
+
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+.news-detail-title {
+
+    max-width: 1000px;
+
+    font-size: clamp(
+        2rem,
+        4vw,
+        3.3rem
+    );
+
+    line-height: 1.15;
+
+    font-weight: 800;
+
+    letter-spacing: -1px;
+
+    margin-top: 18px;
+
+    animation: titleReveal 0.75s 0.3s ease both;
+
+}
+
+
+/* =========================================================
+   META
+   ========================================================= */
+
+.news-detail-meta {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: #6c757d;
+
+    font-size: 0.9rem;
+
+    margin-top: 18px;
+
+    animation: contentReveal 0.7s 0.4s ease both;
+
+}
+
+
+.news-detail-meta i {
+
+    color: #0d6efd;
+
+}
+
+
+/* =========================================================
+   SHORT DESCRIPTION
+   ========================================================= */
+
+.news-short-description {
+
+    max-width: 900px;
+
+    margin-top: 30px;
+
+    padding-left: 20px;
+
+    border-left: 4px solid #0d6efd;
+
+    color: #6c757d;
+
+    font-size: 1.18rem;
+
+    line-height: 1.75;
+
+    animation: contentReveal 0.8s 0.45s ease both;
+
+}
+
+
+/* =========================================================
+   DIVIDER
+   ========================================================= */
+
+.news-divider {
+
+    border: 0;
+
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #dee2e6,
+            transparent
+        );
+
+    margin: 38px 0;
+
+}
+
+
+/* =========================================================
+   FULL ARTICLE CONTENT
+   ========================================================= */
+
+.news-content {
+
+    max-width: 900px;
+
+    color: #343a40;
+
+    font-size: 1.08rem;
+
+    line-height: 1.95;
+
+    animation: articleContentIn 0.9s 0.5s ease both;
+
+}
+
+
+.news-content p {
+
+    margin-bottom: 1.35rem;
+
+}
+
+
+.news-content p:last-child {
+
+    margin-bottom: 0;
+
+}
+
+
+/* =========================================================
+   BOTTOM ACTION
+   ========================================================= */
+
+.news-detail-footer {
+
+    max-width: 900px;
+
+    margin-top: 50px;
+
+    padding-top: 28px;
+
+    border-top: 1px solid #e9ecef;
+
+    animation: contentReveal 0.8s 0.6s ease both;
+
+}
+
+
+.news-detail-footer .btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 10px 19px;
+
+    border-radius: 10px;
+
+    font-weight: 600;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.news-detail-footer .btn:hover {
+
+    transform: translateX(-4px);
+
+    box-shadow:
+        0 9px 22px rgba(13, 110, 253, 0.18);
+
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes newsBackIn {
+
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+}
+
+
+@keyframes newsCardIn {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(45px)
+            scale(0.975);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            scale(1);
+    }
+
+}
+
+
+@keyframes newsImageIn {
+
+    from {
+        opacity: 0;
+        transform: scale(1.05);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+
+@keyframes titleReveal {
+
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+@keyframes contentReveal {
+
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+@keyframes articleContentIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .news-detail-page {
+
+        padding-top: 10px;
+        padding-bottom: 55px;
+
+    }
+
+
+    .news-detail-image-wrapper {
+
+        height: 320px;
+
+    }
+
+
+    .news-detail-placeholder {
+
+        height: 260px;
+
+    }
+
+
+    .news-detail-body {
+
+        padding: 32px 25px 38px;
+
+    }
+
+
+    .news-detail-title {
+
+        font-size: 2rem;
+
+        letter-spacing: -0.5px;
+
+    }
+
+
+    .news-short-description {
+
+        font-size: 1.05rem;
+
+        padding-left: 15px;
+
+    }
+
+
+    .news-content {
+
+        font-size: 1rem;
+
+        line-height: 1.8;
+
+    }
+
+}
+
+
+@media (max-width: 576px) {
+
+    .news-detail-image-wrapper {
+
+        height: 240px;
+
+    }
+
+
+    .news-detail-placeholder {
+
+        height: 220px;
+
+    }
+
+
+    .news-detail-body {
+
+        padding: 27px 19px 32px;
+
+    }
+
+
+    .news-detail-title {
+
+        font-size: 1.8rem;
+
+    }
+
+
+    .news-detail-meta {
+
+        font-size: 0.82rem;
+
+    }
+
+
+    .news-short-description {
+
+        margin-top: 24px;
+
+        font-size: 1rem;
+
+    }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .news-back-btn,
+    .news-detail-card,
+    .news-detail-image,
+    .news-detail-placeholder,
+    .news-category,
+    .news-detail-title,
+    .news-detail-meta,
+    .news-short-description,
+    .news-content,
+    .news-detail-footer {
+
+        animation: none;
+        transition: none;
+
+    }
+
+}
+
+</style>
+
+
+<div class="container news-detail-page">
+
+
+    <!-- =====================================================
+         BACK BUTTON
+         ===================================================== -->
+
+    <div class="mb-4">
+
+        <a
+            href="{% url 'news' %}"
+            class="btn btn-outline-primary news-back-btn"
+        >
+
+            <i class="bi bi-arrow-left"></i>
+
+            Back to News
+
+        </a>
+
+    </div>
+
+
+    <!-- =====================================================
+         ARTICLE
+         ===================================================== -->
+
+    <article class="news-detail-card">
+
+
+        <!-- FEATURE IMAGE -->
+
+        {% if news.image %}
+
+        <div class="news-detail-image-wrapper">
+
+            <img
+                src="{{ news.image.url }}"
+                alt="{{ news.title }}"
+                class="news-detail-image"
+            >
+
+            <div class="news-image-overlay"></div>
+
+        </div>
+
+        {% else %}
+
+        <div class="news-detail-placeholder">
+
+            <i
+                class="bi bi-newspaper text-muted"
+                style="font-size: 80px;"
+            ></i>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- ARTICLE BODY -->
+
+        <div class="news-detail-body">
+
+
+            <!-- CATEGORY -->
+
+            <span class="news-category">
+
+                <i class="bi bi-tag-fill me-1"></i>
+
+                {{ news.get_category_display }}
+
+            </span>
+
+
+            <!-- TITLE -->
+
+            <h1 class="news-detail-title">
+
+                {{ news.title }}
+
+            </h1>
+
+
+            <!-- META -->
+
+            <div class="news-detail-meta">
+
+                <span>
+
+                    <i class="bi bi-calendar-event me-1"></i>
+
+                    Published on
+                    {{ news.created_at|date:"d M Y" }}
+
+                </span>
+
+                <span>•</span>
+
+                <span>
+
+                    <i class="bi bi-clock me-1"></i>
+
+                    {{ news.created_at|time:"h:i A" }}
+
+                </span>
+
+            </div>
+
+
+            <!-- SHORT DESCRIPTION -->
+
+            {% if news.short_description %}
+
+            <div class="news-short-description">
+
+                {{ news.short_description }}
+
+            </div>
+
+            {% endif %}
+
+
+            <hr class="news-divider">
+
+
+            <!-- FULL CONTENT -->
+
+            {% if news.content %}
+
+            <div class="news-content">
+
+                {{ news.content|linebreaks }}
+
+            </div>
+
+            {% else %}
+
+            <p class="text-muted">
+
+                No additional content is available for this news.
+
+            </p>
+
+            {% endif %}
+
+
+            <!-- FOOTER -->
+
+            <div class="news-detail-footer">
+
+                <a
+                    href="{% url 'news' %}"
+                    class="btn btn-primary"
+                >
+
+                    <i class="bi bi-arrow-left"></i>
+
+                    Back to All News
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </article>
+
+</div>
+
+{% endblock %}
